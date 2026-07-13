@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "diagnostics": [],
+  "local": [
+    [
+      1,
+      10
+    ],
+    [
+      2,
+      20
+    ]
+  ],
+  "assetutil": [
+    {
+      "Layer": 1,
+      "Dimension2": 10,
+      "Idiom": "vision",
+      "AssetType": "Image"
+    },
+    {
+      "Layer": 2,
+      "Dimension2": 20,
+      "Idiom": "vision",
+      "AssetType": "Image"
+    }
+  ]
+}

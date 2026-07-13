@@ -595,3 +595,33 @@ Verified exact behavior against Apple `actool` (`xcrun actool`) on macOS 26.4 / 
 ### 7. CBCK Boundary Conditions Across All Xcodes
 - Implemented MLEC `mode=3`, `codec=4`, chunk envelope (`KCBC`, `reserved0=0`, `reserved1=0`, `rowCount`, `compressedLength`) and independent LZFSE (`bvx2`) compression in `cbck.py` and `carwriter.py`.
 - Verified threshold across dimensions and Xcode releases (`cbck-threshold-all-unique.json`).
+
+## 2026-07-13 — Local continuation: platform-aware AppIcon source ranking and explicit vision stack depths
+
+- Added `app_icon_entry_rank(...)` in `src/actool_linux/appicons.py` so mixed multi-platform `.appiconset` catalogs prefer platform-matching marketing/master slots ahead of generic or unrelated entries. This keeps watchOS/macOS/iOS compilations deterministic without changing the existing sidecar manifests.
+- Updated `compile_catalogs(...)` AppIcon selection to use the new rank before area-based tie-breaking. A larger unrelated iOS marketing icon no longer overrides a smaller watchOS marketing source when compiling `--platform watchos`.
+- Extended `.imagestack` compilation for visionOS/xros to accept explicit per-layer `depth`/`dimension2` values from stack metadata, while retaining the existing deterministic 1..N fallback when depth is unspecified.
+- Added local regression coverage for both behaviors (`tests/test_appicons.py`, `tests/test_catalog.py`).
+- Local suite result after the change: `97` tests, `OK (skipped=7)`.
+- Apple verification for this specific continuation is still pending because the user-provided Upterm endpoint in this session does not include a usable private key inside the Arena workspace; no new Apple-equality claim is made for these two deltas until that oracle is rerun.
+
+## 2026-07-13 — Restored remote verification and watch role-less AppIcon contract
+
+- Confirmed a working Upterm session on macOS 26.4 / Xcode 26.5 and created a remote project-local `.venv` with `lzfse 0.4.2` so compiler AppIcon tests could run on the Apple host without modifying the system Python.
+- Synced the current local changes to `/Users/runner/work/mac/mac` and reran the focused remote unit slice: `tests.test_appicons` + `tests.test_catalog` = `19` tests, `OK`.
+- Added an Apple oracle for a mixed-platform `.appiconset` compiled for `watchos` containing only role-less `watch-marketing` plus unrelated `ios-marketing` sources. Observable Xcode 26.5 behavior:
+  - exit code `0`
+  - output-files contains only the requested partial-info plist
+  - no `Assets.car`
+  - no emitted watch sidecar PNGs
+  - partial plist payload is `{}`
+- Implemented the same contract in the catalog compiler:
+  - watch-specific AppIcon slots without a non-empty `role` are treated as syntactically valid but non-applicable,
+  - the generic "did not have any applicable content" error is now emitted only when at least one platform-applicable slot existed,
+  - partial-info plist emission is now limited to iOS/iPadOS platforms in the observable compiler path.
+- Apple-vs-Linux oracle result now matches for this case (`watch-roleless-appicon-oracle.json`): both sides emit only the plist and the plist is empty.
+- Extended the watch AppIcon probe across five candidate watch roles (`notificationCenter`, `companionSettings`, `appLauncher`, `quickLook`, `longLook`). In all tested Xcode 26.5 cases, `watch-marketing` remained compiler-non-materializing: partial plist only, empty payload, no CAR, no sidecar PNGs (`watch-role-probe.json`).
+- Added a direct Apple-vs-Linux parity oracle for `watch-marketing` + `role=notificationCenter`; both sides now emit only the plist and the plist is empty (`watch-marketing-role-oracle.json`).
+- Expanded that watch-marketing probe across installed Xcode 26 releases (`26.0.1`, `26.1.1`, `26.2.0`, `26.3.0`, `26.4.1`, `26.5.0`, `26.6.0`). All seven produced the same observable contract: rc 0, empty partial plist, no CAR, no sidecar output (`watch-marketing-xcode-matrix.json`).
+- Added a focused framework string audit on the current Apple host. Observable Xcode frameworks expose `kCUIRenditionTypeLayerStack`, `kCUIRenditionTypeIconLayerStack`, Top Shelf validation strings, and AssetCatalogKit parallax-related selectors/ivars such as `_parallaxImages`, `_parallaxLayerDepths`, `_setParallaxLayerDepths:`, and `parallaxDisplayConfiguration` (`framework-symbol-audit.json`). This improves targeting for future private aggregate work but does not prove binary-layout equivalence.
+- Re-ran a focused visionOS/xros depth-key oracle after the AppIcon compiler changes; Apple `assetutil` still reports layer/depth pairs `(1,10)` and `(2,20)` for the explicit-depth `.imagestack` fixture (`vision-depth-verify.json`).

@@ -10,7 +10,7 @@ from .carwriter import (
     heif_rendition, jpeg_rendition, layered_image_renditions, png_rendition, resize_png, svg_renditions, symbol_rendition, png_dimensions,
 )
 from .model import Catalog, Diagnostic, load_catalog
-from .appicons import app_icon_sidecar_specs
+from .appicons import app_icon_entry_rank, app_icon_sidecar_specs
 
 
 @dataclass
@@ -48,19 +48,19 @@ class CompileResult:
 def _partial_info(catalogs: Iterable[Catalog], options: CompileOptions) -> dict[str, object]:
     result: dict[str, object] = {}
     names = {asset.name for catalog in catalogs for asset in catalog.assets}
-    if options.app_icon and options.app_icon in names:
+    platform = (options.platform or "").lower()
+    if options.app_icon and options.app_icon in names and platform in ("iphoneos", "iphonesimulator", "ios"):
         primary = {
             "CFBundleIconFiles": ["AppIcon60x60"],
             "CFBundleIconName": options.app_icon,
         }
         result["CFBundleIcons"] = {"CFBundlePrimaryIcon": primary}
-        if (options.platform or "").lower() in ("iphoneos", "iphonesimulator", "ios"):
-            result["CFBundleIcons~ipad"] = {
-                "CFBundlePrimaryIcon": {
-                    "CFBundleIconFiles": ["AppIcon60x60", "AppIcon76x76"],
-                    "CFBundleIconName": options.app_icon,
-                }
+        result["CFBundleIcons~ipad"] = {
+            "CFBundlePrimaryIcon": {
+                "CFBundleIconFiles": ["AppIcon60x60", "AppIcon76x76"],
+                "CFBundleIconName": options.app_icon,
             }
+        }
     return result
 
 
@@ -130,6 +130,7 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
         renditions = []
         occupied_slots: set[tuple[object, ...]] = set()
         app_icon_emitted: set[str] = set()
+        app_icon_had_applicable_slot: set[str] = set()
         known_idioms = {"universal","iphone","ipad","tv","watch","mac","vision","car","marketing"}
 
         def color_component(components: dict[str, object], name: str, default: float = 0.0) -> float:
@@ -143,6 +144,23 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                 try: return int(text, 0) / 255.0
                 except ValueError: pass
             return float(text)
+
+        def layer_depth(entry: dict[str, object], fallback: int) -> int:
+            value = entry.get("depth")
+            if value is None:
+                value = entry.get("dimension2")
+            if value is None:
+                return fallback
+            if isinstance(value, int):
+                depth = value
+            else:
+                text = str(value).strip()
+                if not text:
+                    return fallback
+                depth = int(text, 0)
+            if not 0 <= depth <= 65535:
+                raise ValueError("layer depth must be between 0 and 65535")
+            return depth
 
         distill_failed = False
 
@@ -162,23 +180,45 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
         for asset in assets:
             if asset.kind == "image-stack":
                 layer_bytes: list[bytes] = []
+                layer_depths: list[int] = []
                 stack_scale = 1
+                platform = (options.platform or "appletvos").lower()
+                is_vision_stack = platform in ("xros", "xrsimulator", "visionos")
+                invalid_stack = False
                 for layer_ref in asset.entries:
                     dirname = layer_ref.get("filename")
-                    if not isinstance(dirname, str): continue
+                    if not isinstance(dirname, str):
+                        continue
                     layer_dir = asset.directory / dirname
                     layer_asset = next((candidate for candidate in assets if candidate.kind == "image-stack-layer" and candidate.directory == layer_dir), None)
-                    if layer_asset is None: continue
+                    if layer_asset is None:
+                        continue
                     selected = next((entry for entry in layer_asset.entries if isinstance(entry.get("filename"), str) and (layer_dir / str(entry["filename"])).is_file()), None)
-                    if selected is None: continue
+                    if selected is None:
+                        continue
                     scale_text = str(selected.get("scale", "1x"))
-                    if scale_text in ("1x", "2x", "3x"): stack_scale = int(scale_text[0])
+                    if scale_text in ("1x", "2x", "3x"):
+                        stack_scale = int(scale_text[0])
                     layer_bytes.append((layer_dir / str(selected["filename"])).read_bytes())
-                if layer_bytes:
-                    platform = (options.platform or "appletvos").lower()
-                    idiom = "vision" if platform in ("xros", "xrsimulator", "visionos") else "tv"
-                    try: renditions.extend(layered_image_renditions(asset.name, layer_bytes, idiom=idiom, scale=stack_scale))
-                    except ValueError as exc: diagnostics.append(Diagnostic("error", f"invalid image stack: {exc}", asset.directory))
+                    if is_vision_stack:
+                        try:
+                            depth_source = dict(layer_asset.properties)
+                            depth_source.update(selected)
+                            depth_source.update(layer_ref)
+                            layer_depths.append(layer_depth(depth_source, len(layer_depths) + 1))
+                        except ValueError as exc:
+                            diagnostics.append(Diagnostic("error", f"invalid image stack: {exc}", asset.directory))
+                            invalid_stack = True
+                            break
+                if layer_bytes and not invalid_stack:
+                    idiom = "vision" if is_vision_stack else "tv"
+                    try:
+                        renditions.extend(layered_image_renditions(
+                            asset.name, layer_bytes, idiom=idiom, scale=stack_scale,
+                            depths=layer_depths or None,
+                        ))
+                    except ValueError as exc:
+                        diagnostics.append(Diagnostic("error", f"invalid image stack: {exc}", asset.directory))
                 continue
             if asset.kind in ("image-stack-layer", "brand-assets"):
                 continue
@@ -189,27 +229,38 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
             if asset.kind == "app-icon":
                 if options.app_icon != asset.name:
                     continue
-                candidates: list[tuple[int, bytes, str]] = []
+                candidates: list[tuple[int, int, int, int, bytes, str]] = []
                 for icon_entry in asset.entries:
                     filename = icon_entry.get("filename")
-                    if not isinstance(filename, str): continue
+                    if not isinstance(filename, str):
+                        continue
                     source = asset.directory / filename
-                    if not source.is_file(): continue
+                    if not source.is_file():
+                        continue
+                    try:
+                        rank = app_icon_entry_rank(icon_entry, options.platform or "iphoneos")
+                    except ValueError as exc:
+                        diagnostics.append(Diagnostic("error", f"invalid AppIcon: {exc}", asset.directory))
+                        break
+                    if rank is None:
+                        continue
+                    app_icon_had_applicable_slot.add(asset.name)
                     try:
                         source_png = source.read_bytes(); actual = png_dimensions(source_png)
                         declared = str(icon_entry.get("size", "")); scale_text = str(icon_entry.get("scale", "1x"))
                         if declared:
                             points = declared.split("x", 1); scale = int(scale_text[:-1]) if scale_text.endswith("x") else 1
                             expected = (round(float(points[0]) * scale), round(float(points[1]) * scale))
-                            if actual != expected: continue
-                        candidates.append((actual[0] * actual[1], source_png, filename))
+                            if actual != expected:
+                                continue
+                        candidates.append((rank, actual[0] * actual[1], actual[0], actual[1], source_png, filename))
                     except ValueError:
                         # Syntactically invalid AppIcon size/source slots are
                         # silently ignored; the partial plist is still emitted.
                         app_icon_emitted.add(asset.name)
                         continue
                 if candidates:
-                    _, source_png, filename = max(candidates, key=lambda row: row[0])
+                    _, _, _, _, source_png, filename = max(candidates, key=lambda row: row[:4] + (row[5],))
                     try:
                         renditions.extend(app_icon_renditions(asset.name, source_png, filename,
                                                              platform=options.platform or "iphoneos"))
@@ -306,8 +357,7 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                     else:
                         diagnostics.append(Diagnostic("error", f"asset encoder limitation: {exc}", asset.directory))
 
-        if options.app_icon and any(asset.kind == "app-icon" and asset.name == options.app_icon and asset.entries
-                                    for asset in assets) and options.app_icon not in app_icon_emitted:
+        if options.app_icon and options.app_icon in app_icon_had_applicable_slot and options.app_icon not in app_icon_emitted:
             diagnostics.append(Diagnostic("error", f'The stickers icon set, app icon set, or icon stack named "{options.app_icon}" did not have any applicable content.'))
 
         if renditions and not any(item.severity == "error" for item in diagnostics):

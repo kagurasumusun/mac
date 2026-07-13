@@ -1,0 +1,87 @@
+{
+  "/System/Library/PrivateFrameworks/CoreUI.framework/CoreUI": {
+    "present": false
+  },
+  "/System/Library/PrivateFrameworks/CoreThemeDefinition.framework/CoreThemeDefinition": {
+    "present": false
+  },
+  "/Applications/Xcode.app/Contents/Frameworks/AssetCatalogFoundation.framework/AssetCatalogFoundation": {
+    "present": true,
+    "hits": {
+      "LayerStack": [
+        "kCUIRenditionTypeLayerStack",
+        "kCUIRenditionTypeSolidLayerStack",
+        "kCUIRenditionTypeIconLayerStack",
+        "kCUIRenditionTypeLayerStack",
+        "kCUIRenditionTypeSolidLayerStack",
+        "kCUIRenditionTypeIconLayerStack"
+      ],
+      "IconLayerStack": [
+        "kCUIRenditionTypeIconLayerStack",
+        "kCUIRenditionTypeIconLayerStack"
+      ],
+      "Top Shelf": [
+        "The top shelf image \"%@\" in \"%@\" must be a fully opaque bitmap: %@",
+        "The top shelf image wide \"%@\" in \"%@\" must be a fully opaque bitmap: %@",
+        "The top shelf image \"%@\" in \"%@\" must be a fully opaque bitmap: %@",
+        "The top shelf image wide \"%@\" in \"%@\" must be a fully opaque bitmap: %@"
+      ]
+    }
+  },
+  "/Applications/Xcode.app/Contents/Frameworks/AssetRuntime/AssetCatalogFoundation.framework/AssetCatalogFoundation": {
+    "present": true,
+    "hits": {
+      "LayerStack": [
+        "kCUIRenditionTypeLayerStack",
+        "kCUIRenditionTypeSolidLayerStack",
+        "kCUIRenditionTypeIconLayerStack",
+        "kCUIRenditionTypeLayerStack",
+        "kCUIRenditionTypeSolidLayerStack",
+        "kCUIRenditionTypeIconLayerStack"
+      ],
+      "IconLayerStack": [
+        "kCUIRenditionTypeIconLayerStack",
+        "kCUIRenditionTypeIconLayerStack"
+      ],
+      "Top Shelf": [
+        "The top shelf image \"%@\" in \"%@\" must be a fully opaque bitmap: %@",
+        "The top shelf image wide \"%@\" in \"%@\" must be a fully opaque bitmap: %@",
+        "The top shelf image \"%@\" in \"%@\" must be a fully opaque bitmap: %@",
+        "The top shelf image wide \"%@\" in \"%@\" must be a fully opaque bitmap: %@"
+      ]
+    }
+  },
+  "/Applications/Xcode.app/Contents/Frameworks/AssetCatalogKit.framework/AssetCatalogKit": {
+    "present": true,
+    "hits": {
+      "LayerStack": [
+        "LayerStackExport-%@",
+        "__layerStackObservingContext",
+        "CUINamedLayerStack",
+        "T@\"<UINamedLayerStack>\",&,N,V_layerStack",
+        "T@\"NSObject<UINamedLayerStack>\",&,N",
+        "_layerStackToDisplayScaleFactor",
+        "_layerStack",
+        "_layerStackObservingKeys",
+        "_updateRadiosityFromLayerStack",
+        "buildNamedLayerStack",
+        "layerStack",
+        "namedLayerStackHasContent"
+      ],
+      "parallax": [
+        "Td,N,V_maximumParallaxDepth",
+        "_parallaxImages",
+        "TQ,N,V_maximumParallaxImages",
+        "_maximumParallaxDepth",
+        "_maximumParallaxImages",
+        "_parallaxLayerDepths",
+        "_setDefaultParallaxLayerDepths",
+        "_setParallaxImages:",
+        "_setParallaxLayerDepths:",
+        "maximumParallaxDepth",
+        "maximumParallaxImages",
+        "parallaxDisplayConfiguration"
+      ]
+    }
+  }
+}

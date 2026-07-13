@@ -1,0 +1,196 @@
+{
+  "watch_appicon": {
+    "ok": true,
+    "diagnostics": [],
+    "outputs": [
+      "AppIcon108x108@2x~watch.png",
+      "AppIcon24x24@2x~watch.png",
+      "AppIcon27.5x27.5@2x~watch.png",
+      "AppIcon29x29@2x~watch.png",
+      "AppIcon40x40@2x~watch.png",
+      "AppIcon44x44@2x~watch.png",
+      "AppIcon50x50@2x~watch.png",
+      "AppIcon86x86@2x~watch.png",
+      "AppIcon98x98@2x~watch.png",
+      "Assets.car",
+      "partial.plist"
+    ],
+    "partial": {
+      "CFBundleIcons": {
+        "CFBundlePrimaryIcon": {
+          "CFBundleIconFiles": [
+            "AppIcon60x60"
+          ],
+          "CFBundleIconName": "AppIcon"
+        }
+      }
+    },
+    "local_renditions": [
+      {
+        "part": 218,
+        "idiom": 5,
+        "dimension2": 0,
+        "width": 0,
+        "height": 0,
+        "name": "watch.png"
+      },
+      {
+        "part": 220,
+        "idiom": 5,
+        "dimension2": 1,
+        "width": 2,
+        "height": 2,
+        "name": "watch.png"
+      }
+    ],
+    "assetutil": [
+      {
+        "AssetStorageVersion": "actool-linux clean-room writer",
+        "Authoring Tool": "actool-linux clean-room CoreUI encoder",
+        "CoreUIVersion": 918,
+        "DumpToolVersion": 974.1,
+        "Key Format": [
+          "kCRThemeAppearanceName",
+          "kCRThemeLocalizationName",
+          "kCRThemeScaleName",
+          "kCRThemeIdiomName",
+          "kCRThemeSubtypeName",
+          "kCRThemeDimension2Name",
+          "kCRThemeIdentifierName",
+          "kCRThemeElementName",
+          "kCRThemePartName"
+        ],
+        "MainVersion": "@(#)PROGRAM:CoreUI  PROJECT:CoreUI-918.5\n",
+        "Platform": "watchos",
+        "PlatformVersion": "11.0",
+        "SchemaVersion": 5,
+        "StorageVersion": 17,
+        "Timestamp": 1783931907
+      },
+      {
+        "AssetType": "Icon Image",
+        "BitsPerComponent": 8,
+        "ColorModel": "RGB",
+        "Colorspace": "srgb",
+        "Compression": "lzfse",
+        "Encoding": "ARGB",
+        "Icon Index": 1,
+        "Idiom": "watch",
+        "Name": "AppIcon",
+        "NameIdentifier": 51744,
+        "Opaque": true,
+        "PixelHeight": 2,
+        "PixelWidth": 2,
+        "RenditionName": "watch.png",
+        "Scale": 1,
+        "SHA1Digest": "3F0FE32A6B4522414DE352109A0621530DB7EE4F79C923077AD10EDD8262FAAA",
+        "SizeOnDisk": 352
+      },
+      {
+        "AssetType": "MultiSized Image",
+        "Idiom": "watch",
+        "Name": "AppIcon",
+        "NameIdentifier": 51744,
+        "Scale": 1,
+        "SHA1Digest": "BE734C99CE289AE5D63CA58B1CC92EBD5C7843960F261E28D6D79ECDF751430A",
+        "SizeOnDisk": 208,
+        "Sizes": [
+          "1024x4 index:1 idiom:watch"
+        ]
+      }
+    ]
+  },
+  "vision_stack": {
+    "ok": true,
+    "diagnostics": [],
+    "outputs": [
+      "Assets.car"
+    ],
+    "local_renditions": [
+      {
+        "layer": 1,
+        "dimension2": 10,
+        "idiom": 8,
+        "width": 1,
+        "height": 1,
+        "name": "Vision-layer-1.png"
+      },
+      {
+        "layer": 2,
+        "dimension2": 20,
+        "idiom": 8,
+        "width": 1,
+        "height": 1,
+        "name": "Vision-layer-2.png"
+      }
+    ],
+    "assetutil": [
+      {
+        "AssetStorageVersion": "actool-linux clean-room writer",
+        "Authoring Tool": "actool-linux clean-room CoreUI encoder",
+        "CoreUIVersion": 918,
+        "DumpToolVersion": 974.1,
+        "Key Format": [
+          "kCRThemeAppearanceName",
+          "kCRThemeLocalizationName",
+          "kCRThemeScaleName",
+          "kCRThemeIdiomName",
+          "kCRThemeSubtypeName",
+          "kCRThemeDimension2Name",
+          "kCRThemeIdentifierName",
+          "kCRThemeElementName",
+          "kCRThemePartName",
+          "kCRThemeLayerName"
+        ],
+        "MainVersion": "@(#)PROGRAM:CoreUI  PROJECT:CoreUI-918.5\n",
+        "Platform": "xros",
+        "PlatformVersion": "1.0",
+        "SchemaVersion": 5,
+        "StorageVersion": 17,
+        "Timestamp": 1783931908
+      },
+      {
+        "AssetType": "Image",
+        "BitsPerComponent": 8,
+        "ColorModel": "RGB",
+        "Colorspace": "srgb",
+        "Compression": "deepmap2",
+        "Dimension2": 10,
+        "Encoding": "ARGB",
+        "Idiom": "vision",
+        "Layer": 1,
+        "Name": "Vision",
+        "NameIdentifier": 34757,
+        "Opaque": true,
+        "PixelHeight": 1,
+        "PixelWidth": 1,
+        "RenditionName": "Vision-layer-1.png",
+        "Scale": 1,
+        "SHA1Digest": "A84F329572153AE1A9C4F0164992664DB7DDDF1B11FFF217993C10BD2F75F4D9",
+        "SizeOnDisk": 336,
+        "Template Mode": "automatic"
+      },
+      {
+        "AssetType": "Image",
+        "BitsPerComponent": 8,
+        "ColorModel": "RGB",
+        "Colorspace": "srgb",
+        "Compression": "deepmap2",
+        "Dimension2": 20,
+        "Encoding": "ARGB",
+        "Idiom": "vision",
+        "Layer": 2,
+        "Name": "Vision",
+        "NameIdentifier": 34757,
+        "Opaque": true,
+        "PixelHeight": 1,
+        "PixelWidth": 1,
+        "RenditionName": "Vision-layer-2.png",
+        "Scale": 1,
+        "SHA1Digest": "65BD468B438963C05D3A228F44532810E61DDE0A13FBB1EB8BBDCD949390B949",
+        "SizeOnDisk": 336,
+        "Template Mode": "automatic"
+      }
+    ]
+  }
+}

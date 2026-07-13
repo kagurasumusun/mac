@@ -5,11 +5,26 @@ import tempfile
 import unittest
 import base64
 import plistlib
+import struct
+import zlib
 
 from actool_linux.bom import BOMStore
 from actool_linux.car import CARFile
 from actool_linux.model import load_catalog
 from actool_linux.compiler import CompileOptions, compile_catalogs
+
+
+def _solid_rgba_png(width: int, height: int, rgba: tuple[int, int, int, int]) -> bytes:
+    def chunk(kind: bytes, payload: bytes) -> bytes:
+        return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", zlib.crc32(kind + payload) & 0xFFFFFFFF)
+    row = bytes(rgba) * width
+    scanlines = b"".join(b"\0" + row for _ in range(height))
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(scanlines, 9))
+        + chunk(b"IEND", b"")
+    )
 
 
 class CatalogTests(unittest.TestCase):
@@ -149,6 +164,34 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(info["CFBundleIcons"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"], ["AppIcon60x60"])
             self.assertEqual(info["CFBundleIcons~ipad"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"], ["AppIcon60x60", "AppIcon76x76"])
 
+    @unittest.skipUnless(importlib.util.find_spec("lzfse") is not None, "optional lzfse dependency is unavailable")
+    def test_watch_marketing_icon_yields_only_partial_plist(self):
+        watch_png = _solid_rgba_png(1024, 1024, (255, 0, 0, 255))
+        ios_png = _solid_rgba_png(1024, 1024, (0, 255, 0, 255))
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "Assets.xcassets"
+            item = root / "AppIcon.appiconset"
+            item.mkdir(parents=True)
+            (item / "watch.png").write_bytes(watch_png)
+            (item / "ios.png").write_bytes(ios_png)
+            (item / "Contents.json").write_text(json.dumps({
+                "images": [
+                    {"filename": "ios.png", "platform": "ios", "idiom": "ios-marketing", "size": "1024x1024"},
+                    {"filename": "watch.png", "platform": "watchos", "idiom": "watch-marketing", "role": "notificationCenter", "size": "1024x1024"},
+                ],
+                "info": {"author": "xcode", "version": 1},
+            }))
+            output = Path(tmp) / "out"; partial = Path(tmp) / "partial.plist"
+            result = compile_catalogs([root], CompileOptions(
+                output, platform="watchos", minimum_deployment_target="11.0",
+                app_icon="AppIcon", partial_info_plist=partial,
+            ))
+            self.assertTrue(result.ok, [d.render() for d in result.diagnostics])
+            self.assertEqual(sorted(p.name for p in result.outputs), ["partial.plist"])
+            self.assertFalse((output / "Assets.car").exists())
+            self.assertFalse(any(output.glob("AppIcon*.png")))
+            self.assertEqual(plistlib.loads(partial.read_bytes()), {})
+
     def test_compiles_tv_image_stack_catalog(self):
         png=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
         with tempfile.TemporaryDirectory() as tmp:
@@ -160,6 +203,21 @@ class CatalogTests(unittest.TestCase):
             output=Path(tmp)/"out";result=compile_catalogs([root],CompileOptions(output,platform="appletvos",minimum_deployment_target="15.0"))
             self.assertTrue(result.ok,[d.render() for d in result.diagnostics]);car=CARFile(BOMStore.from_path(output/"Assets.car"))
             self.assertEqual(len(car.renditions),2);self.assertEqual(sorted(r.key["kCRThemeLayerName"] for r in car.renditions),[1,2]);self.assertTrue(all(r.key["kCRThemeIdiomName"]==3 for r in car.renditions))
+
+    def test_compiles_vision_image_stack_with_explicit_depths(self):
+        png=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/"Assets.xcassets";stack=root/"Vision.imagestack";front=stack/"Front.imagestacklayer";back=stack/"Back.imagestacklayer"
+            front.mkdir(parents=True);back.mkdir()
+            (stack/"Contents.json").write_text(json.dumps({"layers":[
+                {"filename":"Front.imagestacklayer","depth":10},
+                {"filename":"Back.imagestacklayer","depth":"20"}
+            ],"info":{"author":"xcode","version":1}}))
+            for d,n in ((front,"front.png"),(back,"back.png")):
+                (d/n).write_bytes(png);(d/"Contents.json").write_text(json.dumps({"images":[{"idiom":"vision","scale":"1x","filename":n}],"info":{"author":"xcode","version":1}}))
+            output=Path(tmp)/"out";result=compile_catalogs([root],CompileOptions(output,platform="xros",minimum_deployment_target="1.0"))
+            self.assertTrue(result.ok,[d.render() for d in result.diagnostics]);car=CARFile(BOMStore.from_path(output/"Assets.car"))
+            self.assertEqual([(r.key["kCRThemeLayerName"],r.key["kCRThemeDimension2Name"]) for r in car.renditions],[(1,10),(2,20)])
 
     def test_compiles_launch_image_sidecar(self):
         with tempfile.TemporaryDirectory() as tmp:

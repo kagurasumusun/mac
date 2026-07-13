@@ -1,0 +1,32 @@
+{
+  "notificationCenter": {
+    "rc": 0,
+    "outputs": [],
+    "partial": {},
+    "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/tmpu75q3p7l/notificationCenter.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n"
+  },
+  "companionSettings": {
+    "rc": 0,
+    "outputs": [],
+    "partial": {},
+    "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/tmpu75q3p7l/companionSettings.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n"
+  },
+  "appLauncher": {
+    "rc": 0,
+    "outputs": [],
+    "partial": {},
+    "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/tmpu75q3p7l/appLauncher.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n"
+  },
+  "quickLook": {
+    "rc": 0,
+    "outputs": [],
+    "partial": {},
+    "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/tmpu75q3p7l/quickLook.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n"
+  },
+  "longLook": {
+    "rc": 0,
+    "outputs": [],
+    "partial": {},
+    "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/8j/sfr9qqcj73j4p6nhwcfpr0th0000gn/T/tmpu75q3p7l/longLook.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n"
+  }
+}

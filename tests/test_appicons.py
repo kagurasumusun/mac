@@ -1,5 +1,5 @@
 import unittest
-from actool_linux.appicons import app_icon_sidecar_specs
+from actool_linux.appicons import app_icon_entry_rank, app_icon_sidecar_specs
 
 class AppIconSidecarTests(unittest.TestCase):
  def test_ios_compatibility_manifest(self):
@@ -12,5 +12,14 @@ class AppIconSidecarTests(unittest.TestCase):
  def test_layered_platforms_have_no_flattened_sidecar(self):
   self.assertEqual(app_icon_sidecar_specs('appletvos'),())
   self.assertEqual(app_icon_sidecar_specs('xros'),())
+ def test_entry_rank_rejects_watch_marketing_slots_in_compiler_path(self):
+  self.assertIsNone(app_icon_entry_rank({'platform':'watchos','idiom':'watch-marketing'},'watchos'))
+  self.assertIsNone(app_icon_entry_rank({'platform':'watchos','idiom':'watch-marketing','role':'notificationCenter'},'watchos'))
+ def test_entry_rank_still_prefers_matching_non_watch_marketing_slot(self):
+  ios=app_icon_entry_rank({'platform':'ios','idiom':'ios-marketing'},'iphoneos')
+  generic=app_icon_entry_rank({'idiom':'universal'},'iphoneos')
+  wrong=app_icon_entry_rank({'platform':'watchos','idiom':'watch-marketing'},'iphoneos')
+  self.assertGreater(ios,generic)
+  self.assertIsNone(wrong)
 
 if __name__=='__main__': unittest.main()
