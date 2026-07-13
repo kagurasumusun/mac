@@ -16,8 +16,8 @@
     "spark"
   ],
   "apple_rc": 0,
-  "apple_stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/k8/j7r3p6cx43xdqhzy2rmp6tqr0000gn/T/tmplmnd_rxq/apple/Assets.car</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
-  "apple_stderr": "2026-07-13 11:45:43.812 ibtoold[9326:244037] NSFileCoordinator is doing nothing.\n",
+  "apple_stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/var/folders/k8/j7r3p6cx43xdqhzy2rmp6tqr0000gn/T/tmpa6bz2eja/apple/Assets.car</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+  "apple_stderr": "2026-07-13 12:28:48.102 ibtoold[6030:449123] NSFileCoordinator is doing nothing.\n",
   "apple": {
     "facets": [
       "Particle Sprite Atlas",
@@ -29,6 +29,38 @@
       1004,
       1003,
       1003
+    ],
+    "meta": [
+      {
+        "name": "CoreStructuredImage",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 9,
+          "kCRThemePartName": 127,
+          "kCRThemeSizeName": 0,
+          "kCRThemeIdentifierName": 28258,
+          "kCRThemeLayerName": 0,
+          "kCRThemeScaleName": 1
+        },
+        "tlvs": [
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "0000000000000000"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          },
+          {
+            "tag": 1013,
+            "len": 26,
+            "hex": "020000000000000005000000626f6b656805000000737061726b"
+          }
+        ]
+      }
     ],
     "packed": [
       {
@@ -42,11 +74,51 @@
     "linked": [
       {
         "name": "bokeh.png",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 85,
+          "kCRThemePartName": 181,
+          "kCRThemeSizeName": 0,
+          "kCRThemeIdentifierName": 26278,
+          "kCRThemeLayerName": 0,
+          "kCRThemeScaleName": 1
+        },
+        "tlv_tags": [
+          1001,
+          1003,
+          1010,
+          1004,
+          1006
+        ],
+        "extra_tlvs": [
+          {
+            "tag": 1001,
+            "len": 20,
+            "hex": "0100000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1003,
+            "len": 28,
+            "hex": "01000000000000000000000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "000000000000803f"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          }
+        ],
         "raw_hex": "4b4c4e4900000000020000000200000040000000400000000c0014000000010009000200b5000c0001001100626e00000000",
         "x": 2,
         "y": 2,
         "w": 64,
         "h": 64,
+        "variant": "explicit",
         "tokens": [
           [
             1,
@@ -68,11 +140,57 @@
       },
       {
         "name": "spark.png",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 85,
+          "kCRThemePartName": 181,
+          "kCRThemeSizeName": 0,
+          "kCRThemeIdentifierName": 12786,
+          "kCRThemeLayerName": 0,
+          "kCRThemeScaleName": 1
+        },
+        "tlv_tags": [
+          1001,
+          1003,
+          1010,
+          1004,
+          1006,
+          1011
+        ],
+        "extra_tlvs": [
+          {
+            "tag": 1001,
+            "len": 20,
+            "hex": "0100000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1003,
+            "len": 28,
+            "hex": "01000000000000000000000000000000000000003f00000040000000"
+          },
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "000000000000803f"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          },
+          {
+            "tag": 1011,
+            "len": 32,
+            "hex": "f303000000000000400000004000000000000000000000003f00000040000000"
+          }
+        ],
         "raw_hex": "4b4c4e490000000044000000020000003f000000400000000c0014000000010009000200b5000c0001001100626e00000000",
         "x": 68,
         "y": 2,
         "w": 63,
         "h": 64,
+        "variant": "explicit",
         "tokens": [
           [
             1,
@@ -94,7 +212,7 @@
       }
     ]
   },
-  "ours": {
+  "ours_generic": {
     "facets": [
       "ZZZZPackedAsset-1.0.1-gamut0",
       "bokeh",
@@ -105,6 +223,7 @@
       1003,
       1003
     ],
+    "meta": [],
     "packed": [
       {
         "name": "ZZZZPackedAsset-1.0.1-gamut0",
@@ -117,11 +236,59 @@
     "linked": [
       {
         "name": "bokeh.png",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 85,
+          "kCRThemePartName": 181,
+          "kCRThemeDirectionName": 0,
+          "kCRThemeIdentifierName": 32398,
+          "kCRThemeDimension1Name": 0,
+          "kCRThemeDimension2Name": 0,
+          "kCRThemeStateName": 0,
+          "kCRThemePresentationStateName": 0,
+          "kCRThemeScaleName": 1,
+          "kCRThemePreviousStateName": 0,
+          "kCRThemePreviousValueName": 0,
+          "kCRThemeDeploymentTargetName": 5,
+          "kCRThemeGlyphWeightName": 0,
+          "kCRThemeGlyphSizeName": 0
+        },
+        "tlv_tags": [
+          1001,
+          1003,
+          1010,
+          1004,
+          1006
+        ],
+        "extra_tlvs": [
+          {
+            "tag": 1001,
+            "len": 20,
+            "hex": "0100000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1003,
+            "len": 28,
+            "hex": "01000000000000000000000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "000000000000803f"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          }
+        ],
         "raw_hex": "4b4c4e490000000000000000000000004000000040000000000018000000010009000200b500080001000c0001001900050000000000",
         "x": 0,
         "y": 0,
         "w": 64,
         "h": 64,
+        "variant": "generic",
         "tokens": [
           [
             24,
@@ -151,11 +318,59 @@
       },
       {
         "name": "spark.png",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 85,
+          "kCRThemePartName": 181,
+          "kCRThemeDirectionName": 0,
+          "kCRThemeIdentifierName": 62610,
+          "kCRThemeDimension1Name": 0,
+          "kCRThemeDimension2Name": 0,
+          "kCRThemeStateName": 0,
+          "kCRThemePresentationStateName": 0,
+          "kCRThemeScaleName": 1,
+          "kCRThemePreviousStateName": 0,
+          "kCRThemePreviousValueName": 0,
+          "kCRThemeDeploymentTargetName": 5,
+          "kCRThemeGlyphWeightName": 0,
+          "kCRThemeGlyphSizeName": 0
+        },
+        "tlv_tags": [
+          1001,
+          1003,
+          1010,
+          1004,
+          1006
+        ],
+        "extra_tlvs": [
+          {
+            "tag": 1001,
+            "len": 20,
+            "hex": "0100000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1003,
+            "len": 28,
+            "hex": "01000000000000000000000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "000000000000803f"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          }
+        ],
         "raw_hex": "4b4c4e490000000040000000000000004000000040000000000018000000010009000200b500080001000c0001001900050000000000",
         "x": 64,
         "y": 0,
         "w": 64,
         "h": 64,
+        "variant": "generic",
         "tokens": [
           [
             24,
@@ -180,6 +395,200 @@
           [
             25,
             5
+          ]
+        ]
+      }
+    ]
+  },
+  "ours_explicit": {
+    "facets": [
+      "Particle Sprite Atlas",
+      "bokeh",
+      "spark"
+    ],
+    "layouts": [
+      1005,
+      1004,
+      1003,
+      1003
+    ],
+    "meta": [
+      {
+        "name": "CoreStructuredImage",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 9,
+          "kCRThemePartName": 127,
+          "kCRThemeSizeName": 0,
+          "kCRThemeIdentifierName": 29189,
+          "kCRThemeLayerName": 0,
+          "kCRThemeScaleName": 1
+        },
+        "tlvs": [
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "0000000000000000"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          },
+          {
+            "tag": 1013,
+            "len": 26,
+            "hex": "020000000000000005000000626f6b656805000000737061726b"
+          }
+        ]
+      }
+    ],
+    "packed": [
+      {
+        "name": "ZZZZExplicitlyPackedAsset-1.0.0-gamut0",
+        "w": 132,
+        "h": 68,
+        "dim1": null,
+        "deployment": null
+      }
+    ],
+    "linked": [
+      {
+        "name": "bokeh.png",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 85,
+          "kCRThemePartName": 181,
+          "kCRThemeSizeName": 0,
+          "kCRThemeIdentifierName": 32398,
+          "kCRThemeLayerName": 0,
+          "kCRThemeScaleName": 1
+        },
+        "tlv_tags": [
+          1001,
+          1003,
+          1010,
+          1004,
+          1006
+        ],
+        "extra_tlvs": [
+          {
+            "tag": 1001,
+            "len": 20,
+            "hex": "0100000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1003,
+            "len": 28,
+            "hex": "01000000000000000000000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "000000000000803f"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          }
+        ],
+        "raw_hex": "4b4c4e4900000000020000000200000040000000400000000c0014000000010009000200b5000c0001001100057200000000",
+        "x": 2,
+        "y": 2,
+        "w": 64,
+        "h": 64,
+        "variant": "explicit",
+        "tokens": [
+          [
+            1,
+            9
+          ],
+          [
+            2,
+            181
+          ],
+          [
+            12,
+            1
+          ],
+          [
+            17,
+            29189
+          ]
+        ]
+      },
+      {
+        "name": "spark.png",
+        "key": {
+          "kCRThemeAppearanceName": 0,
+          "kCRThemeLocalizationName": 0,
+          "kCRThemeElementName": 85,
+          "kCRThemePartName": 181,
+          "kCRThemeSizeName": 0,
+          "kCRThemeIdentifierName": 62610,
+          "kCRThemeLayerName": 0,
+          "kCRThemeScaleName": 1
+        },
+        "tlv_tags": [
+          1001,
+          1003,
+          1010,
+          1004,
+          1006,
+          1011
+        ],
+        "extra_tlvs": [
+          {
+            "tag": 1001,
+            "len": 20,
+            "hex": "0100000000000000000000004000000040000000"
+          },
+          {
+            "tag": 1003,
+            "len": 28,
+            "hex": "01000000000000000000000000000000000000003f00000040000000"
+          },
+          {
+            "tag": 1004,
+            "len": 8,
+            "hex": "000000000000803f"
+          },
+          {
+            "tag": 1006,
+            "len": 4,
+            "hex": "01000000"
+          },
+          {
+            "tag": 1011,
+            "len": 32,
+            "hex": "f303000000000000400000004000000000000000000000003f00000040000000"
+          }
+        ],
+        "raw_hex": "4b4c4e490000000044000000020000003f000000400000000c0014000000010009000200b5000c0001001100057200000000",
+        "x": 68,
+        "y": 2,
+        "w": 63,
+        "h": 64,
+        "variant": "explicit",
+        "tokens": [
+          [
+            1,
+            9
+          ],
+          [
+            2,
+            181
+          ],
+          [
+            12,
+            1
+          ],
+          [
+            17,
+            29189
           ]
         ]
       }

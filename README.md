@@ -90,7 +90,7 @@ The rendition writer supports checked CoreUI idioms for universal, iPhone, iPad,
 
 ### Packed atlases
 
-`actool_linux.atlas` implements bounded TLV-1010 `INLK`/`KLNI` metadata parsing and byte-exact oracle round trips, deterministic shelf packing, layout-1003 linked image records, and a layout-1004 shared deepmap page. Xcode 26.5 `assetutil` accepts the generated CAR and identifies its shared `ZZZZPackedAsset` rendition as `PackedImage`.
+`actool_linux.atlas` implements bounded TLV-1010 `INLK`/`KLNI` metadata parsing, including both the generic token-list form and Apple’s observed explicit packed-asset variant, deterministic shelf packing, layout-1003 linked image records, layout-1004 shared deepmap pages, and a layout-1005 atlas metadata path. Public `.spriteatlas` source catalogs are compiler-integrated and routed through an explicit atlas style derived from Apple’s SpriteKit template outputs. Xcode/assetutil accepts the generated CARs and identifies the shared packed-page renditions as `PackedImage`, but exact Xcode page splitting, placement, identifier derivation, and every auxiliary TLV still remain incomplete.
 
 ### Multi-weight symbols and platform AppIcons
 

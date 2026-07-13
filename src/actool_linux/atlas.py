@@ -83,16 +83,22 @@ def build_atlas_link(link: AtlasLink) -> bytes:
     raise ValueError(f"unsupported atlas link variant: {link.variant}")
 
 
-def _linked_csi(filename: str, link: AtlasLink, scale: int) -> bytes:
+def _linked_csi(filename: str, link: AtlasLink, scale: int, *, trim_tlv: bytes | None = None, source_size: tuple[int, int] | None = None) -> bytes:
     h = bytearray(184); h[:4] = b"ISTC"
-    struct.pack_into("<5I", h, 4, 1, 4 if link.variant == "explicit" else 16, link.width, link.height, scale * 100)
+    struct.pack_into("<5I", h, 4, 1, 16, link.width, link.height, scale * 100)
     h[24:28] = b" 8AG"  # little-endian GA8
     struct.pack_into("<I2H", h, 32, 0, 1003, 0); h[40:168] = _fixed(filename, 128)
-    tlvs = b"".join((
-        struct.pack("<2I5I",1001,20,1,0,0,link.width,link.height),
+    source_width, source_height = source_size or (link.width, link.height)
+    parts = [
+        struct.pack("<2I5I",1001,20,1,0,0,source_width,source_height),
         struct.pack("<2I7I",1003,28,1,0,0,0,0,link.width,link.height),
         struct.pack("<2I",1010,len(build_atlas_link(link))) + build_atlas_link(link),
-        struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"), struct.pack("<2II",1006,4,1)))
+        struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),
+        struct.pack("<2II",1006,4,1),
+    ]
+    if trim_tlv is not None:
+        parts.append(trim_tlv)
+    tlvs = b"".join(parts)
     struct.pack_into("<4I",h,168,len(tlvs),1,0,0)
     return bytes(h)+tlvs
 
@@ -123,6 +129,38 @@ def _png_rgba(width: int, height: int, pixels: bytes) -> bytes:
     def chunk(t: bytes,d: bytes): return struct.pack(">I",len(d))+t+d+struct.pack(">I",zlib.crc32(t+d)&0xffffffff)
     rows=b"".join(b"\0"+pixels[y*width*4:(y+1)*width*4] for y in range(height))
     return b"\x89PNG\r\n\x1a\n"+chunk(b"IHDR",struct.pack(">IIBBBBB",width,height,8,6,0,0,0))+chunk(b"IDAT",zlib.compress(rows,9))+chunk(b"IEND",b"")
+
+
+def _alpha_bbox(width: int, height: int, rgba: bytes) -> tuple[int, int, int, int]:
+    xs=[]; ys=[]
+    if len(rgba) != width * height * 4:
+        raise ValueError("rgba buffer length does not match atlas dimensions")
+    for y in range(height):
+        row = rgba[y*width*4:(y+1)*width*4]
+        for x in range(width):
+            if row[x*4+3]:
+                xs.append(x); ys.append(y)
+    if not xs:
+        return (0, 0, width, height)
+    return (min(xs), min(ys), max(xs)+1, max(ys)+1)
+
+
+def _crop_rgba(width: int, height: int, rgba: bytes, bbox: tuple[int, int, int, int]) -> tuple[int, int, bytes]:
+    x0, y0, x1, y1 = bbox
+    out_w, out_h = x1 - x0, y1 - y0
+    out = bytearray(out_w * out_h * 4)
+    for row in range(out_h):
+        src = ((y0 + row) * width + x0) * 4
+        dst = row * out_w * 4
+        out[dst:dst + out_w*4] = rgba[src:src + out_w*4]
+    return out_w, out_h, bytes(out)
+
+
+def _explicit_trim_tlv(original_width: int, original_height: int, bbox: tuple[int, int, int, int]) -> bytes:
+    x0, y0, x1, y1 = bbox
+    trimmed_w, trimmed_h = x1 - x0, y1 - y0
+    payload = struct.pack("<8I", 1011, 0, original_width, original_height, x0, y0, trimmed_w, trimmed_h)
+    return struct.pack("<2I", 1011, len(payload)) + payload
 
 
 def packed_atlas_renditions(
@@ -180,26 +218,29 @@ def packed_atlas_renditions(
         placements=[]
         x=2; top=2
         for name,w,h,pix in decoded:
-            placements.append((1,name,x,top,w,h,pix))
-            x += w + 2
-        aw = max(px+w for _,_,px,_,w,_,_ in placements) + 1
-        ah = max(py+h for _,_,_,py,_,h,_ in placements) + 2
+            bbox = _alpha_bbox(w, h, pix)
+            cw, ch, cpix = _crop_rgba(w, h, pix, bbox)
+            placements.append((1,name,x,top,cw,ch,cpix,bbox,w,h))
+            x += cw + 2
+        aw = max(px+w for _,_,px,_,w,_,_,_,_,_ in placements) + 1
+        ah = max(py+h for _,_,_,py,_,h,_,_,_,_ in placements) + 2
         canvas=bytearray(aw*ah*4)
-        for _,_,px,py,w,h,pix in placements:
+        for _,_,px,py,w,h,pix,_,_,_ in placements:
             for row in range(h): canvas[((py+row)*aw+px)*4:((py+row)*aw+px+w)*4]=pix[row*w*4:(row+1)*w*4]
         page_name="ZZZZExplicitlyPackedAsset-1.0.0-gamut0"
         page_png=_png_rgba(aw,ah,bytes(canvas)); page_csi=bytearray(_csi_png_deepmap(page_png,page_name,scale=scale))
         struct.pack_into("<H",page_csi,36,1004); struct.pack_into("<I",page_csi,8,0)
-        names=[name for _,name,_,_,_,_,_ in placements]
+        names=[name for _,name,_,_,_,_,_,_,_,_ in placements]
         parent_identifier = _identifier(atlas_name)
         records=[
             AssetRendition(atlas_name, _atlas_metadata_csi(names, scale=scale), 127, 181, scale=scale, element=9, identifier_override=parent_identifier),
             AssetRendition(atlas_name, bytes(page_csi), 181, scale=scale, element=9, identifier_override=parent_identifier),
         ]
-        for _page_dimension,name,px,py,w,h,_ in placements:
+        for _page_dimension,name,px,py,w,h,_pix,bbox,ow,oh in placements:
             tokens=(AtlasKeyToken(1,9),AtlasKeyToken(2,181),AtlasKeyToken(12,scale),AtlasKeyToken(17,parent_identifier))
             link=AtlasLink(px,py,w,h,tokens,variant="explicit",header_u16=12,header_u32=20)
-            records.append(AssetRendition(name,_linked_csi(name+".png",link,scale),181,scale=scale))
+            trim_tlv = None if bbox == (0,0,ow,oh) else _explicit_trim_tlv(ow, oh, bbox)
+            records.append(AssetRendition(name,_linked_csi(name+".png",link,scale,trim_tlv=trim_tlv,source_size=(ow, oh)),181,scale=scale))
         return records
 
     records=[]
