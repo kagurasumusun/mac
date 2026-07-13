@@ -26,6 +26,23 @@ ssh -i /home/user/.ssh/upterm_test_ed25519 \
   z4InTbNySiFAh5OZVudP@uptermd.upterm.dev
 ```
 
+## Additional analysis host
+
+- session: `LUnMD48Mddy4PP4KeqJX`
+- ssh target: `LUnMD48Mddy4PP4KeqJX@uptermd.upterm.dev`
+- repo path: `/Users/runner/work/mac/mac`
+- observed OS: macOS `15.7.7` (`24G720`)
+- observed default Xcode: `16.4 (16F6)`
+- observed installed Xcodes include `16.0`–`16.4` and `26.0`–`26.3`
+
+Direct command form:
+
+```bash
+ssh -i /home/user/.ssh/upterm_test_ed25519 \
+  -o IdentitiesOnly=yes -tt \
+  LUnMD48Mddy4PP4KeqJX@uptermd.upterm.dev
+```
+
 ## Legacy reference host
 
 - session: `ZrWtAfDSvKdWHtrrmfNR`

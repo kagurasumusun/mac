@@ -34,6 +34,20 @@ Observed host state:
 - Xcode default `16.4` (`16F6`)
 - installed Xcode 16 apps/resources are present and were used for current-host source/fixture scans
 
+### Additional analysis host
+
+Additional Upterm session used for broader template/Xcode-tree analysis:
+
+- session: `LUnMD48Mddy4PP4KeqJX`
+- host: `uptermd.upterm.dev:22`
+- remote repo: `/Users/runner/work/mac/mac`
+
+Observed host state:
+
+- macOS `15.7.7` (`24G720`)
+- Xcode default `16.4` (`16F6`)
+- installed Xcodes include `16.0`–`16.4` and `26.0`–`26.3`
+
 ### Legacy reference host
 
 Second Upterm session used specifically for `palette-img` investigation:
@@ -103,6 +117,7 @@ The explicit `depth` / `dimension2` handling for `.imagestack` vision/xros paths
 - `template-term-search-current.json`
 - `template-term-search-legacy.json`
 - `xros-template-assetgeneration.json`
+- `template-assetgeneration-summary.json`
 - `interesting-car-scan-current.json`
 - `interesting-car-scan-legacy.json`
 - `interesting-car-scan-legacy-320.json`
@@ -228,15 +243,22 @@ A lightweight parser-based installed-CAR scan was run on both hosts to look spec
 #### `source-asset-search-current.json` / `source-asset-search-legacy.json` / `source-asset-search-system-current.json` / `source-asset-search-system-legacy.json`
 Direct directory scans of installed Xcode app trees on both hosts found only `.xcassets` and `.appiconset` source directories. No `.brandassets`, `.complicationset`, `.imagestack`, or `.imagestacklayer` source directories were present in the scanned Xcode bundles. A broader sampled scan over `/Applications` + `/System/Library` on both hosts still surfaced only `.xcassets` and `.appiconset` in the captured source-asset set.
 
-#### `template-term-search-current.json` / `template-term-search-legacy.json` / `xros-template-assetgeneration.json`
-The resource/template text search did not reveal real `.brandassets` or `.complicationset` source fixtures, but it did expose a concrete visionOS template lead:
+#### `template-term-search-current.json` / `template-term-search-legacy.json` / `xros-template-assetgeneration.json` / `template-assetgeneration-summary.json`
+The resource/template text search did not reveal real `.brandassets` or `.complicationset` source fixtures, but it did expose several concrete template-side aggregate leads:
 
 - visionOS Application templates mention `imagestack`
 - inspected `TemplateInfo.plist` metadata shows `AssetGeneration` with:
   - `Type = solidimagestack`
   - `Name = AppIcon`
+- additional template-side `solidimagestack` generation was observed in:
+  - tvOS Game templates
+  - macOS Game templates
+  - MultiPlatform RealityKit Game templates
+  - Compositor Services templates
+- tvOS Top Shelf extension templates explicitly declare the extension point identifier:
+  - `com.apple.tv-top-shelf`
 
-This is currently the best observable template-side lead for a future visionOS aggregate AppIcon path.
+These are the current best observable template-side leads for future aggregate AppIcon / Top Shelf generation work, even though they are still not byte-level output fixtures.
 
 #### `interesting-car-scan-current.json` / `interesting-car-scan-legacy.json` / `interesting-car-scan-legacy-320.json`
 Installed CAR scans for candidate aggregate fixtures show:

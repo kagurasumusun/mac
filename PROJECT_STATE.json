@@ -476,9 +476,17 @@
     "evidence": [
       "template-term-search-current.json",
       "template-term-search-legacy.json",
-      "xros-template-assetgeneration.json"
+      "xros-template-assetgeneration.json",
+      "template-assetgeneration-summary.json"
     ],
     "xros_asset_generation": "solidimagestack AppIcon observed in visionOS app templates",
+    "additional_solidimagestack_templates": [
+      "tvOS Game",
+      "macOS Game",
+      "MultiPlatform RealityKit Game",
+      "Compositor Services"
+    ],
+    "tv_top_shelf_extension_identifier": "com.apple.tv-top-shelf",
     "brandassets_or_complicationset_templates_found": false
   },
   "interesting_car_scan": {
