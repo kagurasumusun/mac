@@ -8,6 +8,33 @@ class SolidImageStackError(ValueError):
     pass
 
 
+def build_solidimagestack_layer_list(references: list['SolidImageStackLayerReference']) -> bytes:
+    out = bytearray(struct.pack('<2I', len(references), 0))
+    for ref in references:
+        pairs = bytes().join(struct.pack('<2H', attribute, value) for attribute, value in ref.referenced_key.attribute_value_pairs)
+        out += struct.pack('<6IfI', ref.origin_x, ref.origin_y, ref.reserved0, ref.width, ref.height, ref.reserved1, ref.opacity, len(pairs))
+        out += pairs
+    return bytes(out)
+
+
+def build_solidimagestack_layer_flags(flags: list['SolidImageStackLayerFlag']) -> bytes:
+    out = bytearray(struct.pack('<2I', len(flags), 0))
+    for flag in flags:
+        if len(flag.reserved0) != 8 or len(flag.reserved1) != 4:
+            raise SolidImageStackError('solid image stack flag block has invalid reserved lengths')
+        out += flag.reserved0 + bytes((flag.enabled,)) + flag.reserved1
+    return bytes(out)
+
+
+def build_solidimagestack_layer_reserved(entries: list['SolidImageStackLayerReserved']) -> bytes:
+    out = bytearray(struct.pack('<2I', len(entries), 0))
+    for entry in entries:
+        if len(entry.raw) != 20:
+            raise SolidImageStackError('solid image stack reserved block has invalid length')
+        out += entry.raw
+    return bytes(out)
+
+
 @dataclass(frozen=True)
 class SolidImageStackReferencedKey:
     attribute_value_pairs: tuple[tuple[int, int], ...]

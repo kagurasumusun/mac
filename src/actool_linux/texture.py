@@ -8,6 +8,17 @@ class TextureRenditionError(ValueError):
     pass
 
 
+def build_texture_reference_payload(reference: 'TextureReference') -> bytes:
+    pairs = bytes().join(struct.pack('<2H', attribute, value) for attribute, value in reference.key_pairs)
+    return b'RTXT' + struct.pack('<7I', reference.reserved0, reference.payload_value, reference.u32_2, reference.u32_3, reference.u32_4, len(pairs), 0) + pairs
+
+
+def build_texture_auxiliary_flag(flag: 'TextureAuxiliaryFlag') -> bytes:
+    if len(flag.raw) == 12:
+        return flag.raw
+    return struct.pack('<3I', *flag.values)
+
+
 @dataclass(frozen=True)
 class TextureReference:
     payload_value: int

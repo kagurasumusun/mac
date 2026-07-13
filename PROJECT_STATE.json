@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-13",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 112,
-  "test_status": "OK, local suite 112/112 pass with 10 optional skips; focused remote slices pass",
+  "test_count": 114,
+  "test_status": "OK, local suite 114/114 pass with 10 optional skips; focused remote slices pass",
   "storage_versions": [
     15,
     16,
@@ -542,7 +542,8 @@
       ".solidimagestacklayer"
     ],
     "solidimagestack_tlv_parser": true,
-    "texture_reference_parser": true
+    "texture_reference_parser": true,
+    "solidimagestack_tlv_roundtrip": true
   },
   "watch_complication_source_oracle": {
     "public_complicationset_oracle": "complicationset-endtoend-verify.json",

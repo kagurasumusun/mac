@@ -1,6 +1,9 @@
 import unittest
 
 from actool_linux.solidstack import (
+    build_solidimagestack_layer_flags,
+    build_solidimagestack_layer_list,
+    build_solidimagestack_layer_reserved,
     parse_solidimagestack_layer_flags,
     parse_solidimagestack_layer_list,
     parse_solidimagestack_layer_reserved,
@@ -40,6 +43,14 @@ class SolidStackParsingTests(unittest.TestCase):
         parsed = parse_solidimagestack_layer_reserved(bytes.fromhex(RESERVED_HEX))
         self.assertEqual(len(parsed.entries), 3)
         self.assertTrue(all(entry.raw == b'\0'*20 for entry in parsed.entries))
+
+    def test_roundtrip_serializers(self):
+        layers = parse_solidimagestack_layer_list(bytes.fromhex(LAYER_LIST_HEX))
+        self.assertEqual(build_solidimagestack_layer_list(list(layers.layers)), bytes.fromhex(LAYER_LIST_HEX))
+        flags = parse_solidimagestack_layer_flags(bytes.fromhex(FLAGS_HEX))
+        self.assertEqual(build_solidimagestack_layer_flags(list(flags.flags)), bytes.fromhex(FLAGS_HEX))
+        reserved = parse_solidimagestack_layer_reserved(bytes.fromhex(RESERVED_HEX))
+        self.assertEqual(build_solidimagestack_layer_reserved(list(reserved.entries)), bytes.fromhex(RESERVED_HEX))
 
 
 if __name__ == '__main__':
