@@ -80,11 +80,18 @@ def build_packed_atlas_car(
     max_height: int = 1024,
     sort_by: str = "name",
     platform: str = "macosx",
-    target: str = "13.0"
+    target: str = "13.0",
+    deployment_token: int = 5,
 ) -> bytes:
-    """Shelf-pack PNGs into bounded pages using configurable sorting heuristics and emit layout-1003/1004 records."""
+    """Shelf-pack PNGs into bounded pages using configurable sorting heuristics and emit layout-1003/1004 records.
+
+    Installed Apple atlas fixtures consistently carry INLK token attribute 25
+    with value 5; that observable default is used here.
+    """ 
     from .carwriter import _decode_png_8bit
     if not images: raise ValueError("atlas needs at least one image")
+    if not 0 <= deployment_token <= 65535:
+        raise ValueError("invalid atlas deployment token")
     decoded=[]
     for name,data in images.items():
         w,h,ct,pix,_=_decode_png_8bit(data)
@@ -125,9 +132,9 @@ def build_packed_atlas_car(
         page_name=f"ZZZZPackedAsset-1.0.{page_dimension}-gamut0"
         page_png=_png_rgba(aw,ah,bytes(canvas)); page_csi=bytearray(_csi_png_deepmap(page_png,page_name,scale=scale))
         struct.pack_into("<H",page_csi,36,1004); struct.pack_into("<I",page_csi,8,0)
-        records.append(AssetRendition(page_name,bytes(page_csi),181,scale=scale,element=9,identifier_override=0,dimension1=page_dimension,atlas_linked=True))
+        records.append(AssetRendition(page_name,bytes(page_csi),181,scale=scale,element=9,identifier_override=0,dimension1=page_dimension,atlas_linked=True,deployment_target=deployment_token))
     for page_dimension,name,px,py,w,h,_ in placements:
-        tokens=(AtlasKeyToken(24,0),AtlasKeyToken(1,9),AtlasKeyToken(2,181),AtlasKeyToken(8,page_dimension),AtlasKeyToken(12,scale),AtlasKeyToken(25,0))
+        tokens=(AtlasKeyToken(24,0),AtlasKeyToken(1,9),AtlasKeyToken(2,181),AtlasKeyToken(8,page_dimension),AtlasKeyToken(12,scale),AtlasKeyToken(25,deployment_token))
         link=AtlasLink(px,py,w,h,tokens)
-        records.append(AssetRendition(name,_linked_csi(name+".png",link,scale),181,scale=scale,atlas_linked=True))
+        records.append(AssetRendition(name,_linked_csi(name+".png",link,scale),181,scale=scale,atlas_linked=True,deployment_target=deployment_token))
     return build_assets_car(records,platform=platform,target=target)

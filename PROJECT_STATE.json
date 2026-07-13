@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-13",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 93,
-  "test_status": "OK, full optional dependencies installed (lzfse, cairosvg), no skips (93/93 pass)",
+  "test_count": 98,
+  "test_status": "OK, local suite 98/98 pass with 7 optional skips; focused remote Apple-host slices pass",
   "storage_versions": [
     15,
     16,
@@ -95,7 +95,7 @@
     "ENGINEERING_LOG.md",
     "VERIFICATION.md"
   ],
-  "remote_session": "vyUvDyfVq5tQ5Ll20bR0",
+  "remote_session": "xGBjvOFB6rf9fCdPeiIx",
   "slow_work_policy": "defer; use short static/assetutil/inventory checks",
   "focused_verification_latest": {
     "host": "macOS 26.4 / Xcode 26.5 (17F42)",
@@ -312,5 +312,50 @@
     "installed_cars_scanned": 600,
     "aggregate_hits": 0,
     "exact_stackData": "fixture-gated"
-  }
+  },
+  "watch_marketing_xcode_matrix": {
+    "xcode_releases": [
+      "26.0.1",
+      "26.1.1",
+      "26.2.0",
+      "26.3.0",
+      "26.4.1",
+      "26.5.0",
+      "26.6.0"
+    ],
+    "rows": 7,
+    "all_rc_zero": true,
+    "all_outputs_empty": true,
+    "all_partials_empty": true,
+    "evidence": "watch-marketing-xcode-matrix.json"
+  },
+  "framework_symbol_audit": {
+    "evidence": "framework-symbol-audit.json",
+    "observed": [
+      "kCUIRenditionTypeLayerStack",
+      "kCUIRenditionTypeIconLayerStack",
+      "Top Shelf validation strings",
+      "AssetCatalogKit parallax selectors/ivars"
+    ],
+    "boundary": "observable strings only; binary layout remains unresolved"
+  },
+  "atlas_fixture_scan": {
+    "sampled_cars": 400,
+    "cars_with_packedimage": 267,
+    "cars_with_inlk": 44,
+    "linked_image_count": 126885,
+    "dominant_token_pairs": [
+      "1:9",
+      "2:181",
+      "25:5",
+      "24:0"
+    ],
+    "evidence": "atlas-fixture-scan.json"
+  },
+  "atlas_observed_default": {
+    "deployment_token": 5,
+    "assetutil_verified": true,
+    "evidence": "atlas-token-verify.json"
+  },
+  "continuation_memo": "CONTINUATION_MEMO_2026-07-13.md"
 }

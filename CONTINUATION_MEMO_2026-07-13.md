@@ -66,9 +66,12 @@ The explicit `depth` / `dimension2` handling for `.imagestack` vision/xros paths
 - `watch-roleless-appicon-oracle.json`
 - `watch-marketing-role-oracle.json`
 - `watch-role-probe.json`
+- `watch-marketing-xcode-matrix.json`
 - `vision-depth-verify.json`
 - `appicon-vision-verify.json`
 - `framework-symbol-audit.json`
+- `atlas-fixture-scan.json`
+- `atlas-token-verify.json`
 
 ### What these verify
 
@@ -121,6 +124,24 @@ Observable framework strings confirm continued evidence for:
   - `parallaxDisplayConfiguration`
 
 This is evidence for discovery and targeting, not proof of private binary layout equivalence.
+
+#### `atlas-fixture-scan.json`
+Installed Apple CAR scan summary on the remote host:
+
+- sampled `400` CARs
+- `267` contained `PackedImage`
+- `44` contained parseable `INLK` / linked-image atlas metadata
+- `126,885` linked atlas images were observed in those sampled fixtures
+- dominant token pairs were:
+  - `1:9`
+  - `2:181`
+  - `24:0`
+  - `25:5`
+
+This is the current strongest observable evidence for atlas defaults, but it still does not reveal the exact Xcode page split heuristic from source inputs.
+
+#### `atlas-token-verify.json`
+After updating the writer to use observed deployment token `25:5` in both link metadata and rendition keys, the focused generated atlas no longer triggers `Asset Parent Image Missing` diagnostics in `assetutil` and is recognized as one `PackedImage` plus linked child images.
 
 ## Test status
 
