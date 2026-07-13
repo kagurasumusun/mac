@@ -6,7 +6,7 @@ on:
 
 jobs:
   ssh-only:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 360
 
     steps:
