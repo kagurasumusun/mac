@@ -34,6 +34,26 @@ class CBCKTests(unittest.TestCase):
         with self.assertRaisesRegex(BOMError, "trailing"):
             parse_cbck(raw)
 
+    def test_rejects_zero_chunk_count(self):
+        raw = b"MLEC" + struct.pack("<3I", 3, 4, 0)
+        with self.assertRaisesRegex(BOMError, "invalid CBCK chunk count"):
+            parse_cbck(raw)
+
+    def test_rejects_non_cbck_mode_codec(self):
+        raw = b"MLEC" + struct.pack("<3I", 1, 4, 1) + b"KCBC" + struct.pack("<4I", 0, 0, 10, 10) + b"x"*10
+        with self.assertRaisesRegex(BOMError, "not CBCK"):
+            parse_cbck(raw)
+
+    def test_rejects_zero_rows(self):
+        raw = b"MLEC" + struct.pack("<3I", 3, 4, 1) + b"KCBC" + struct.pack("<4I", 0, 0, 0, 10) + b"x"*10
+        with self.assertRaisesRegex(BOMError, "zero rows"):
+            parse_cbck(raw)
+
+    def test_rejects_invalid_kcbc_magic(self):
+        raw = b"MLEC" + struct.pack("<3I", 3, 4, 1) + b"BADM" + struct.pack("<4I", 0, 0, 10, 10) + b"x"*10
+        with self.assertRaisesRegex(BOMError, "invalid magic"):
+            parse_cbck(raw)
+
 
 if __name__ == "__main__":
     unittest.main()

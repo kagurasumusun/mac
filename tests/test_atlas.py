@@ -14,6 +14,7 @@ class AtlasTests(unittest.TestCase):
         self.assertEqual((link.x,link.y,link.width,link.height),(162,2,13,15))
         self.assertEqual(link.tokens,(AtlasKeyToken(24,0),AtlasKeyToken(1,9),AtlasKeyToken(2,181),AtlasKeyToken(8,604),AtlasKeyToken(12,1),AtlasKeyToken(25,5)))
         self.assertEqual(build_atlas_link(link),raw)
+
     def test_builds_linked_atlas_car(self):
         car=CARFile(BOMStore(build_packed_atlas_car({"One":P1,"Two":P2})))
         self.assertEqual(len(car.renditions),3)
@@ -22,6 +23,7 @@ class AtlasTests(unittest.TestCase):
         refs=[r for r in car.renditions if r.csi.layout==1003]
         self.assertTrue(all(len(r.csi.rendition_data)==0 for r in refs))
         self.assertTrue(all(parse_atlas_link(next(t.value for t in r.csi.tlvs if t.tag==1010)).width>0 for r in refs))
+
     def test_splits_into_bounded_pages(self):
         car=CARFile(BOMStore(build_packed_atlas_car({"One":P1,"Two":P2},max_width=2,max_height=2)))
         self.assertEqual(sorted(r.csi.layout for r in car.renditions),[1003,1003,1004,1004])
@@ -31,5 +33,12 @@ class AtlasTests(unittest.TestCase):
             link=parse_atlas_link(next(t.value for t in r.csi.tlvs if t.tag==1010))
             pages.append(next(t.value for t in link.tokens if t.attribute==8))
         self.assertEqual(sorted(pages),[1,2])
+
+    def test_atlas_sorting_heuristics(self):
+        for h in ("name", "height", "width", "area", "max_dim"):
+            car = CARFile(BOMStore(build_packed_atlas_car({"A": P1, "B": P2}, sort_by=h)))
+            self.assertEqual(len(car.renditions), 3)
+        with self.assertRaisesRegex(ValueError, "unsupported atlas sorting heuristic"):
+            build_packed_atlas_car({"A": P1}, sort_by="invalid")
 
 if __name__=='__main__': unittest.main()

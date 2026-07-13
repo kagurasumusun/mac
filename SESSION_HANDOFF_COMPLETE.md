@@ -1,6 +1,6 @@
 # actool-linux — Complete cross-session handoff
 
-Last updated: 2026-07-13 (Etc/GMT-9)
+Last updated: 2026-07-13 (Etc/GMT-9) - Session vyUvDyfVq5tQ5Ll20bR0
 
 This document is the authoritative human-readable continuation record. It describes observable engineering evidence, not hidden chain-of-thought. Read this file, `PROJECT_STATE.json`, `ENGINEERING_LOG.md`, and `EVIDENCE_MANIFEST.json` before changing claims.
 
@@ -46,7 +46,7 @@ PYTHONPATH=src python3 -m unittest discover -s tests -q
 Current result:
 
 ```text
-Ran 84 tests
+Ran 89 tests
 OK
 ```
 
@@ -66,7 +66,7 @@ Minimal environments intentionally skip optional-backend tests.
 Current Upterm session:
 
 ```text
-Session: GPGyZL9N7vxJupq8TAL1
+Session: vyUvDyfVq5tQ5Ll20bR0
 SSH: ssh GPGyZL9N7vxJupq8TAL1@uptermd.upterm.dev
 Host: uptermd.upterm.dev:22
 Force command: tmux attach -t upterm
@@ -108,7 +108,7 @@ SCP can return a nonstandard final status after transferring. Verify destination
 ### Local tests
 
 ```text
-84/84 pass
+89/89 pass
 ```
 
 ### Apple reader generation matrix

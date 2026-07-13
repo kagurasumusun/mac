@@ -72,12 +72,21 @@ def _png_rgba(width: int, height: int, pixels: bytes) -> bytes:
     return b"\x89PNG\r\n\x1a\n"+chunk(b"IHDR",struct.pack(">IIBBBBB",width,height,8,6,0,0,0))+chunk(b"IDAT",zlib.compress(rows,9))+chunk(b"IEND",b"")
 
 
-def build_packed_atlas_car(images: dict[str, bytes], *, scale: int = 1, max_width: int = 1024, max_height: int = 1024, platform: str = "macosx", target: str = "13.0") -> bytes:
-    """Shelf-pack PNGs into bounded pages and emit layout-1003/1004 records."""
+def build_packed_atlas_car(
+    images: dict[str, bytes],
+    *,
+    scale: int = 1,
+    max_width: int = 1024,
+    max_height: int = 1024,
+    sort_by: str = "name",
+    platform: str = "macosx",
+    target: str = "13.0"
+) -> bytes:
+    """Shelf-pack PNGs into bounded pages using configurable sorting heuristics and emit layout-1003/1004 records."""
     from .carwriter import _decode_png_8bit
     if not images: raise ValueError("atlas needs at least one image")
     decoded=[]
-    for name,data in sorted(images.items()):
+    for name,data in images.items():
         w,h,ct,pix,_=_decode_png_8bit(data)
         if ct==6: rgba=pix
         elif ct==4: rgba=b"".join(bytes((g,g,g,a)) for g,a in zip(pix[::2],pix[1::2]))
@@ -85,6 +94,20 @@ def build_packed_atlas_car(images: dict[str, bytes], *, scale: int = 1, max_widt
         else: raise ValueError("indexed atlas input is not enabled")
         if w>max_width or h>max_height: raise ValueError("atlas item exceeds page bounds")
         decoded.append((name,w,h,rgba))
+
+    if sort_by == "name":
+        decoded.sort(key=lambda x: x[0])
+    elif sort_by in ("height", "height_desc"):
+        decoded.sort(key=lambda x: (-x[2], -x[1], x[0]))
+    elif sort_by in ("width", "width_desc"):
+        decoded.sort(key=lambda x: (-x[1], -x[2], x[0]))
+    elif sort_by in ("area", "area_desc"):
+        decoded.sort(key=lambda x: (-x[1]*x[2], -x[2], x[0]))
+    elif sort_by in ("max_dim", "max_dim_desc"):
+        decoded.sort(key=lambda x: (-max(x[1], x[2]), -x[2], x[0]))
+    else:
+        raise ValueError(f"unsupported atlas sorting heuristic: {sort_by}")
+
     # Each placement carries a 1-based page dimension used by INLK tokens.
     x=y=row_h=0; page=1; placements=[]
     for name,w,h,pix in decoded:

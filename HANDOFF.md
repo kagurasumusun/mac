@@ -34,7 +34,7 @@ cd /home/user/actool-linux
 PYTHONPATH=src python -m unittest discover -s tests
 ```
 
-Latest full optional-dependency result: 81 tests, OK, no skips. lzfse 0.4.2 and cairosvg 2.9.0 were installed. Minimal environments retain explicit skips.
+Latest full optional-dependency result: 89 tests, OK, no skips. lzfse 0.4.2 and cairosvg 2.9.0 were installed. Minimal environments retain explicit skips.
 
 Capability report:
 
@@ -44,7 +44,7 @@ PYTHONPATH=src python -m actool_linux.cli --capabilities
 
 ## Current remote Mac
 
-Upterm session: `b8btbueUHxFMnZpY5cHt`
+Upterm session: `vyUvDyfVq5tQ5Ll20bR0`
 
 SSH:
 

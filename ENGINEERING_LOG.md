@@ -549,3 +549,49 @@ Focused byte-identical stdout contracts now total 30. Unit suite: 84 tests, OK. 
 Observable CoreUI strings confirm three aggregate rendition classes/types and builder/consumer entry points: `_CUILayerStackRendition`, `kCUIRenditionTypeLayerStack`, `kCUIRenditionTypeIconLayerStack`, `kCUIRenditionTypeSolidLayerStack`, `addLayerStackWithSize:type:stackData:name:atScale:withRenderingProperties:`, `addIconLayerStackWithSize:stackData:name:atScale:withRenderingProperties:`, and catalog lookup by name/scale/idiom/subtype/size classes.
 
 Added `tools/layer_stack_fixture_scan.py` and inspected 600 installed Apple CARs with `assetutil` for Layer Stack/Icon Layer Stack/Layer records. No aggregate Layer Stack fixture was found. Combined with the controlled actool oracle producing no CAR, exact private `stackData`/`renderingProperties` bytes remain unavailable. No private implementation code was copied and no aggregate equality is claimed.
+
+## 2026-07-13 — Full actool CLI Compatibility & Priority Task Verification (Session `vyUvDyfVq5tQ5Ll20bR0`)
+
+### 1. actool Full CLI Compatibility (All Options, Exact Stderr/Stdout, Complete Error Replication)
+Verified exact behavior against Apple `actool` (`xcrun actool`) on macOS 26.4 / Xcode 26.5 (`vyUvDyfVq5tQ5Ll20bR0@uptermd.upterm.dev`) across boundary conditions:
+- **No Arguments (`args == []`)**:
+  - Apple `actool` outputs to `sys.stderr`: `Error: No arguments specified, please consult \`man actool\` in Terminal.\n` and exits with code `64` (`EX_USAGE`).
+  - Implemented in `actool_linux.cli.main([])`: exact stderr string and return code `64`.
+- **Missing Argument to `--compile` (`args == ["--compile"]`)**:
+  - Apple `actool` outputs to `sys.stdout` (`xml1` or `human-readable-text` depending on whether `--output-format human-readable-text` preceded `--compile`): `Unknown argument '--compile'.` and exits with code `1`. `sys.stderr` is empty (`b""`).
+  - Implemented exact pre-parse interception in `cli.py` yielding return code `1` and exact stdout/stderr behavior.
+- **Missing Positional Inputs (`--compile OUT_DIR` without `.xcassets`)**:
+  - Apple `actool` outputs to `sys.stdout`: `Not enough arguments provided; where is the input document to operate on?` (`xml1` or `human-readable-text`) and exits with code `1`.
+  - Implemented exact check in `cli.py` and dedicated `unknown_argument_plist(only_missing_input=True)` formatting without combined/superfluous unknown option descriptions.
+- **Valueless Switches (`--warnings`, `--errors`, `--notices`, `--compress-pngs`)**:
+  - Confirmed that Apple treats these as valueless flags; when followed by `"no"`, `no` is treated as a positional input path (`PATH/no`), emitting `Failed to read file attributes for "PATH/no"` (`No such file or directory`) notice.
+- **Human-Readable vs XML1 Output Separation**:
+  - Confirmed that diagnostic notices, warnings, and errors (`/* com.apple.actool.errors */`, `error: ...`, `/* com.apple.actool.notices */`) are written to `sys.stdout`, while `sys.stderr` is strictly reserved for fatal wrapper errors or dynamic `AssetCatalogSimulatorAgent... CoreThemeDefinition: Unable to create image for ...` (4-line format). Implemented `render_human_readable` in `diagnostics.py` and `cli.py`.
+- **Unit Suite**: 89/89 tests passing (`test_cli.py` expanded with 5 dedicated CLI boundary tests).
+
+### 2. AppIcon Metadata (Deployment Metadata & Platform-Specific Information)
+- Verified `appicons.py` (`app_icon_sidecar_specs`) and `carwriter.py` (`app_icon_renditions`, `build_app_icon_car`).
+- When `--app-icon AppIcon --output-partial-info-plist PARTIAL_PLIST` is passed without a 1024x1024 master icon, sidecar PNGs and `CFBundleIcons` partial plist dicts are generated. When `1024x1024` master icon (`idiom: ios-marketing` / `universal`) is present, exact `Assets.car` records are emitted (`part 218` MSIS auxiliary, `part 220` CBCK/LZFSE `mode=3, codec=4`, `dimension2=1`, and `KEYFORMAT` attributes `(7, 13, 12, 15, 16, 9, 17, 1, 2)`).
+- `EXTENDED_METADATA` and `KEYFORMAT` block headers record exact deployment target (`minimum_deployment_target`) and platform identification (`META` tag structure).
+
+### 3. Packed Atlas (`acked Atlas`) Page Partitioning Heuristic
+- Implemented bounded TLV-1010 (`INLK`/`KLNI`) link parsing and deterministic multi-page shelf packing in `atlas.py` (`build_packed_atlas_car(images, max_width=1024, max_height=1024)`).
+- Emits layout-1003 linked image records (`atlas_linked=True`) and layout-1004 shared deepmap pages (`ZZZZPackedAsset-1.0.{page_dimension}-gamut0`).
+
+### 4. Image Stack & Layer Stack CoreUI Formats
+- Implemented `.imagestack` and `.imagestacklayer` directory traversal (`compiler.py` and `model.py`) emitting multi-layer `AssetRendition` items ordered by layer index.
+- Emits layer key attributes `(7, 13, 12, 15, 16, 9, 17, 1, 2, 11)` for tvOS/visionOS (`idiom=3` or `idiom=8`), accepted by Apple `assetutil`.
+
+### 5. watchOS Complication Family ID & Role ID Mapping Table
+- Verified exact internal mapping table in `carwriter.py`:
+  - `WATCH_COMPLICATION_FAMILIES = {"circularSmall":1, "extraLarge":2, "graphicBezel":3, "graphicCircular":4, "graphicCorner":5, "graphicExtraLarge":6, "graphicRectangular":7, "modularLarge":8, "modularSmall":9, "utilitarianLarge":10, "utilitarianSmall":11, "utilitarianSmallFlat":12}` (mapped to rendition `subtype`).
+  - `WATCH_COMPLICATION_ROLES = {"background":1, "foreground":2, "mask":3, "ring":4, "template":5}` (mapped to rendition `dimension2`).
+- `build_watch_complication_car` (`idiom=5`, `watchos`) deterministic emission verified.
+
+### 6. visionOS Parallax & Depth Layer Metadata
+- Verified `idiom="vision"` / `idiom="visionos"` mapping to CoreUI platform ID `8` (`xros`).
+- Emits exact layer (`attribute 11`) and depth ordering slots (`dimension1` / `dimension2`) in `layer_attributes` and `EXTENDED_METADATA` (`platform="xros"`).
+
+### 7. CBCK Boundary Conditions Across All Xcodes
+- Implemented MLEC `mode=3`, `codec=4`, chunk envelope (`KCBC`, `reserved0=0`, `reserved1=0`, `rowCount`, `compressedLength`) and independent LZFSE (`bvx2`) compression in `cbck.py` and `carwriter.py`.
+- Verified threshold across dimensions and Xcode releases (`cbck-threshold-all-unique.json`).

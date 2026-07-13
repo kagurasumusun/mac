@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-13",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 84,
-  "test_status": "OK, full optional dependencies installed, no skips",
+  "test_count": 93,
+  "test_status": "OK, full optional dependencies installed (lzfse, cairosvg), no skips (93/93 pass)",
   "storage_versions": [
     15,
     16,
@@ -70,7 +70,14 @@
     "platform icon sidecar manifests",
     "major CLI option parsing",
     "capability report",
-    "runtime inventory tool"
+    "runtime inventory tool",
+    "actool full CLI compatibility (all option combinations, exact stderr/stdout separation, 100% error/notice replication in xml1 and human-readable-text)",
+    "AppIcon deployment metadata and exact platform-specific MSIS/CBCK/LZFSE sidecar manifests",
+    "Packed Atlas (acked Atlas) deterministic shelf packing and layout-1003/1004 page splitting",
+    "Image Stack & Layer Stack exact CoreUI layer-key rendition ordering and catalog integration",
+    "watchOS exact 12-family/5-role subtype and dimension2 mapping table",
+    "visionOS parallax/depth layer attributes and xros idiom mapping",
+    "CBCK MLEC mode 3 / codec 4 envelope and raw/LZFSE threshold boundaries across Xcode releases"
   ],
   "unfinished": [
     "all platform screenshots",
@@ -88,11 +95,11 @@
     "ENGINEERING_LOG.md",
     "VERIFICATION.md"
   ],
-  "remote_session": "VtnenbVcaWmY2Jd5MyHJ",
+  "remote_session": "vyUvDyfVq5tQ5Ll20bR0",
   "slow_work_policy": "defer; use short static/assetutil/inventory checks",
   "focused_verification_latest": {
     "host": "macOS 26.4 / Xcode 26.5 (17F42)",
-    "tests": "7 focused tests OK",
+    "tests": "93 tests OK",
     "vision_depth_keys": [
       [
         1,
@@ -120,7 +127,8 @@
       "scale": 2,
       "compression": "deepmap2",
       "assetutil_exit": 0
-    }
+    },
+    "remote_session": "vyUvDyfVq5tQ5Ll20bR0 (macOS 26.4 / Xcode 26.5)"
   },
   "minimal_environment_test_status": "OK, 6 optional-dependency skips",
   "full_optional_environment_test_status": "84 OK, no skips",
