@@ -1,0 +1,1637 @@
+{
+  "sampled": 160,
+  "layout_counts": {
+    "1003": 14729,
+    "1017": 10870,
+    "9": 2780,
+    "12": 1667,
+    "1009": 1175,
+    "1004": 1024,
+    "1010": 262,
+    "1020": 228,
+    "1021": 90,
+    "1019": 69,
+    "1000": 12
+  },
+  "top_shelf_candidates": [
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 1,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 1,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 1,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 2,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 2,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 2,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 3,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 3,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 3,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 5,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 5,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 5,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 6,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 6,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 6,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 7,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 7,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 7,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 8,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 8,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 8,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 9,
+        "kCRThemeGlyphSizeName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 9,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1017,
+      "pixel_format": "SVG ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 59,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 9,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 2,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeScaleName": 2,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 1,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 1,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 1,
+        "kCRThemeScaleName": 2,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 1,
+        "kCRThemeScaleName": 2,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 2,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 2,
+        "kCRThemeScaleName": 1,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 2,
+        "kCRThemeScaleName": 2,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 2
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/SharedFrameworks/DVTUserInterfaceKit.framework/Versions/A/Resources/Assets.car",
+      "name": "doc-topshelf rectangle.topthird.inset.filled.svg",
+      "layout": 1003,
+      "pixel_format": "GA8 ",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 181,
+        "kCRThemeIdentifierName": 60040,
+        "kCRThemeDimension2Name": 2,
+        "kCRThemeScaleName": 2,
+        "kCRThemeDeploymentTargetName": 5,
+        "kCRThemeGlyphWeightName": 4,
+        "kCRThemeGlyphSizeName": 3
+      }
+    }
+  ],
+  "watch_candidates": [],
+  "vision_candidates": [],
+  "layout_1002_candidates": [],
+  "layout_other_candidates": [
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-2 AppIcon_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 29778,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-1 AppIcon_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 59377,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud_Assets/Gradient-4 XcodeCloud_Assets/Gradient-4",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 48413,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeBeta_Assets/Gradient-2 XcodeBeta_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 22846,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence_Assets/Gradient-2 XcodeIntelligence_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 26431,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode_Assets/Gradient-3 Xcode_Assets/Gradient-3",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 52816,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud_Assets/Gradient-2 XcodeCloud_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 42075,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode_Assets/Gradient-1 Xcode_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 46478,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeBeta_Assets/Gradient-3 XcodeBeta_Assets/Gradient-3",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 58783,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud_Assets/Gradient-3 XcodeCloud_Assets/Gradient-3",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 12476,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeBeta_Assets/Gradient-1 XcodeBeta_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 52445,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence_Assets/Gradient-1 XcodeIntelligence_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 56030,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode_Assets/Gradient-2 Xcode_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 16879,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud_Assets/Gradient-1 XcodeCloud_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 6138,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud XcodeCloud.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 1101,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence XcodeIntelligence.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6371,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode Xcode.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 500,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 47366,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 24349,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 17699,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 20262,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 54058,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 34605,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 17767,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 4213,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 45689,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 18121,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud XcodeCloud.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 1101,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence XcodeIntelligence.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6371,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode Xcode.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 500,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 47366,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 24349,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 17699,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 20262,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 54058,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 34605,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 17767,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 4213,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 45689,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 18121,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud XcodeCloud.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 1101,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence XcodeIntelligence.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6371,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode Xcode.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 500,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 47366,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 24349,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 17699,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 20262,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 54058,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 34605,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 17767,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeCloud/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 4213,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "Xcode/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 45689,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "name": "XcodeIntelligence/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 18121,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-4 AppIcon_Assets/Gradient-4",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 36116,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-2 AppIcon_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 29778,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-5 AppIcon_Assets/Gradient-5",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 6517,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-3 AppIcon_Assets/Gradient-3",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 179,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-1 AppIcon_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 59377,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Blueprint Grid IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 26514,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    }
+  ]
+}

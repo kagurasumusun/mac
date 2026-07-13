@@ -6,31 +6,33 @@ It stores **connection metadata only**, not private key contents.
 ## Local key / helper paths
 
 - private key path: `/home/user/.ssh/upterm_test_ed25519`
-- current-host helper: `/home/user/cg_upterm.py`
-- legacy-host helper: `/home/user/cg_upterm_legacy.py`
+- current-host helper (historical): `/home/user/cg_upterm.py`
+- legacy-host helper (historical): `/home/user/cg_upterm_legacy.py`
+- generic session helper: `/home/user/generic_upterm.py`
 
 ## Current validation host
 
-- session: `xGBjvOFB6rf9fCdPeiIx`
-- ssh target: `xGBjvOFB6rf9fCdPeiIx@uptermd.upterm.dev`
+- session: `z4InTbNySiFAh5OZVudP`
+- ssh target: `z4InTbNySiFAh5OZVudP@uptermd.upterm.dev`
 - repo path: `/Users/runner/work/mac/mac`
-- observed OS: macOS `26.4`
-- observed default Xcode: `26.5 (17F42)`
+- observed OS: macOS `15.7.7`
+- observed default Xcode: `16.4 (16F6)`
 
 Direct command form:
 
 ```bash
 ssh -i /home/user/.ssh/upterm_test_ed25519 \
   -o IdentitiesOnly=yes -tt \
-  xGBjvOFB6rf9fCdPeiIx@uptermd.upterm.dev
+  z4InTbNySiFAh5OZVudP@uptermd.upterm.dev
 ```
 
 ## Legacy reference host
 
-- session: `ZKPsRZJmMFe9fux0eiMB`
-- ssh target: `ZKPsRZJmMFe9fux0eiMB@uptermd.upterm.dev`
+- session: `ZrWtAfDSvKdWHtrrmfNR`
+- ssh target: `ZrWtAfDSvKdWHtrrmfNR@uptermd.upterm.dev`
 - repo path: `/Users/runner/work/mac/mac`
 - observed OS: macOS `14.8.7`
+- observed default Xcode: `15.4 (15F31d)`
 - observed installed Xcodes: `15.0`–`15.4`, `16.1`–`16.2`
 
 Direct command form:
@@ -38,7 +40,7 @@ Direct command form:
 ```bash
 ssh -i /home/user/.ssh/upterm_test_ed25519 \
   -o IdentitiesOnly=yes -tt \
-  ZKPsRZJmMFe9fux0eiMB@uptermd.upterm.dev
+  ZrWtAfDSvKdWHtrrmfNR@uptermd.upterm.dev
 ```
 
 ## Notes

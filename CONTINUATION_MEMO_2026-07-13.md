@@ -22,36 +22,30 @@ Read together with:
 
 ### Primary validation host
 
-Active Upterm session during this continuation:
+Current Upterm session during this continuation:
 
-- session: `xGBjvOFB6rf9fCdPeiIx`
+- session: `z4InTbNySiFAh5OZVudP`
 - host: `uptermd.upterm.dev:22`
 - remote repo: `/Users/runner/work/mac/mac`
 
 Observed host state:
 
-- macOS `26.4` (`25E246`)
-- Xcode default `26.5` (`17F42`)
-- installed Xcode 26 apps present: `26.0.1`, `26.1.1`, `26.2.0`, `26.3.0`, `26.4.1`, `26.5.0`, `26.6.0`
-- installed simulator runtimes present:
-  - iOS `26.2`, `26.4.1`, `26.5`
-  - tvOS `26.2`, `26.4`, `26.5`
-  - watchOS `26.2`, `26.4`, `26.5`
-  - xrOS `26.2`, `26.4.1`, `26.5`
-
-A project-local remote venv was created at `/Users/runner/work/mac/mac/.venv` and `lzfse 0.4.2` was installed there for AppIcon/CBCK validation.
+- macOS `15.7.7`
+- Xcode default `16.4` (`16F6`)
+- installed Xcode 16 apps/resources are present and were used for current-host source/fixture scans
 
 ### Legacy reference host
 
 Second Upterm session used specifically for `palette-img` investigation:
 
-- session: `ZKPsRZJmMFe9fux0eiMB`
+- session: `ZrWtAfDSvKdWHtrrmfNR`
 - host: `uptermd.upterm.dev:22`
 - remote repo: `/Users/runner/work/mac/mac`
 
 Observed host state:
 
 - macOS `14.8.7` (`23J520`)
+- default Xcode `15.4` (`15F31d`)
 - installed Xcodes include:
   - `15.0`, `15.0.1`
   - `15.1`, `15.1.0`
@@ -102,6 +96,16 @@ The explicit `depth` / `dimension2` handling for `.imagestack` vision/xros paths
 - `paletteimg-consumer-legacy-matrix.json`
 - `render-layout-fixture-scan-current.json`
 - `render-layout-fixture-scan-legacy.json`
+- `source-asset-search-current.json`
+- `source-asset-search-legacy.json`
+- `source-asset-search-system-current.json`
+- `source-asset-search-system-legacy.json`
+- `template-term-search-current.json`
+- `template-term-search-legacy.json`
+- `xros-template-assetgeneration.json`
+- `interesting-car-scan-current.json`
+- `interesting-car-scan-legacy.json`
+- `interesting-car-scan-legacy-320.json`
 
 ### What these verify
 
@@ -220,6 +224,27 @@ A lightweight parser-based installed-CAR scan was run on both hosts to look spec
 - no sampled CAR contained CSI layout `1002` (LayerStack aggregate)
 - observed layouts were dominated by ordinary image (`12`), atlas link/page (`1003` / `1004`), color (`1009`), and vector (`9`)
 - the modern host also showed additional newer layouts (`1019`, `1020`, `1021`) that remain to be classified
+
+#### `source-asset-search-current.json` / `source-asset-search-legacy.json` / `source-asset-search-system-current.json` / `source-asset-search-system-legacy.json`
+Direct directory scans of installed Xcode app trees on both hosts found only `.xcassets` and `.appiconset` source directories. No `.brandassets`, `.complicationset`, `.imagestack`, or `.imagestacklayer` source directories were present in the scanned Xcode bundles. A broader sampled scan over `/Applications` + `/System/Library` on both hosts still surfaced only `.xcassets` and `.appiconset` in the captured source-asset set.
+
+#### `template-term-search-current.json` / `template-term-search-legacy.json` / `xros-template-assetgeneration.json`
+The resource/template text search did not reveal real `.brandassets` or `.complicationset` source fixtures, but it did expose a concrete visionOS template lead:
+
+- visionOS Application templates mention `imagestack`
+- inspected `TemplateInfo.plist` metadata shows `AssetGeneration` with:
+  - `Type = solidimagestack`
+  - `Name = AppIcon`
+
+This is currently the best observable template-side lead for a future visionOS aggregate AppIcon path.
+
+#### `interesting-car-scan-current.json` / `interesting-car-scan-legacy.json` / `interesting-car-scan-legacy-320.json`
+Installed CAR scans for candidate aggregate fixtures show:
+
+- no `layout 1002` LayerStack aggregate fixtures in the scanned sets
+- no watch complication keyed candidates in the scanned sets
+- no vision layer/depth keyed aggregate candidates in the scanned sets
+- current-host Top Shelf name hits were symbol/glyph resources rather than aggregate brandassets output
 
 ## Test status
 

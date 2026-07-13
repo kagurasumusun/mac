@@ -1,0 +1,906 @@
+{
+  "sampled": 320,
+  "layout_counts": {
+    "1003": 6222,
+    "12": 2620,
+    "9": 2129,
+    "1004": 1060,
+    "1009": 528,
+    "1010": 435,
+    "1020": 42,
+    "1000": 18,
+    "1019": 15,
+    "1021": 12
+  },
+  "top_shelf_candidates": [],
+  "watch_candidates": [],
+  "vision_candidates": [],
+  "layout_1002_candidates": [],
+  "layout_other_candidates": [
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-2 AppIcon_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 29778,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-1 AppIcon_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 59377,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-2 AppIcon_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 29778,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-1 AppIcon_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 59377,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-2 AppIcon_Assets/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 29778,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon_Assets/Gradient-1 AppIcon_Assets/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 59377,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Gradient-2 AppIcon/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 1796,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Gradient-3 AppIcon/Gradient-3",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 37733,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Gradient-1 AppIcon/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 31395,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Gradient-2 AppIcon/Gradient-2",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 1796,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Gradient-3 AppIcon/Gradient-3",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 37733,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Gradient-1 AppIcon/Gradient-1",
+      "layout": 1021,
+      "pixel_format": "\u0000\u0000\u0000\u0000",
+      "key": {
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 247,
+        "kCRThemeIdentifierName": 31395,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 1,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 8,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon AppIcon.iconstack",
+      "layout": 1019,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 245,
+        "kCRThemeIdentifierName": 6849,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 55059,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 4 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 64287,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 2 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 57949,
+        "kCRThemeScaleName": 1
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "name": "AppIcon/Group 3 IconGroup",
+      "layout": 1020,
+      "pixel_format": "DATA",
+      "key": {
+        "kCRThemeAppearanceName": 10,
+        "kCRThemeElementName": 85,
+        "kCRThemePartName": 246,
+        "kCRThemeIdentifierName": 28350,
+        "kCRThemeScaleName": 1
+      }
+    }
+  ]
+}

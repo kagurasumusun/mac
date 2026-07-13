@@ -1,0 +1,492 @@
+{
+  "roots": [
+    "/Applications",
+    "/System/Library"
+  ],
+  "counts": {
+    ".xcassets": 465,
+    ".appiconset": 24
+  },
+  "sample": [
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Frameworks/AssetCatalogCocoaTouchFoundation.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Frameworks/AssetCatalogAppleTVFoundation.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-tvos.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI Document App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI Document App Base.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI App Base.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Base/Multiplatform SwiftUI Document App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Base/Multiplatform SwiftUI App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent SceneKit Game.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent SpriteKit Game.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent Metal Game.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent Safari Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Smoke/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Bokeh/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Rain/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Magic/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Fireflies/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Fire/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Snow/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Spark/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Tile Set.xctemplate/Isometric Tile Set/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Tile Set.xctemplate/Hexagonal Tile Set/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Tile Set.xctemplate/Grid Tile Set/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Library/Xcode/Templates/File Templates/MultiPlatform/Resource/Asset Catalog.xctemplate/___FILENAME___.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets/MessagesApplicationStub.appiconset",
+      "suffix": ".appiconset"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogAppleTVFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-tvos.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/Safari Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/Cocoa App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/MacOS Application UI.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/Game.xctemplate/Metal/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application Extension/Action Extension.xctemplate/Media.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Other/Audio Unit Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/iOSSupport/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Xcode/Templates/Project Templates/watchOS/Application/watchOS SwiftUI App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Xcode/Templates/Project Templates/watchOS/Application/watchOS App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Xcode/Templates/Project Templates/watchOS/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets/MessagesApplicationStub.appiconset",
+      "suffix": ".appiconset"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/Safari Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/iMessage App.xctemplate/Images.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/iOS SwiftUI App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/iOS SwiftUI Document-Based App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/App Clip.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/Cocoa Touch App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/Augmented Reality App.xctemplate/RealityKit/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/Game.xctemplate/Metal/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application Extension/Media Device Discovery Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application Extension/Action Extension.xctemplate/Media.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application Extension/iMessage Extension.xctemplate/Custom.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application Extension/Sticker Pack Extension.xctemplate/Stickers.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Other/Audio Unit Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/Library/Xcode/Templates/Project Templates/tvOS/Application/tvOS SwiftUI App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/Library/Xcode/Templates/Project Templates/tvOS/Application/TV App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.0.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/Library/Xcode/Templates/Project Templates/tvOS/Application/Game.xctemplate/Metal/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Frameworks/AssetCatalogCocoaTouchFoundation.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Frameworks/AssetCatalogAppleTVFoundation.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-tvos.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Frameworks/AssetCatalogFoundation_xrOS.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-xros.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI Document App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI Document App Base.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/Base/SwiftUI App Base.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Base/Multiplatform SwiftUI Document App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Base/Multiplatform SwiftUI App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent SceneKit Game.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent SpriteKit Game.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent Metal Game.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application/SharedContent Safari Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/Project Templates/MultiPlatform/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Smoke/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Bokeh/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Rain/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Magic/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Fireflies/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Fire/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Snow/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Particle File.xctemplate/Spark/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Tile Set.xctemplate/Isometric Tile Set/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Tile Set.xctemplate/Hexagonal Tile Set/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/Resource/SpriteKit Tile Set.xctemplate/Grid Tile Set/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Library/Xcode/Templates/File Templates/MultiPlatform/Resource/Asset Catalog.xctemplate/___FILENAME___.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets/MessagesApplicationStub.appiconset",
+      "suffix": ".appiconset"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogAppleTVFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-tvos.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/Safari Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/Cocoa App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/MacOS Application UI.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application/Game.xctemplate/Metal/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application Extension/Action Extension.xctemplate/Media.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Templates/Project Templates/macOS/Other/Audio Unit Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/iOSSupport/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/Versions/A/Resources/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XRSimulator.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XRSimulator.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets/MessagesApplicationStub.appiconset",
+      "suffix": ".appiconset"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogCocoaTouchFoundation.framework/SystemColors-CopiedVerbatim/SystemColors-ios.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/Library/PrivateFrameworks/AssetCatalogFoundation_xrOS.framework/SystemColors-CopiedVerbatim/SystemColors-xros.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XROS.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XROS.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets/MessagesApplicationStub.appiconset",
+      "suffix": ".appiconset"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Xcode/Templates/Project Templates/xrOS/Application/App.xctemplate/Images.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Xcode/Templates/Project Templates/xrOS/Application/App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Xcode/Templates/Project Templates/xrOS/Application/App.xctemplate/secondarySceneType/Metal/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Xcode/Templates/Project Templates/xrOS/Application Extension/Media Device Discovery Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Xcode/Templates/Project Templates/watchOS/Application/watchOS SwiftUI App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Xcode/Templates/Project Templates/watchOS/Application/watchOS App Base.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Xcode/Templates/Project Templates/watchOS/Application Extension/Widget Extension.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Application Support/MessagesApplicationStub/MessagesApplicationStub.xcassets/MessagesApplicationStub.appiconset",
+      "suffix": ".appiconset"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/Safari Extension App.xctemplate/Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/iMessage App.xctemplate/Images.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/iOS SwiftUI App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    },
+    {
+      "path": "/Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/iOS/Application/iOS SwiftUI Document-Based App.xctemplate/Preview Assets.xcassets",
+      "suffix": ".xcassets"
+    }
+  ]
+}

@@ -314,7 +314,7 @@ Ordinary layer records and `.imagestack` compilation are Apple verified; aggrega
 - CoreUI retains palette-img decoder/capability strings.
 - 24 generated indexed-PNG probes selected deepmap2.
 - 300 System Library CARs + 300 Applications/Xcode CARs scanned: zero palette-img hits.
-- Writer remains fixture-gated.
+- Later work added an explicit clean-room palette-img parser/writer from public quantized-image grammar and Apple consumer verification across Xcode 15.0–16.2 plus a current-host assetutil check. What remains unresolved is Apple actool's historical automatic selection heuristic.
 
 Evidence: `palette-fixture-scan.json`, `palette-fixture-apps.json`.
 

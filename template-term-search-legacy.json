@@ -1,0 +1,761 @@
+{
+  "roots": [
+    "/Applications/Xcode_16.1.app",
+    "/Applications/Xcode_16.2.app",
+    "/Applications/Xcode_15.1.app",
+    "/Applications/Xcode_15.0.app",
+    "/Applications/Xcode.app",
+    "/Applications/Xcode_15.2.app",
+    "/Applications/Xcode_15.3.app",
+    "/Applications/Xcode_15.4.app",
+    "/Applications/Xcode_15.1.0.app",
+    "/Applications/Xcode_16.2.0.app",
+    "/Applications/Xcode_15.3.0.app",
+    "/Applications/Xcode_15.4.0.app",
+    "/Applications/Xcode_15.2.0.app",
+    "/Applications/Xcode_16.1.0.app",
+    "/Applications/Xcode_15.0.1.app"
+  ],
+  "counts": {
+    "quickLook": 21,
+    "notificationCenter": 58,
+    "graphicCircular": 2,
+    "longLook": 2,
+    "parallax": 47,
+    "imagestack": 2
+  },
+  "rows": [
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/en.lproj/Localizable.strings",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/PlugIns/IDEPegasusSourceEditor.framework/Versions/A/Resources/Completions-top-C.plist",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/SharedFrameworks/DNTDocumentationSupport.framework/Versions/A/Resources/external/0.txt",
+      "hits": [
+        "graphicCircular",
+        "notificationCenter",
+        "quickLook",
+        "longLook",
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/SharedFrameworks/DNTDocumentationSupport.framework/Versions/A/Resources/external/1.txt",
+      "hits": [
+        "notificationCenter",
+        "quickLook",
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/SharedFrameworks/SourceEditor.framework/Versions/A/Resources/PopularSwiftCompletions-New.json",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/migrator/macos4.json",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/NotificationCenter.framework/Headers/NCWidgetProviding.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/ARKit.framework/Headers/AREnvironmentProbeAnchor.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/TVUIKit.framework/Headers/TVCollectionViewFullScreenLayout.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/TVUIKit.framework/Headers/TVCollectionViewFullScreenCell.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework/Versions/A/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework/Versions/A/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/SceneKit.framework/Versions/A/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/UserNotifications.framework/Versions/A/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/InstantMessage.framework/Versions/A/Headers/IMService.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSDistributedNotificationCenter.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSResponder.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSWorkspace.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSTextView.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreMedia.framework/Versions/A/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/SpriteKit.framework/Versions/A/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/iOSSupport/System/Library/Frameworks/SceneKit.framework/Versions/A/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/iOSSupport/System/Library/Frameworks/SpriteKit.framework/Versions/A/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/iOSSupport/System/Library/Frameworks/ARKit.framework/Versions/A/Headers/AREnvironmentProbeAnchor.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Xcode/Templates/Project Templates/visionOS/Application/Immersive Environment App.xctemplate/TemplateInfo.plist",
+      "hits": [
+        "imagestack"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/Library/Xcode/Templates/Project Templates/visionOS/Application/App.xctemplate/TemplateInfo.plist",
+      "hits": [
+        "imagestack"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/SDKs/XROS.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/SDKs/XROS.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/SDKs/XROS.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/SDKs/XROS.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/SDKs/XROS.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/XROS.platform/Developer/SDKs/XROS.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/NotificationCenter.framework/Headers/NCWidgetProviding.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/ARKit.framework/Headers/AREnvironmentProbeAnchor.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/TVUIKit.framework/Headers/TVCollectionViewFullScreenLayout.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/TVUIKit.framework/Headers/TVCollectionViewFullScreenCell.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.1.app/Contents/Developer/Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/en.lproj/Localizable.strings",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/PlugIns/IDEPegasusSourceEditor.framework/Versions/A/Resources/Completions-top-C.plist",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/SharedFrameworks/DNTDocumentationSupport.framework/Versions/A/Resources/external/0.txt",
+      "hits": [
+        "graphicCircular",
+        "notificationCenter",
+        "quickLook",
+        "longLook",
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/SharedFrameworks/DNTDocumentationSupport.framework/Versions/A/Resources/external/1.txt",
+      "hits": [
+        "notificationCenter",
+        "quickLook",
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/SharedFrameworks/SourceEditor.framework/Versions/A/Resources/PopularSwiftCompletions-New.json",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/migrator/macos4.json",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/NotificationCenter.framework/Headers/NCWidgetProviding.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SKTileMapNode.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/ARKit.framework/Headers/AREnvironmentProbeAnchor.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTNSNotificationExpectation.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/SceneKit.framework/Headers/SCNLight.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNNotificationSettings.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/TVUIKit.framework/Headers/TVCollectionViewFullScreenLayout.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/TVUIKit.framework/Headers/TVCollectionViewFullScreenCell.h",
+      "hits": [
+        "parallax"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSNotificationQueue.h",
+      "hits": [
+        "notificationCenter"
+      ]
+    },
+    {
+      "path": "/Applications/Xcode_16.2.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator.sdk/System/Library/Frameworks/CoreServices.framework/Headers/UTCoreTypes.h",
+      "hits": [
+        "quickLook"
+      ]
+    }
+  ]
+}
