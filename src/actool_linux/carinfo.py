@@ -10,6 +10,7 @@ from .car import CARFile
 from .atlas import parse_atlas_link, parse_atlas_name_list, parse_atlas_trim
 from .paletteimg import decode_quantized_image_payload, parse_theme_pixel_rendition
 from .solidstack import parse_solidimagestack_layer_list, parse_solidimagestack_layer_flags, parse_solidimagestack_layer_reserved
+from .texture import parse_texture_auxiliary_flag, parse_texture_reference_payload
 
 
 def _decoded_tlvs(rendition) -> list[dict[str, object]]:
@@ -62,6 +63,9 @@ def _decoded_tlvs(rendition) -> list[dict[str, object]]:
             elif tlv.tag == 1021:
                 reserved = parse_solidimagestack_layer_reserved(tlv.value)
                 item["solid_image_stack_reserved"] = [entry.raw.hex() for entry in reserved.entries]
+            elif tlv.tag == 1014:
+                aux = parse_texture_auxiliary_flag(tlv.value)
+                item["texture_auxiliary_flag"] = {"values": list(aux.values), "raw_hex": aux.raw.hex()}
         except Exception as exc:
             item["decode_error"] = str(exc)
         rows.append(item)
@@ -69,6 +73,20 @@ def _decoded_tlvs(rendition) -> list[dict[str, object]]:
 
 
 def _decoded_payload(rendition) -> dict[str, object] | None:
+    if rendition.csi.rendition_data[:4] == b'RTXT':
+        try:
+            ref = parse_texture_reference_payload(rendition.csi.rendition_data)
+            return {
+                'texture_reference': {
+                    'payload_value': ref.payload_value,
+                    'u32_2': ref.u32_2,
+                    'u32_3': ref.u32_3,
+                    'u32_4': ref.u32_4,
+                    'key_pairs': list(ref.key_pairs),
+                }
+            }
+        except Exception as exc:
+            return {'texture_reference_error': str(exc)}
     try:
         wrapper = parse_theme_pixel_rendition(rendition.csi.rendition_data)
     except Exception:

@@ -289,6 +289,8 @@ Those TLVs are now parser-decoded in the clean-room implementation:
 - `1020`: per-layer 13-byte flag blocks
 - `1021`: per-layer 20-byte reserved blocks
 
+The same oracle also exposes additional texture-oriented payloads around layouts `1007` and `1008`. The clean-room parser now decodes the observed `RTXT` wrapper plus TLV 1014 auxiliary flag blocks as well.
+
 This is the first direct public-source oracle for a solid image stack aggregate path, and it is no longer opaque to the parser.
 
 #### `interesting-car-scan-current.json` / `interesting-car-scan-legacy.json` / `interesting-car-scan-legacy-320.json`
