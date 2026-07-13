@@ -3,6 +3,9 @@ name: Manual SSH Debug Only
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 
 jobs:
   ssh-only:
