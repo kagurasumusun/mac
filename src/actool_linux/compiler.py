@@ -7,7 +7,7 @@ import plistlib
 
 from .carwriter import (
     app_icon_renditions, build_assets_car, color_rendition, data_rendition,
-    heif_rendition, jpeg_rendition, png_rendition, resize_png, svg_renditions, symbol_rendition, png_dimensions,
+    heif_rendition, jpeg_rendition, layered_image_renditions, png_rendition, resize_png, svg_renditions, symbol_rendition, png_dimensions,
 )
 from .model import Catalog, Diagnostic, load_catalog
 from .appicons import app_icon_sidecar_specs
@@ -113,6 +113,8 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
         asset.kind == "launch-image" and asset.name == options.launch_image
         for catalog in catalogs for asset in catalog.assets
     )
+    if (options.platform or "").lower() in ("appletvos","appletvsimulator","xros","xrsimulator") and options.filter_for_device_model and options.filter_for_device_os_version:
+        diagnostics.append(Diagnostic("notice", f"Could not get trait set for device {options.filter_for_device_model} with version {options.filter_for_device_os_version}"))
 
     deferred_partial_info: Path | None = None
     if not any(item.severity == "error" for item in diagnostics):
@@ -144,6 +146,29 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
             return result
 
         for asset in assets:
+            if asset.kind == "image-stack":
+                layer_bytes: list[bytes] = []
+                stack_scale = 1
+                for layer_ref in asset.entries:
+                    dirname = layer_ref.get("filename")
+                    if not isinstance(dirname, str): continue
+                    layer_dir = asset.directory / dirname
+                    layer_asset = next((candidate for candidate in assets if candidate.kind == "image-stack-layer" and candidate.directory == layer_dir), None)
+                    if layer_asset is None: continue
+                    selected = next((entry for entry in layer_asset.entries if isinstance(entry.get("filename"), str) and (layer_dir / str(entry["filename"])).is_file()), None)
+                    if selected is None: continue
+                    scale_text = str(selected.get("scale", "1x"))
+                    if scale_text in ("1x", "2x", "3x"): stack_scale = int(scale_text[0])
+                    layer_bytes.append((layer_dir / str(selected["filename"])).read_bytes())
+                if layer_bytes:
+                    platform = (options.platform or "appletvos").lower()
+                    idiom = "vision" if platform in ("xros", "xrsimulator", "visionos") else "tv"
+                    try: renditions.extend(layered_image_renditions(asset.name, layer_bytes, idiom=idiom, scale=stack_scale))
+                    except ValueError as exc: diagnostics.append(Diagnostic("error", f"invalid image stack: {exc}", asset.directory))
+                continue
+            if asset.kind in ("image-stack-layer", "brand-assets"):
+                continue
+
             # Real AppIcon catalogs commonly contain many legacy sizes.  Select
             # the largest dimension-applicable source (normally the modern
             # 1024x1024 marketing slot) instead of whichever entry appears first.

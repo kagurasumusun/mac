@@ -5,8 +5,9 @@ Records raw bytes (base64), hashes, parsed XML plists, normalized paths, exit co
 and ordering.  Work is parallel and each process has a hard timeout.
 """
 from __future__ import annotations
-import argparse,base64,concurrent.futures,hashlib,json,os,plistlib,subprocess,tempfile
+import argparse,base64,concurrent.futures,hashlib,json,os,plistlib,shlex,subprocess,tempfile
 from pathlib import Path
+ACTOOL=shlex.split(os.environ.get("ACTOOL_COMMAND","xcrun actool"))
 PLATFORMS={"macosx":"13.0","iphoneos":"15.0","iphonesimulator":"15.0","appletvos":"15.0","appletvsimulator":"15.0","watchos":"8.0","watchsimulator":"8.0","xros":"1.0","xrsimulator":"1.0"}
 def replace(x,old):
  if isinstance(x,str):return x.replace(old,"<ROOT>")
@@ -21,12 +22,12 @@ def execute(job):
  except Exception:parsed=normalized=None
  return {"xcode_app":str(app),"case":name,"command":command,"exit_code":rc,"timeout":timeout,"stdout_b64":base64.b64encode(out).decode(),"stderr_b64":base64.b64encode(err).decode(),"stdout_sha256":hashlib.sha256(out).hexdigest(),"stderr_sha256":hashlib.sha256(err).hexdigest(),"parsed":parsed,"normalized":normalized}
 def main():
- ap=argparse.ArgumentParser();ap.add_argument("--output",type=Path,default=Path("option-cross-product.json"));ap.add_argument("--workers",type=int,default=8);ns=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument("--output",type=Path,default=Path("option-cross-product.json"));ap.add_argument("--workers",type=int,default=8);ap.add_argument("--xcode-app",action="append",type=Path);ns=ap.parse_args()
  with tempfile.TemporaryDirectory(prefix="actool-options-") as td:
   root=Path(td);empty=root/"Empty.xcassets";empty.mkdir();out=root/"out";out.mkdir();missing=root/"missing.xcassets"
-  apps=sorted(Path("/Applications").glob("Xcode*.app"));jobs=[]
+  apps=ns.xcode_app or sorted(Path("/Applications").glob("Xcode*.app"));jobs=[]
   for app in apps:
-   base=["xcrun","actool"]
+   base=list(ACTOOL)
    fixed={
     "unknown-option":base+["--arena-invalid-option"],
     "no-input":base+["--compile",str(out),"--output-format","xml1"],

@@ -135,6 +135,18 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(info["CFBundleIcons"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"], ["AppIcon60x60"])
             self.assertEqual(info["CFBundleIcons~ipad"]["CFBundlePrimaryIcon"]["CFBundleIconFiles"], ["AppIcon60x60", "AppIcon76x76"])
 
+    def test_compiles_tv_image_stack_catalog(self):
+        png=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/"Assets.xcassets";stack=root/"Hero.imagestack";front=stack/"Front.imagestacklayer";back=stack/"Back.imagestacklayer"
+            front.mkdir(parents=True);back.mkdir();
+            (stack/"Contents.json").write_text(json.dumps({"layers":[{"filename":"Front.imagestacklayer"},{"filename":"Back.imagestacklayer"}],"info":{"author":"xcode","version":1}}))
+            for d,n in ((front,"front.png"),(back,"back.png")):
+                (d/n).write_bytes(png);(d/"Contents.json").write_text(json.dumps({"images":[{"idiom":"tv","scale":"1x","filename":n}],"info":{"author":"xcode","version":1}}))
+            output=Path(tmp)/"out";result=compile_catalogs([root],CompileOptions(output,platform="appletvos",minimum_deployment_target="15.0"))
+            self.assertTrue(result.ok,[d.render() for d in result.diagnostics]);car=CARFile(BOMStore.from_path(output/"Assets.car"))
+            self.assertEqual(len(car.renditions),2);self.assertEqual(sorted(r.key["kCRThemeLayerName"] for r in car.renditions),[1,2]);self.assertTrue(all(r.key["kCRThemeIdiomName"]==3 for r in car.renditions))
+
     def test_compiles_launch_image_sidecar(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / "Assets.xcassets"; item = root / "Launch.launchimage"

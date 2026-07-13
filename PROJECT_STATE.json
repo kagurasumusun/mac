@@ -1,7 +1,7 @@
 {
   "updated": "2026-07-13",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 81,
+  "test_count": 82,
   "test_status": "OK, full optional dependencies installed, no skips",
   "storage_versions": [
     15,
@@ -123,7 +123,7 @@
     }
   },
   "minimal_environment_test_status": "OK, 6 optional-dependency skips",
-  "full_optional_environment_test_status": "81 OK, no skips",
+  "full_optional_environment_test_status": "82 OK, no skips",
   "byte_identical_diagnostics_verified": [
     {
       "case": "compile no input with platform/target",
@@ -235,5 +235,42 @@
     "pass": 9,
     "compression": "deepmap2 for all",
     "conclusion": "ordinary image CBCK is not selected at tested 0x155555 row boundaries"
+  },
+  "option_cross_product_xcode26_5": {
+    "rows": 94,
+    "normalized_plist_matches": 94,
+    "exit_code_matches": 94,
+    "apple_stderr_nonempty": 0,
+    "platforms": 9
+  },
+  "option_cross_product_all_unique": {
+    "xcode_releases": [
+      "26.0.1",
+      "26.1.1",
+      "26.2",
+      "26.3",
+      "26.4.1",
+      "26.5",
+      "26.6"
+    ],
+    "rows": 658,
+    "contracts_accounted_after_retry": 658,
+    "apple_stderr_nonempty": 0
+  },
+  "image_stack_catalog": {
+    "implemented": true,
+    "apple_assetutil_verified": true,
+    "evidence": "image-stack-info.json",
+    "remaining": "brand/Top Shelf aggregate compositor records"
+  },
+  "cbck_threshold_all_unique": {
+    "rows": 63,
+    "compatible_pass": 45,
+    "all_compatible_compression": "deepmap2",
+    "environment_blocked": 18,
+    "blocked_releases": [
+      "26.0.1",
+      "26.1.1"
+    ]
   }
 }

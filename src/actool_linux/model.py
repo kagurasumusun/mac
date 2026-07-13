@@ -44,6 +44,7 @@ KNOWN_SUFFIXES = {
     ".brandassets": "brand-assets",
     ".dataset": "data",
     ".imagestack": "image-stack",
+    ".imagestacklayer": "image-stack-layer",
     ".stickerpack": "sticker-pack",
 }
 
@@ -74,7 +75,7 @@ def load_catalog(path: Path) -> Catalog:
         info = raw.get("info")
         if not isinstance(info, dict) or "version" not in info or "author" not in info:
             diagnostics.append(Diagnostic("warning", "Contents.json has no complete info dictionary", contents))
-        entries_key = {"color": "colors", "data": "data", "symbol": "symbols"}.get(kind, "images")
+        entries_key = {"color": "colors", "data": "data", "symbol": "symbols", "image-stack": "layers", "brand-assets": "assets"}.get(kind, "images")
         entries = raw.get(entries_key, [])
         if not isinstance(entries, list):
             diagnostics.append(Diagnostic("error", f"'{entries_key}' must be an array", contents))
@@ -86,7 +87,7 @@ def load_catalog(path: Path) -> Catalog:
                 continue
             valid_entries.append(entry)
             filename = entry.get("filename")
-            if isinstance(filename, str) and not (directory / filename).is_file():
+            if isinstance(filename, str) and not (directory / filename).exists():
                 diagnostics.append(Diagnostic("warning", f"referenced file is missing: {filename}", contents))
         assets.append(Asset(path, directory, kind, directory.stem, raw, valid_entries))
     return Catalog(path, assets, diagnostics)

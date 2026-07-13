@@ -90,3 +90,14 @@ The earlier checklist above is historical; current authoritative status is `PROJ
 ## All-12 Simulator runtime verification
 
 All 12 installed non-macOS runtimes pass build, install, launch, named-CAR materialization and screenshot. iOS/tvOS use explicit UIImage lookup logs; watchOS/visionOS use retained screenshot color evidence. See `runtime-consumer-matrix-verified.json`.
+
+## Option cross-product
+
+Xcode 26.5: 94 cases, 94 normalized plist matches, 94 exit-code matches, zero Apple stderr streams. Nine device/simulator platform names are covered.
+
+## Seven-Xcode option and image-stack verification
+
+- Seven Xcode 26 releases × 94 cases = 658 contracts; all matched after retrying one transient timeout.
+- tvOS `.imagestack` compiler integration: Apple assetutil accepted two layers.
+- CBCK ordinary-image boundary: 45/45 compatible rows deepmap2; 18 old-SDK rows environment gated.
+- Local suite: 82 tests, OK.

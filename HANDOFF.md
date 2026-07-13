@@ -294,3 +294,11 @@ Current session: `VtnenbVcaWmY2Jd5MyHJ`. Schema-3 diagnostics are now 18/18 byte
 ## All-12 runtime milestone
 
 `runtime-consumer-matrix-verified.json` is authoritative: all iOS/tvOS/watchOS/visionOS 26.2, 26.4/26.4.1 and 26.5 rows pass build/install/launch/materialization/screenshot/cleanup. UIKit rows contain `ACTOOL_RUNTIME_PASS 64 64`; watch/vision screenshots contain the expected cyan CAR asset and are retained under `runtime-screenshots-verified/`. Modern watch packaging requires `WKApplication`, not obsolete `WKWatchKitApp`.
+
+## Option cross-product milestone
+
+`option-cross-26.5.json` contains 94 Xcode 26.5 cases across nine platforms. actool-linux matches 94/94 normalized plists and exit codes. Valueless diagnostic/compression switches, interspersed positional inputs, mixed existing/missing compilation-results, and incompatible tvOS/visionOS device-filter notices are implemented.
+
+## Seven-Xcode and image-stack milestone
+
+`option-cross-all-unique.json` covers 658 cases across Xcode 26.0.1-26.6; all contracts are accounted for after one isolated timeout retry. `.imagestack`/`.imagestacklayer` traversal is compiler-integrated and Apple tvOS assetutil verified (`image-stack-info.json`). The 63-row CBCK boundary matrix has 45 compatible deepmap2 passes; 18 Xcode 26.0/26.1 rows are runtime-build gated.

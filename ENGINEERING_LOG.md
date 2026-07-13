@@ -487,3 +487,35 @@ Every row completed build, device creation, boot, install, launch, screenshot, s
 A transient tvOS 26.2 install timeout was retried in isolation and passed in 41.74 seconds. Evidence is merged in `runtime-consumer-matrix-verified.json`; six watch/vision screenshots are in `runtime-screenshots-verified/`.
 
 This completes the installed 12-runtime consumer/materialization matrix. It does not by itself complete SpringBoard/Home/Dock icon-compositor comparisons.
+
+## 2026-07-13 — Xcode 26.5 option/platform cross-product 94/94
+
+Ran 94 Apple actool cases: four fixed diagnostics plus ten option variants across macOS, iOS device/simulator, tvOS device/simulator, watchOS device/simulator, and visionOS device/simulator. Apple result: 92 exit 0, two expected exit 1; all 94 stderr streams were empty.
+
+Observed and implemented grammar/policy details:
+
+- `--warnings`, `--errors`, `--notices`, and `--compress-pngs` are valueless switches; a following `no` is a positional input path.
+- Relative input paths are normalized to absolute paths and duplicate positional paths are coalesced.
+- Compilation-results remains present when at least one supplied input exists, even if another input is missing.
+- Incompatible iPhone model filters on tvOS/visionOS emit `Could not get trait set for device iPhone18,1 with version 26.5`.
+- Interspersed positional tokens left by option parsing are inputs, not unknown arguments.
+
+Replayed the identical 94 commands against actool-linux. After normalizing the host working-directory prefix, all 94 parsed plists and all 94 exit codes match Xcode 26.5. Evidence: `option-cross-26.5.json`. Full suite remains 81 tests, OK.
+
+## 2026-07-13 — Seven-Xcode option matrix, image-stack catalog integration, CBCK generation matrix
+
+### Option generations
+
+Ran 94 cases on each distinct installed Xcode 26 release: 26.0.1, 26.1.1, 26.2, 26.3, 26.4.1, 26.5, and 26.6 (658 rows). Excluding each release's version row, actool-linux matched 650/651 on the first parallel pass; the only mismatch was a timed-out Xcode 26.1.1 unknown-option process whose captured plist was already correct. Isolated retry exited 1 and had the exact common SHA-256 `e9a0dc...a098`. Version rows are independently byte-identical for all seven releases. Therefore all 658 contracts are accounted for after retry. Every Apple stderr stream was empty.
+
+Evidence: `option-cross-all-unique.json` and `xcode-version-extended.json`.
+
+### Real `.imagestack` compiler integration
+
+Added `.imagestacklayer` discovery, `layers`/`assets` entry schemas, directory-reference validation, nested layer image selection, and tvOS/visionOS layered-rendition compiler integration. A synthetic real directory hierarchy compiled to a two-layer CAR. Apple tvOS `assetutil` accepted it and reported `Hero`, tv idiom, layers 1/2, both deepmap2. Evidence: `image-stack-info.json`. Unit suite: 82 tests, OK.
+
+This implements ordinary stack/layer catalog traversal. Top Shelf/brand aggregate compositor records remain separate work.
+
+### CBCK across Xcode generations
+
+Ran nine ordinary-image raw-boundary cases for seven Xcode releases (63 rows). Xcode 26.2, 26.3, 26.4.1, 26.5 and 26.6 passed all 45 compatible builds and selected deepmap2/ARGB in every row. Xcode 26.0.1 and 26.1.1 rejected all 18 before compilation because this host has no runtime matching their iPhone SDK build (`23A339` versus installed 23C/23E/23F runtimes). These are environment-gated, not codec decisions. No tested ordinary image selected CBCK. Evidence: `cbck-threshold-all-unique.json`.
