@@ -118,6 +118,7 @@ The explicit `depth` / `dimension2` handling for `.imagestack` vision/xros paths
 - `template-term-search-legacy.json`
 - `xros-template-assetgeneration.json`
 - `template-assetgeneration-summary.json`
+- `template-assetgeneration-types.json`
 - `interesting-car-scan-current.json`
 - `interesting-car-scan-legacy.json`
 - `interesting-car-scan-legacy-320.json`
@@ -262,6 +263,16 @@ The resource/template text search did not reveal real `.brandassets` or `.compli
   - `com.apple.tv-top-shelf`
 
 These are the current best observable template-side leads for future aggregate AppIcon / Top Shelf generation work, even though they are still not byte-level output fixtures.
+
+#### `template-assetgeneration-types.json`
+A cross-Xcode extraction of public `AssetGeneration` metadata on the active modern host currently shows only these generation types:
+
+- `appicon`
+- `tvappicon`
+- `solidimagestack`
+- `stickersicon`
+
+No explicit `brandassets` or `complicationset` AssetGeneration type was found in the scanned public TemplateInfo metadata, which further narrows where private aggregate generation is likely happening.
 
 #### `interesting-car-scan-current.json` / `interesting-car-scan-legacy.json` / `interesting-car-scan-legacy-320.json`
 Installed CAR scans for candidate aggregate fixtures show:

@@ -477,7 +477,8 @@
       "template-term-search-current.json",
       "template-term-search-legacy.json",
       "xros-template-assetgeneration.json",
-      "template-assetgeneration-summary.json"
+      "template-assetgeneration-summary.json",
+      "template-assetgeneration-types.json"
     ],
     "xros_asset_generation": "solidimagestack AppIcon observed in visionOS app templates",
     "additional_solidimagestack_templates": [
@@ -487,6 +488,12 @@
       "Compositor Services"
     ],
     "tv_top_shelf_extension_identifier": "com.apple.tv-top-shelf",
+    "public_asset_generation_types": [
+      "appicon",
+      "tvappicon",
+      "solidimagestack",
+      "stickersicon"
+    ],
     "brandassets_or_complicationset_templates_found": false
   },
   "interesting_car_scan": {
