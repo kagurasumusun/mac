@@ -121,6 +121,9 @@ The explicit `depth` / `dimension2` handling for `.imagestack` vision/xros paths
 - `interesting-car-scan-current.json`
 - `interesting-car-scan-legacy.json`
 - `interesting-car-scan-legacy-320.json`
+- `xcode-source-oracle-263.json`
+- `xcode-source-oracle-164.json`
+- `atlas-source-oracle-compare.json`
 
 ### What these verify
 
@@ -267,6 +270,23 @@ Installed CAR scans for candidate aggregate fixtures show:
 - no watch complication keyed candidates in the scanned sets
 - no vision layer/depth keyed aggregate candidates in the scanned sets
 - current-host Top Shelf name hits were symbol/glyph resources rather than aggregate brandassets output
+
+#### `xcode-source-oracle-263.json` / `xcode-source-oracle-164.json`
+Public Xcode-bundled source catalogs were compiled with Apple actool and inspected with the local parser. This produced a reusable public packed-atlas oracle: multiple SpriteKit Particle File template asset catalogs compile into CARs containing layouts `1005`, `1004`, and `1003`.
+
+#### `atlas-source-oracle-compare.json`
+A focused compare on `SpriteKit Particle File.xctemplate/Smoke/Assets.xcassets` shows a concrete Apple-vs-clean-room atlas difference:
+
+- Apple emits an extra layout `1005` metadata rendition
+- Apple names the packed page `ZZZZExplicitlyPackedAsset-1.0.0-gamut0`
+- Apple places/pads linked images at `(2,2,64,64)` and `(68,2,63,64)`
+- Apple uses a distinct explicit `KLNI` tail variant with token pairs:
+  - `(1,9)`
+  - `(2,181)`
+  - `(12,1)`
+  - `(17,28258)`
+
+The parser now supports this explicit packed-asset link encoding in addition to the previously observed generic token-list form.
 
 ## Test status
 

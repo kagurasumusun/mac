@@ -18,38 +18,69 @@ class AtlasLink:
     width: int
     height: int
     tokens: tuple[AtlasKeyToken, ...]
+    variant: str = "generic"
+    header_u16: int = 0
+    header_u32: int = 0
 
 
 def parse_atlas_link(raw: bytes) -> AtlasLink:
-    """Parse CoreUI TLV 1010 (INLK), rejecting malformed token streams."""
+    """Parse CoreUI TLV 1010 (INLK), supporting both observed public variants."""
     if len(raw) < 26 or raw[:4] != b"KLNI":
         raise ValueError("invalid atlas link magic or truncated header")
     version, x, y, width, height = struct.unpack_from("<5I", raw, 4)
     if version != 0 or not width or not height:
         raise ValueError("unsupported atlas link header")
-    if raw[24:26] != b"\0\0" or (len(raw) - 26) % 4:
-        raise ValueError("invalid atlas token alignment")
     tokens = []
-    for off in range(26, len(raw), 4):
+    if raw[24:26] == b"\0\0":
+        if (len(raw) - 26) % 4:
+            raise ValueError("invalid atlas token alignment")
+        for off in range(26, len(raw), 4):
+            attribute, value = struct.unpack_from("<2H", raw, off)
+            if attribute == value == 0:
+                break
+            if attribute > 27:
+                raise ValueError("atlas token attribute is out of range")
+            tokens.append(AtlasKeyToken(attribute, value))
+        else:
+            raise ValueError("atlas token list has no terminator")
+        return AtlasLink(x, y, width, height, tuple(tokens))
+    if len(raw) < 34 or (len(raw) - 30) % 4:
+        raise ValueError("invalid atlas token alignment")
+    header_u16 = struct.unpack_from("<H", raw, 24)[0]
+    header_u32 = struct.unpack_from("<I", raw, 26)[0]
+    for off in range(30, len(raw), 4):
         attribute, value = struct.unpack_from("<2H", raw, off)
-        if attribute == value == 0: break
-        if attribute > 27: raise ValueError("atlas token attribute is out of range")
+        if attribute == value == 0:
+            break
+        if attribute > 27:
+            raise ValueError("atlas token attribute is out of range")
         tokens.append(AtlasKeyToken(attribute, value))
     else:
         raise ValueError("atlas token list has no terminator")
-    return AtlasLink(x, y, width, height, tuple(tokens))
+    return AtlasLink(x, y, width, height, tuple(tokens), variant="explicit", header_u16=header_u16, header_u32=header_u32)
 
 
 def build_atlas_link(link: AtlasLink) -> bytes:
     if min(link.x, link.y) < 0 or not 0 < link.width <= 65535 or not 0 < link.height <= 65535:
         raise ValueError("invalid atlas rectangle")
-    out = bytearray(b"KLNI" + struct.pack("<5I", 0, link.x, link.y, link.width, link.height) + b"\0\0")
-    for token in link.tokens:
-        if not 0 < token.attribute <= 27 or not 0 <= token.value <= 65535:
-            raise ValueError("invalid atlas key token")
-        out += struct.pack("<2H", token.attribute, token.value)
-    out += b"\0\0\0\0"
-    return bytes(out)
+    out = bytearray(b"KLNI" + struct.pack("<5I", 0, link.x, link.y, link.width, link.height))
+    if link.variant == "generic":
+        out += b"\0\0"
+        for token in link.tokens:
+            if not 0 < token.attribute <= 27 or not 0 <= token.value <= 65535:
+                raise ValueError("invalid atlas key token")
+            out += struct.pack("<2H", token.attribute, token.value)
+        out += b"\0\0\0\0"
+        return bytes(out)
+    if link.variant == "explicit":
+        out += struct.pack("<HI", link.header_u16, link.header_u32)
+        for token in link.tokens:
+            if not 0 < token.attribute <= 27 or not 0 <= token.value <= 65535:
+                raise ValueError("invalid atlas key token")
+            out += struct.pack("<2H", token.attribute, token.value)
+        out += b"\0\0\0\0"
+        return bytes(out)
+    raise ValueError(f"unsupported atlas link variant: {link.variant}")
 
 
 def _linked_csi(filename: str, link: AtlasLink, scale: int) -> bytes:

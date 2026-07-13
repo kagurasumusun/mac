@@ -498,5 +498,16 @@
     "current_layout1002_hits": 0,
     "legacy_layout1002_hits": 0,
     "note": "current top-shelf string hits were symbol/glyph names, not aggregate fixtures"
+  },
+  "atlas_source_oracle": {
+    "xcode_26_3_sampled": 60,
+    "xcode_16_4_sampled": 60,
+    "packed_hits_each": 11,
+    "source_fixture_example": "SpriteKit Particle File.xctemplate/Smoke/Assets.xcassets",
+    "evidence": [
+      "xcode-source-oracle-263.json",
+      "xcode-source-oracle-164.json",
+      "atlas-source-oracle-compare.json"
+    ]
   }
 }

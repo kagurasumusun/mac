@@ -13,7 +13,17 @@ class AtlasTests(unittest.TestCase):
         link=parse_atlas_link(raw)
         self.assertEqual((link.x,link.y,link.width,link.height),(162,2,13,15))
         self.assertEqual(link.tokens,(AtlasKeyToken(24,0),AtlasKeyToken(1,9),AtlasKeyToken(2,181),AtlasKeyToken(8,604),AtlasKeyToken(12,1),AtlasKeyToken(25,5)))
+        self.assertEqual(link.variant, "generic")
         self.assertEqual(build_atlas_link(link),raw)
+
+    def test_explicit_packed_asset_link_roundtrip(self):
+        raw = bytes.fromhex("4b4c4e4900000000020000000200000040000000400000000c0014000000010009000200b5000c0001001100626e00000000")
+        link = parse_atlas_link(raw)
+        self.assertEqual((link.x, link.y, link.width, link.height), (2, 2, 64, 64))
+        self.assertEqual(link.variant, "explicit")
+        self.assertEqual((link.header_u16, link.header_u32), (12, 20))
+        self.assertEqual(link.tokens, (AtlasKeyToken(1, 9), AtlasKeyToken(2, 181), AtlasKeyToken(12, 1), AtlasKeyToken(17, 28258)))
+        self.assertEqual(build_atlas_link(link), raw)
 
     def test_builds_linked_atlas_car(self):
         car=CARFile(BOMStore(build_packed_atlas_car({"One":P1,"Two":P2})))
