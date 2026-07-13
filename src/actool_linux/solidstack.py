@@ -52,7 +52,6 @@ class SolidImageStackLayerReservedList:
     entries: tuple[SolidImageStackLayerReserved, ...]
 
 
-
 def parse_solidimagestack_layer_list(raw: bytes | bytearray | memoryview) -> SolidImageStackLayerList:
     data = bytes(raw)
     if len(data) < 8:
@@ -71,8 +70,7 @@ def parse_solidimagestack_layer_list(raw: bytes | bytearray | memoryview) -> Sol
             raise SolidImageStackError("solid image stack layer key payload is invalid")
         key_pairs = []
         for off in range(cursor, cursor + key_length, 4):
-            attribute, value = struct.unpack_from("<2H", data, off)
-            key_pairs.append((attribute, value))
+            key_pairs.append(struct.unpack_from("<2H", data, off))
         cursor += key_length
         layers.append(SolidImageStackLayerReference(
             origin_x, origin_y, reserved0, width, height, reserved1, opacity,
@@ -81,7 +79,6 @@ def parse_solidimagestack_layer_list(raw: bytes | bytearray | memoryview) -> Sol
     if cursor != len(data):
         raise SolidImageStackError("solid image stack layer list has trailing bytes")
     return SolidImageStackLayerList(tuple(layers))
-
 
 
 def parse_solidimagestack_layer_flags(raw: bytes | bytearray | memoryview) -> SolidImageStackLayerFlags:
@@ -101,7 +98,6 @@ def parse_solidimagestack_layer_flags(raw: bytes | bytearray | memoryview) -> So
     if cursor != len(data):
         raise SolidImageStackError("solid image stack layer flags have trailing bytes")
     return SolidImageStackLayerFlags(tuple(flags))
-
 
 
 def parse_solidimagestack_layer_reserved(raw: bytes | bytearray | memoryview) -> SolidImageStackLayerReservedList:
