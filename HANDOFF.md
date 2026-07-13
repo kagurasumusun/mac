@@ -310,3 +310,7 @@ Current session: `VtnenbVcaWmY2Jd5MyHJ`. Schema-3 diagnostics are now 18/18 byte
 ## Private compositor oracle attempt
 
 A controlled tvOS brand/Top-Shelf and visionOS stack oracle produced no CAR and no diagnostics under Xcode 26.5. Installed Xcode resources contain no source templates. Preserve `compositor-oracle.json` as a rejected hypothesis; do not claim private aggregate equality or invent records.
+
+## Corrupt diagnostic milestone
+
+Eight additional corrupt/malformed contracts are byte-identical on stdout and exit status. Corrupt PNG stderr has four dynamic Apple-agent lines; actool-linux matches the shape, not volatile timestamp/PID bytes. Apple leaves a malformed CAR; actool-linux deliberately emits a safe readable failure CAR. Focused exact stdout count: 30.

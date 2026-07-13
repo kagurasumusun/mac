@@ -132,6 +132,20 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
         app_icon_emitted: set[str] = set()
         known_idioms = {"universal","iphone","ipad","tv","watch","mac","vision","car","marketing"}
 
+        def color_component(components: dict[str, object], name: str, default: float = 0.0) -> float:
+            value = components.get(name)
+            if value is None: return default
+            if isinstance(value, int): return value / 255.0
+            if isinstance(value, float): return value
+            text = str(value).strip()
+            if not text: return default
+            if "." not in text and "e" not in text.lower():
+                try: return int(text, 0) / 255.0
+                except ValueError: pass
+            return float(text)
+
+        distill_failed = False
+
         def appearance_for(entry: dict[str, object]) -> str:
             result = "any"
             appearances = entry.get("appearances", [])
@@ -190,6 +204,9 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                             if actual != expected: continue
                         candidates.append((actual[0] * actual[1], source_png, filename))
                     except ValueError:
+                        # Syntactically invalid AppIcon size/source slots are
+                        # silently ignored; the partial plist is still emitted.
+                        app_icon_emitted.add(asset.name)
                         continue
                 if candidates:
                     _, source_png, filename = max(candidates, key=lambda row: row[0])
@@ -233,7 +250,9 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                         if color_space not in ("srgb", "display-p3"):
                             raise ValueError("only sRGB and Display P3 colors are enabled")
                         components = color["components"]
-                        values = [float(components[name]) for name in ("red", "green", "blue", "alpha")]
+                        if not isinstance(components, dict): raise ValueError("color components must be a dictionary")
+                        values = [color_component(components, name, 0.0) for name in ("red", "green", "blue")]
+                        values.append(color_component(components, "alpha", 1.0))
                         renditions.append(color_rendition(asset.name, *values, color_space=color_space,
                                                           idiom=idiom, appearance=appearance))
                         occupied_slots.add(slot)
@@ -281,7 +300,11 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                         continue
                     occupied_slots.add(slot)
                 except ValueError as exc:
-                    diagnostics.append(Diagnostic("error", f"asset encoder limitation: {exc}", asset.directory))
+                    if asset.kind == "image" and source.suffix.lower() == ".png":
+                        distill_failed = True
+                        diagnostics.append(Diagnostic("error", "Distill failed for unknown reasons."))
+                    else:
+                        diagnostics.append(Diagnostic("error", f"asset encoder limitation: {exc}", asset.directory))
 
         if options.app_icon and any(asset.kind == "app-icon" and asset.name == options.app_icon and asset.entries
                                     for asset in assets) and options.app_icon not in app_icon_emitted:
@@ -302,6 +325,13 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                                                    target=options.minimum_deployment_target or "13.0",
                                                    thinning_arguments=thinning_arguments))
             outputs.append(car_path)
+        if distill_failed:
+            # Apple leaves a structurally incomplete CAR on this failure path.
+            # Emit a safe readable failure CAR while preserving its observable
+            # output-file contract and nonzero exit status.
+            car_path = options.output / "Assets.car"
+            car_path.write_bytes(build_assets_car([data_rendition("__actool_distill_failure__", b"", "public.data")], platform=options.platform or "macosx", target=options.minimum_deployment_target or "13.0"))
+            if car_path not in outputs: outputs.append(car_path)
     if deferred_partial_info is not None:
         if missing_app_icon and missing_launch_image:
             outputs.insert(0, deferred_partial_info)

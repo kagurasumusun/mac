@@ -527,3 +527,19 @@ Added `tools/palette_fixture_scan.py`, a bounded parallel Apple `assetutil` scan
 ## 2026-07-13 — Compositor oracle boundary probe
 
 Added `tools/compositor_oracle_probe.py` and attempted controlled Xcode 26.5 tvOS brand-assets/Top-Shelf and visionOS stack builds using documented directory shapes and role strings. Apple actool exited 0 but emitted no CAR (tv emitted only the requested partial plist; vision emitted an empty compilation-results list). No diagnostics were produced. Search of installed Xcode resources found no source `.brandassets`/`.imagestack` templates to resolve the hidden schema. Therefore no private aggregate record was available to compare, and no fabricated “exact” record was added. This is an explicit rejected oracle, preserved in `compositor-oracle.json`.
+
+## 2026-07-13 — Corrupt payload diagnostics and stderr path
+
+Added an eight-case corrupt/malformed payload oracle. Implemented all observed stdout/exit contracts; fixed-root replay is 8/8 byte-identical:
+
+- corrupt and signature-only PNG: exit 1, Assets.car listed, `Distill failed for unknown reasons.`;
+- out-of-range integer color components accepted as byte values divided by 255;
+- missing RGB components default to zero;
+- arbitrary UTI accepted;
+- invalid UTF-8 Contents.json follows the existing invalid-JSON notice;
+- syntactically invalid AppIcon size/source silently yields only partial plist;
+- duplicate asset name across catalogs compiles deterministically.
+
+Apple's corrupt PNG path emits four dynamic `AssetCatalogSimulatorAgent ... CoreThemeDefinition: Unable to create image` stderr lines. actool-linux now reproduces that four-line shape with current timestamp/PID/thread and source URI. Exact stderr bytes are not claimed because Apple's own values vary per invocation. Apple left a structurally incomplete CAR referencing a missing block; the bounds-checked reader rejected it. actool-linux instead writes a safe readable failure CAR while preserving stdout and failure status.
+
+Focused byte-identical stdout contracts now total 30. Unit suite: 84 tests, OK. Evidence: `corrupt-diagnostic.json`, `apple-corrupt-output.car`, and color assetutil JSONs.

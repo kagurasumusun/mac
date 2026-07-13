@@ -70,6 +70,20 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual([facet.name for facet in car.facets], ["A", "LongName"])
             self.assertEqual(len(car.renditions), 2)
 
+    def test_corrupt_png_preserves_failed_distill_output_contract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/"Assets.xcassets";item=root/"Bad.imageset";item.mkdir(parents=True);(item/"bad.png").write_bytes(b"not png")
+            (item/"Contents.json").write_text(json.dumps({"images":[{"idiom":"universal","scale":"1x","filename":"bad.png"}],"info":{"author":"xcode","version":1}}))
+            output=Path(tmp)/"out";result=compile_catalogs([root],CompileOptions(output,platform="iphoneos",minimum_deployment_target="15.0"))
+            self.assertFalse(result.ok);self.assertEqual(result.diagnostics[0].message,"Distill failed for unknown reasons.");self.assertTrue((output/"Assets.car").is_file())
+            CARFile(BOMStore.from_path(output/"Assets.car"))
+
+    def test_missing_color_components_default_to_zero(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/"Assets.xcassets";item=root/"Bad.colorset";item.mkdir(parents=True)
+            (item/"Contents.json").write_text(json.dumps({"colors":[{"idiom":"universal","color":{"color-space":"srgb","components":{"red":"1","alpha":"1"}}}],"info":{"author":"xcode","version":1}}))
+            result=compile_catalogs([root],CompileOptions(Path(tmp)/"out",platform="iphoneos",minimum_deployment_target="15.0"));self.assertTrue(result.ok)
+
     def test_compiles_single_color_set_to_car(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / "Assets.xcassets"

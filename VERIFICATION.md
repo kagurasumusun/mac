@@ -101,3 +101,7 @@ Xcode 26.5: 94 cases, 94 normalized plist matches, 94 exit-code matches, zero Ap
 - tvOS `.imagestack` compiler integration: Apple assetutil accepted two layers.
 - CBCK ordinary-image boundary: 45/45 compatible rows deepmap2; 18 old-SDK rows environment gated.
 - Local suite: 82 tests, OK.
+
+## Corrupt payload matrix
+
+Eight Xcode 26.5 corrupt/malformed cases: 8/8 byte-identical stdout and exit codes. Dynamic stderr shape is reproduced for corrupt PNG. Integer color strings use byte/255 semantics; missing components default to zero.

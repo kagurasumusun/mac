@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "name": "corrupt-png",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/corrupt-png-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/corrupt-png.xcassets"
+      ],
+      "exit_code": 1,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L2NvcnJ1cHQtcG5nLW91dC9Bc3NldHMuY2FyPC9zdHJpbmc+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5lcnJvcnM8L2tleT4KCTxhcnJheT4KCQk8ZGljdD4KCQkJPGtleT5kZXNjcmlwdGlvbjwva2V5PgoJCQk8c3RyaW5nPkRpc3RpbGwgZmFpbGVkIGZvciB1bmtub3duIHJlYXNvbnMuPC9zdHJpbmc+CgkJPC9kaWN0PgoJPC9hcnJheT4KPC9kaWN0Pgo8L3BsaXN0Pgo=",
+      "stderr_b64": "MjAyNi0wNy0xMyAwNzoxMTo0Ni4zMjIgQXNzZXRDYXRhbG9nU2ltdWxhdG9yQWdlbnRbNTA4NDY6MzYzMzY0XSBDb3JlVGhlbWVEZWZpbml0aW9uOiBVbmFibGUgdG8gY3JlYXRlIGltYWdlIGZvciBmaWxlOi8vL3RtcC9hY3Rvb2wtY29ycnVwdC9jb3JydXB0LXBuZy54Y2Fzc2V0cy9CYWQuaW1hZ2VzZXQvYmFkLnBuZwoyMDI2LTA3LTEzIDA3OjExOjQ2LjMzMiBBc3NldENhdGFsb2dTaW11bGF0b3JBZ2VudFs1MDg0NjozNjMzNjRdIENvcmVUaGVtZURlZmluaXRpb246IFVuYWJsZSB0byBjcmVhdGUgaW1hZ2UgZm9yIGZpbGU6Ly8vdG1wL2FjdG9vbC1jb3JydXB0L2NvcnJ1cHQtcG5nLnhjYXNzZXRzL0JhZC5pbWFnZXNldC9iYWQucG5nCjIwMjYtMDctMTMgMDc6MTE6NDYuMzM3IEFzc2V0Q2F0YWxvZ1NpbXVsYXRvckFnZW50WzUwODQ2OjM2MzM2NF0gQ29yZVRoZW1lRGVmaW5pdGlvbjogVW5hYmxlIHRvIGNyZWF0ZSBpbWFnZSBmb3IgZmlsZTovLy90bXAvYWN0b29sLWNvcnJ1cHQvY29ycnVwdC1wbmcueGNhc3NldHMvQmFkLmltYWdlc2V0L2JhZC5wbmcKMjAyNi0wNy0xMyAwNzoxMTo0Ni4zNTkgQXNzZXRDYXRhbG9nU2ltdWxhdG9yQWdlbnRbNTA4NDY6MzY0NjEwXSBDb3JlVGhlbWVEZWZpbml0aW9uOiBVbmFibGUgdG8gY3JlYXRlIGltYWdlIGZvciBmaWxlOi8vL3RtcC9hY3Rvb2wtY29ycnVwdC9jb3JydXB0LXBuZy54Y2Fzc2V0cy9CYWQuaW1hZ2VzZXQvYmFkLnBuZwo=",
+      "stdout_sha256": "fa564d796c9a642db5992d45ebfaeaa03de2e690919260b009b05b3e3861359a",
+      "stderr_sha256": "36ce1b98add16e54f42a3a331c58c2e1067d617562c07078ed62c83b705371bf",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/corrupt-png-out/Assets.car"
+          ]
+        },
+        "com.apple.actool.errors": [
+          {
+            "description": "Distill failed for unknown reasons."
+          }
+        ]
+      }
+    },
+    {
+      "name": "truncated-png",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/truncated-png-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/truncated-png.xcassets"
+      ],
+      "exit_code": 1,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L3RydW5jYXRlZC1wbmctb3V0L0Fzc2V0cy5jYXI8L3N0cmluZz4KCQk8L2FycmF5PgoJPC9kaWN0PgoJPGtleT5jb20uYXBwbGUuYWN0b29sLmVycm9yczwva2V5PgoJPGFycmF5PgoJCTxkaWN0PgoJCQk8a2V5PmRlc2NyaXB0aW9uPC9rZXk+CgkJCTxzdHJpbmc+RGlzdGlsbCBmYWlsZWQgZm9yIHVua25vd24gcmVhc29ucy48L3N0cmluZz4KCQk8L2RpY3Q+Cgk8L2FycmF5Pgo8L2RpY3Q+CjwvcGxpc3Q+Cg==",
+      "stderr_b64": "MjAyNi0wNy0xMyAwNzoxMTo0Ni45OTQgQXNzZXRDYXRhbG9nU2ltdWxhdG9yQWdlbnRbNTE0MjY6MzY0NjQyXSBDb3JlVGhlbWVEZWZpbml0aW9uOiBVbmFibGUgdG8gY3JlYXRlIGltYWdlIGZvciBmaWxlOi8vL3RtcC9hY3Rvb2wtY29ycnVwdC90cnVuY2F0ZWQtcG5nLnhjYXNzZXRzL0JhZC5pbWFnZXNldC9iYWQucG5nCjIwMjYtMDctMTMgMDc6MTE6NDYuOTk1IEFzc2V0Q2F0YWxvZ1NpbXVsYXRvckFnZW50WzUxNDI2OjM2NDY0Ml0gQ29yZVRoZW1lRGVmaW5pdGlvbjogVW5hYmxlIHRvIGNyZWF0ZSBpbWFnZSBmb3IgZmlsZTovLy90bXAvYWN0b29sLWNvcnJ1cHQvdHJ1bmNhdGVkLXBuZy54Y2Fzc2V0cy9CYWQuaW1hZ2VzZXQvYmFkLnBuZwoyMDI2LTA3LTEzIDA3OjExOjQ2Ljk5NiBBc3NldENhdGFsb2dTaW11bGF0b3JBZ2VudFs1MTQyNjozNjQ2NDJdIENvcmVUaGVtZURlZmluaXRpb246IFVuYWJsZSB0byBjcmVhdGUgaW1hZ2UgZm9yIGZpbGU6Ly8vdG1wL2FjdG9vbC1jb3JydXB0L3RydW5jYXRlZC1wbmcueGNhc3NldHMvQmFkLmltYWdlc2V0L2JhZC5wbmcKMjAyNi0wNy0xMyAwNzoxMTo0Ny4wMDkgQXNzZXRDYXRhbG9nU2ltdWxhdG9yQWdlbnRbNTE0MjY6MzY0NjQ3XSBDb3JlVGhlbWVEZWZpbml0aW9uOiBVbmFibGUgdG8gY3JlYXRlIGltYWdlIGZvciBmaWxlOi8vL3RtcC9hY3Rvb2wtY29ycnVwdC90cnVuY2F0ZWQtcG5nLnhjYXNzZXRzL0JhZC5pbWFnZXNldC9iYWQucG5nCg==",
+      "stdout_sha256": "c93032fc834ffa5fe4d7d3503e878adcacac6abd103c4a750ce92728a3c434cc",
+      "stderr_sha256": "06cbdba0c57c31eb36996a20ac38b7abdbcfe3b1196fd32f0733bace5afc7ade",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/truncated-png-out/Assets.car"
+          ]
+        },
+        "com.apple.actool.errors": [
+          {
+            "description": "Distill failed for unknown reasons."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-color-range",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/invalid-color-range-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/invalid-color.xcassets"
+      ],
+      "exit_code": 0,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L2ludmFsaWQtY29sb3ItcmFuZ2Utb3V0L0Fzc2V0cy5jYXI8L3N0cmluZz4KCQk8L2FycmF5PgoJPC9kaWN0Pgo8L2RpY3Q+CjwvcGxpc3Q+Cg==",
+      "stderr_b64": "",
+      "stdout_sha256": "37499ad9d3afca6f3fe1851bf54b7f31613268cd443ca6dff5ca7a51c2ac117e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/invalid-color-range-out/Assets.car"
+          ]
+        }
+      }
+    },
+    {
+      "name": "missing-color-components",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/missing-color-components-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/missing-color.xcassets"
+      ],
+      "exit_code": 0,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L21pc3NpbmctY29sb3ItY29tcG9uZW50cy1vdXQvQXNzZXRzLmNhcjwvc3RyaW5nPgoJCTwvYXJyYXk+Cgk8L2RpY3Q+CjwvZGljdD4KPC9wbGlzdD4K",
+      "stderr_b64": "",
+      "stdout_sha256": "a8c1ce00fa38e9505b4cc4ecd65cddba73f40ee9d923cb6dd960f5593044ca31",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/missing-color-components-out/Assets.car"
+          ]
+        }
+      }
+    },
+    {
+      "name": "invalid-uti",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/invalid-uti-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/bad-uti.xcassets"
+      ],
+      "exit_code": 0,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L2ludmFsaWQtdXRpLW91dC9Bc3NldHMuY2FyPC9zdHJpbmc+CgkJPC9hcnJheT4KCTwvZGljdD4KPC9kaWN0Pgo8L3BsaXN0Pgo=",
+      "stderr_b64": "",
+      "stdout_sha256": "1480f090124d5222e84270ed152b62ca3404b10aac8a00773289717aa766a45b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/invalid-uti-out/Assets.car"
+          ]
+        }
+      }
+    },
+    {
+      "name": "invalid-utf8",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/invalid-utf8-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/invalid-utf8.xcassets"
+      ],
+      "exit_code": 0,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheS8+Cgk8L2RpY3Q+Cgk8a2V5PmNvbS5hcHBsZS5hY3Rvb2wubm90aWNlczwva2V5PgoJPGFycmF5PgoJCTxkaWN0PgoJCQk8a2V5PmRlc2NyaXB0aW9uPC9rZXk+CgkJCTxzdHJpbmc+VGhlIENvbnRlbnRzLmpzb24gZGVzY3JpYmluZyB0aGUgIkJhZC5pbWFnZXNldCIgaXMgbm90IHZhbGlkIEpTT04uPC9zdHJpbmc+CgkJPC9kaWN0PgoJPC9hcnJheT4KPC9kaWN0Pgo8L3BsaXN0Pgo=",
+      "stderr_b64": "",
+      "stdout_sha256": "406a10175a028f6bd776b0063033f74c85ec4f01d7f2733992b8941f56ad6f7a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": []
+        },
+        "com.apple.actool.notices": [
+          {
+            "description": "The Contents.json describing the \"Bad.imageset\" is not valid JSON."
+          }
+        ]
+      }
+    },
+    {
+      "name": "appicon-invalid-size",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/appicon-invalid-size-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "--app-icon",
+        "AppIcon",
+        "--output-partial-info-plist",
+        "/tmp/actool-corrupt/partial.plist",
+        "/tmp/actool-corrupt/bad-appicon-size.xcassets"
+      ],
+      "exit_code": 0,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L3BhcnRpYWwucGxpc3Q8L3N0cmluZz4KCQk8L2FycmF5PgoJPC9kaWN0Pgo8L2RpY3Q+CjwvcGxpc3Q+Cg==",
+      "stderr_b64": "",
+      "stdout_sha256": "af98c18c3f88648dd6e976667a96ec4e5202a10ebd2cf7f3098539f76d6f3e3a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/partial.plist"
+          ]
+        }
+      }
+    },
+    {
+      "name": "duplicate-name-across-catalogs",
+      "command": [
+        "xcrun",
+        "actool",
+        "--compile",
+        "/tmp/actool-corrupt/duplicate-name-out",
+        "--platform",
+        "iphoneos",
+        "--minimum-deployment-target",
+        "15.0",
+        "/tmp/actool-corrupt/dup1.xcassets",
+        "/tmp/actool-corrupt/dup2.xcassets"
+      ],
+      "exit_code": 0,
+      "stdout_b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLmFjdG9vbC5jb21waWxhdGlvbi1yZXN1bHRzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5Pm91dHB1dC1maWxlczwva2V5PgoJCTxhcnJheT4KCQkJPHN0cmluZz4vdG1wL2FjdG9vbC1jb3JydXB0L2R1cGxpY2F0ZS1uYW1lLW91dC9Bc3NldHMuY2FyPC9zdHJpbmc+CgkJPC9hcnJheT4KCTwvZGljdD4KPC9kaWN0Pgo8L3BsaXN0Pgo=",
+      "stderr_b64": "",
+      "stdout_sha256": "56d498ac5a30c0ebf629e0b7c565af4f937ac9735e18185b11c2c3e6d1e112f1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/actool-corrupt/duplicate-name-out/Assets.car"
+          ]
+        }
+      }
+    }
+  ]
+}

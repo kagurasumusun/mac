@@ -1,7 +1,7 @@
 {
   "updated": "2026-07-13",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 82,
+  "test_count": 84,
   "test_status": "OK, full optional dependencies installed, no skips",
   "storage_versions": [
     15,
@@ -123,7 +123,7 @@
     }
   },
   "minimal_environment_test_status": "OK, 6 optional-dependency skips",
-  "full_optional_environment_test_status": "82 OK, no skips",
+  "full_optional_environment_test_status": "84 OK, no skips",
   "byte_identical_diagnostics_verified": [
     {
       "case": "compile no input with platform/target",
@@ -142,7 +142,7 @@
       "sha256": "7b3457836d8b694d40e4eceb3fcdbf3e78eb140164e000bf2ead61f43588681c"
     }
   ],
-  "byte_identical_diagnostic_count": 22,
+  "byte_identical_diagnostic_count": 30,
   "byte_identical_version_releases": [
     "16.0",
     "16.1",
@@ -286,5 +286,12 @@
     "vision_actool_exit": 0,
     "vision_car": false,
     "conclusion": "hidden schema/role requirements unresolved; do not claim private aggregate equality"
+  },
+  "corrupt_diagnostic_matrix": {
+    "rows": 8,
+    "stdout_byte_identical": 8,
+    "exit_codes_identical": 8,
+    "stderr_dynamic_shape": "4 lines for corrupt PNG",
+    "safe_failure_car": true
   }
 }

@@ -88,6 +88,17 @@ def main(argv: list[str] | None = None) -> int:
         compress_pngs=ns.compress_pngs,
         enable_on_demand_resources=ns.enable_on_demand_resources == "yes",
     ))
+    if any(d.message == "Distill failed for unknown reasons." for d in result.diagnostics):
+        # Apple's helper logs four CoreThemeDefinition failures with dynamic
+        # timestamps/PIDs. Reproduce the observable stderr shape; exact bytes
+        # are intentionally not claimed because Apple's own values vary.
+        import datetime, os, threading
+        source = next((asset.directory / str(entry["filename"]) for catalog in result.catalogs for asset in catalog.assets for entry in asset.entries if isinstance(entry.get("filename"), str) and str(entry["filename"]).lower().endswith(".png")), None)
+        if source is not None:
+            for _ in range(4):
+                now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+                print(f"{now} AssetCatalogSimulatorAgent[{os.getpid()}:{threading.get_native_id():x}] CoreThemeDefinition: Unable to create image for {source.resolve().as_uri()}", file=sys.stderr)
+
     visible = []
     for diagnostic in result.diagnostics:
         enabled = {
