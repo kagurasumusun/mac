@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "part246_kind0_values": {
+    "0.0": 70,
+    "0.12": 3
+  },
+  "group_kind0_names_top": [
+    [
+      "<blank>",
+      73
+    ],
+    [
+      "AppIcon/Color-1",
+      2
+    ],
+    [
+      "SiwAIcon_Assets/Color-2",
+      2
+    ],
+    [
+      "ClockBaseIcon-Arabic_Assets/Color-2",
+      2
+    ],
+    [
+      "ClockBaseIcon-Devanagari_Assets/Color-2",
+      2
+    ],
+    [
+      "SiwAIcon_Assets/Color-4",
+      1
+    ],
+    [
+      "ClockBaseIcon-Arabic_Assets/Color-6",
+      1
+    ],
+    [
+      "ClockBaseIcon-Devanagari_Assets/Color-6",
+      1
+    ]
+  ],
+  "group_kind1_blank": {
+    "<blank>": 459
+  }
+}

@@ -1,0 +1,657 @@
+{
+  "schema": 1,
+  "root_part246_kind0": [
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 4",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 1,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 8,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "stack_name": "AppIcon.iconstack",
+      "appearance": 10,
+      "child_name": "AppIcon/Group 3",
+      "style_kind": 0,
+      "style_value": 0.0,
+      "enabled": 1
+    }
+  ],
+  "group_kind0": [
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "AppIcon/Color-1",
+      "name_kind": "color"
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "AppIcon/Color-1",
+      "name_kind": "color"
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    }
+  ],
+  "group_other_name": [
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 10,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 1,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 0,
+      "name": "",
+      "name_kind": "other"
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "group_name": "IconGroup",
+      "appearance": 8,
+      "count": 1,
+      "kind": 1,
+      "name": "",
+      "name_kind": "other"
+    }
+  ]
+}

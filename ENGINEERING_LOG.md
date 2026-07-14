@@ -963,3 +963,62 @@ So the current evidence supports this conservative statement:
 - the older `26.0/26.1` target-device path could not be fully evaluated on this host due unavailable matching runtimes, not due contradictory successful behavior.
 
 - Full local suite after parser + registry additions: `122` tests, `OK (skipped=11)`.
+
+## 2026-07-14 — iconstack builders and targeted unresolved-family sampling
+
+- Added iconstack payload builders/serializers to close the round-trip loop for the currently observed real fixture families:
+  - `build_iconstack_root_style_list(...)`
+  - `build_iconstack_aux_list(...)`
+  - `build_iconstack_group_style_reference(...)`
+  - `build_named_gradient_payload(...)`
+- Added lightweight inferred labels in `iconstack.py` based on current evidence, explicitly marked as inferred rather than definitive:
+  - root-style kind names (`fill-or-gradient`, `icon-group`)
+  - root-style inferred role against referenced child part (`named-color-fill`, `named-gradient-fill`, `icon-group-depth`, `group-default`, `group-exception`)
+  - group-style inferred kind names and name categories (`blank`, `color`, `gradient`, `other`)
+- Extended `carinfo.inspect()` so decoded iconstack rendering-property rows now surface these inferred labels alongside the raw fields.
+- Expanded `tests/test_iconstack.py` to cover the new builders/round-trips and blank-name group-style handling.
+- Full local suite after these additions: `123` tests, `OK (skipped=11)`.
+
+### Targeted unresolved-family sampling
+
+Added `tools/iconstack_exception_samples.py` and extracted concrete current examples for the remaining unresolved subsets. Evidence:
+
+- `iconstack-exception-samples.json`
+- `iconstack-targeted-stats.json`
+
+Observed:
+
+- root-style `part246 kind0` value distribution:
+
+```text
+0.0  -> 70 rows
+0.12 -> 3 rows
+```
+
+- sampled `part246 kind0` rows point to real `AppIcon/Group N` children (for example `Group 3`, `Group 4`) and overwhelmingly use value `0.0`, supporting the current `group-default` placeholder label. The small `0.12` trio remains unresolved.
+- group-style `kind0` names are dominated by blank references:
+
+```text
+<blank> -> 73
+```
+
+with a very small tail of explicit color names:
+
+```text
+AppIcon/Color-1 -> 2
+SiwAIcon_Assets/Color-2 -> 2
+ClockBaseIcon-Arabic_Assets/Color-2 -> 2
+ClockBaseIcon-Devanagari_Assets/Color-2 -> 2
+... single-row color tails ...
+```
+
+- group-style `kind1` blank-name rows are also common:
+
+```text
+<blank> -> 459
+```
+
+Boundary update:
+
+- `kind0` vs `kind1` on group-style references is still not semantically final.
+- however, we now know the unresolved current population is not arbitrary: it is concentrated in blank-name records plus a small number of explicit color-name references, which is a much narrower target for the remaining naming work.

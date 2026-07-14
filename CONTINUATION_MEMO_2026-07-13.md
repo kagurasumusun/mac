@@ -903,3 +903,77 @@ So the current conservative generation statement is:
 Ran 122 tests
 OK (skipped=11)
 ```
+
+## 2026-07-14 fifth follow-up — builders and unresolved-family narrowing
+
+### New implementation in this phase
+
+`src/actool_linux/iconstack.py` now has writer-side round-trip coverage for the observed current fixture grammars:
+
+- `build_iconstack_root_style_list(...)`
+- `build_iconstack_aux_list(...)`
+- `build_iconstack_group_style_reference(...)`
+- `build_named_gradient_payload(...)`
+
+This closes the parser/serializer loop for the iconstack payload families that were discovered from real fixtures.
+
+Also added conservative inferred labels (still not final semantics) for:
+
+- root-style kind names
+- root-style inferred role against referenced child part
+- group-style kind names
+- group-style name categories (`blank`, `color`, `gradient`, `other`)
+
+`carinfo.inspect()` now surfaces those inferred labels.
+
+### New targeted unresolved-family evidence
+
+Added:
+
+- `tools/iconstack_exception_samples.py`
+- `iconstack-exception-samples.json`
+- `iconstack-targeted-stats.json`
+
+This narrowed the remaining unresolved sets substantially.
+
+#### `part246 kind0` root-style rows
+
+Current broad counts:
+
+- `0.0` → `70`
+- `0.12` → `3`
+
+Sampled rows point to actual `AppIcon/Group N` children and overwhelmingly use `0.0`, which supports the current temporary label `group-default` for the common family.
+The `0.12` trio remains unresolved and is now isolated as a tiny exception family.
+
+#### group-style `kind0`
+
+Current name distribution is dominated by blank references:
+
+- `<blank>` → `73`
+
+with only a very small explicit-color tail such as:
+
+- `AppIcon/Color-1`
+- `SiwAIcon_Assets/Color-2`
+- `ClockBaseIcon-Arabic_Assets/Color-2`
+- `ClockBaseIcon-Devanagari_Assets/Color-2`
+
+#### group-style `kind1`
+
+Blank-name rows are also common here:
+
+- `<blank>` → `459`
+
+So the remaining unresolved group-style work is now tightly bounded to:
+
+- blank-name records
+- a small explicit-color subset
+- distinguishing what `kind0` vs `kind1` means when both can be blank
+
+### Local test state after this phase
+
+```text
+Ran 123 tests
+OK (skipped=11)
+```

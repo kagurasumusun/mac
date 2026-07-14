@@ -4,6 +4,24 @@ from dataclasses import dataclass
 import struct
 
 
+ROOT_STYLE_KIND_NAMES = {
+    0: 'fill-or-gradient',
+    2: 'icon-group',
+}
+
+GROUP_STYLE_KIND_NAMES = {
+    0: 'indirect-or-default-style',
+    1: 'named-style-reference',
+}
+
+
+ROOT_STYLE_INFERRED_ROLES = {
+    (0, 217): 'named-color-fill',
+    (0, 247): 'named-gradient-fill',
+    (2, 246): 'icon-group-depth',
+}
+
+
 class IconStackError(ValueError):
     pass
 
@@ -14,6 +32,18 @@ class IconStackRootStyleEntry:
     value: float
     enabled: int
     reserved_hex: str
+
+    @property
+    def inferred_kind_name(self) -> str:
+        return ROOT_STYLE_KIND_NAMES.get(self.kind, f'unknown({self.kind})')
+
+    def inferred_role_for_referenced_part(self, referenced_part: int) -> str:
+        role = ROOT_STYLE_INFERRED_ROLES.get((self.kind, referenced_part))
+        if role is not None:
+            return role
+        if self.kind == 0 and referenced_part == 246:
+            return 'group-default' if self.value == 0.0 else 'group-exception'
+        return f'unknown(kind={self.kind},part={referenced_part})'
 
 
 @dataclass(frozen=True)
@@ -41,6 +71,20 @@ class IconStackGroupStyleReference:
     kind: int
     name: str
 
+    @property
+    def inferred_kind_name(self) -> str:
+        return GROUP_STYLE_KIND_NAMES.get(self.kind, f'unknown({self.kind})')
+
+    @property
+    def inferred_name_kind(self) -> str:
+        if self.name == '':
+            return 'blank'
+        if '/Color-' in self.name:
+            return 'color'
+        if '/Gradient-' in self.name:
+            return 'gradient'
+        return 'other'
+
 
 @dataclass(frozen=True)
 class NamedGradientStop:
@@ -59,6 +103,19 @@ class NamedGradientPayload:
     scalar_4: float
     scalar_5: float
     stops: tuple[NamedGradientStop, ...]
+
+
+def build_iconstack_root_style_list(entries: list[IconStackRootStyleEntry]) -> bytes:
+    raw = bytearray(struct.pack('<2I', len(entries), 0))
+    for entry in entries:
+        reserved = bytes.fromhex(entry.reserved_hex)
+        if len(reserved) != 4:
+            raise IconStackError('icon stack root style entry reserved bytes must be 4 bytes')
+        if not 0 <= entry.enabled <= 255:
+            raise IconStackError('icon stack root style entry enabled must fit in one byte')
+        raw += struct.pack('<IfB', entry.kind, entry.value, entry.enabled)
+        raw += reserved
+    return bytes(raw)
 
 
 def parse_iconstack_root_style_list(raw: bytes | bytearray | memoryview) -> IconStackRootStyleList:
@@ -82,6 +139,13 @@ def parse_iconstack_root_style_list(raw: bytes | bytearray | memoryview) -> Icon
     if cursor != len(data):
         raise IconStackError('icon stack root style list has trailing bytes')
     return IconStackRootStyleList(tuple(entries))
+
+
+def build_iconstack_aux_list(entries: list[IconStackAuxEntry]) -> bytes:
+    raw = bytearray(struct.pack('<2I', len(entries), 0))
+    for entry in entries:
+        raw += struct.pack('<IfIfI', entry.u32_1, entry.f32_1, entry.u32_2, entry.f32_2, entry.u32_3)
+    return bytes(raw)
 
 
 def parse_iconstack_aux_list(raw: bytes | bytearray | memoryview) -> IconStackAuxList:
@@ -108,6 +172,11 @@ def parse_iconstack_aux_list(raw: bytes | bytearray | memoryview) -> IconStackAu
     return IconStackAuxList(tuple(entries))
 
 
+def build_iconstack_group_style_reference(reference: IconStackGroupStyleReference) -> bytes:
+    name_bytes = reference.name.encode('utf-8') + b'\0'
+    return struct.pack('<5I', reference.count, 0, reference.kind, 0, len(name_bytes)) + name_bytes
+
+
 def parse_iconstack_group_style_reference(raw: bytes | bytearray | memoryview) -> IconStackGroupStyleReference:
     data = bytes(raw)
     if len(data) < 20:
@@ -125,6 +194,28 @@ def parse_iconstack_group_style_reference(raw: bytes | bytearray | memoryview) -
         raise IconStackError('icon stack group style reference name is not NUL terminated')
     name = name_bytes[:-1].decode('utf-8', 'replace')
     return IconStackGroupStyleReference(count, kind, name)
+
+
+def build_named_gradient_payload(payload: NamedGradientPayload) -> bytes:
+    if payload.stop_count != len(payload.stops):
+        raise IconStackError('named gradient stop_count does not match the number of stops')
+    if len(payload.signature.encode('latin-1', 'strict')) != 4:
+        raise IconStackError('named gradient signature must be exactly 4 latin-1 bytes')
+    raw = bytearray()
+    raw += payload.signature.encode('latin-1', 'strict')
+    raw += struct.pack('<2I', payload.stop_count, payload.mode)
+    raw += struct.pack('<5f', payload.scalar_1, payload.scalar_2, payload.scalar_3, payload.scalar_4, payload.scalar_5)
+    if payload.stops:
+        first = payload.stops[0]
+        raw += struct.pack('<f', first.position)
+        first_name = first.name.encode('utf-8') + b'\0'
+        raw += struct.pack('<I', len(first_name))
+        raw += first_name
+        for stop in payload.stops[1:]:
+            name = stop.name.encode('utf-8') + b'\0'
+            raw += struct.pack('<fI', stop.position, len(name))
+            raw += name
+    return bytes(raw)
 
 
 def parse_named_gradient_payload(raw: bytes | bytearray | memoryview) -> NamedGradientPayload:

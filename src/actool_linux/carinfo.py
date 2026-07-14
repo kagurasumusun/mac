@@ -82,10 +82,27 @@ def _decoded_tlvs(rendition) -> list[dict[str, object]]:
                     ]
                 elif layout == 1019:
                     styles = parse_iconstack_root_style_list(tlv.value)
-                    item['icon_stack_rendering_properties'] = [entry.__dict__ for entry in styles.entries]
+                    references = []
+                    try:
+                        references = parse_solidimagestack_layer_list(next(x.value for x in rendition.csi.tlvs if x.tag == 1012)).layers
+                    except Exception:
+                        references = []
+                    decoded = []
+                    for index, entry in enumerate(styles.entries):
+                        row = entry.__dict__ | {'inferred_kind_name': entry.inferred_kind_name}
+                        if index < len(references):
+                            pairs = dict(references[index].referenced_key.attribute_value_pairs)
+                            refpart = pairs.get(2)
+                            if refpart is not None:
+                                row['inferred_role_for_referenced_part'] = entry.inferred_role_for_referenced_part(refpart)
+                        decoded.append(row)
+                    item['icon_stack_rendering_properties'] = decoded
                 elif layout == 1020 and part == 246:
                     ref = parse_iconstack_group_style_reference(tlv.value)
-                    item['icon_group_rendering_properties'] = ref.__dict__
+                    item['icon_group_rendering_properties'] = ref.__dict__ | {
+                        'inferred_kind_name': ref.inferred_kind_name,
+                        'inferred_name_kind': ref.inferred_name_kind,
+                    }
                 else:
                     flags = parse_solidimagestack_layer_flags(tlv.value)
                     item['stack_flags'] = [
