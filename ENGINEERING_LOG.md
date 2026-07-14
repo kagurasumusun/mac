@@ -753,3 +753,86 @@ TVTopShelfPrimaryImageWide
 - Boundary update:
   - this continuation **does** close the earlier uncertainty about whether `renderingProperties` / `stackData` remain observable in the current Apple stack — they do, in AssetRuntime CoreUI/CoreThemeDefinition.
   - this continuation still **does not** provide byte-level fixture payloads for real aggregate `renderingProperties` or `stackData`, nor a materializing public Top Shelf / brandassets source catalog.
+
+## 2026-07-14 — `--target-device tv` brandassets materialization and real iconstack fixtures
+
+- New Apple validation host session used in this phase: `NoqRgiONpDaSlIzApHRa` on macOS `26.4`, Xcode `26.5` (`17F42`).
+- Rechecked the documented public tvOS `.brandassets` shape using the template AppIcon name `tvOS App Icon & Top Shelf Image`, but now ran an explicit option matrix instead of a single invocation.
+- New matrix result (`brandassets-target-device-tv-matrix.json`): **`--target-device tv` is the materialization gate** in the tested Xcode 26.5 path.
+  - Without `--target-device tv`: rc `0`, partial plist only, **no `Assets.car`**.
+  - With `--target-device tv`: rc `0`, partial plist plus **`Assets.car` emitted**.
+  - `--product-type com.apple.product-type.application` and `--include-all-app-icons` alone do not materialize; they only matter once `--target-device tv` is already present.
+  - `--target-device tv` without `--app-icon` still does not materialize.
+- Pulled the generated public fixture back to Linux (`fixtures/brandassets-target-tv-Assets.car`, SHA-256 `567b8d613bce89a961289c4d2151f12648c29ed512121ba8f0bac189c0648d90`) and parsed it locally.
+- Observable Apple structure for the materialized public brandassets fixture:
+  - root layout `1002` (`AssetType = ImageStack` in Apple `assetutil`)
+  - child layer images layout `12`
+  - flattened composite image part `208` (`ZZZZFlattenedImage-1.1.0-gamut0`)
+  - radiosity image part `209` (`ZZZZRadiosityImage-1.0.0`)
+  - top-shelf images remain ordinary image renditions
+  - `1002` carries TLVs `1012`, `1020`, `1021`, `1004`, `1005`, `1006`
+- Parsed the new `1002` TLVs with the existing bounds-checked layer-reference grammar:
+  - the tv idiom root references the two 400×240 `App Icon - Small` child layers
+  - the marketing idiom root references the two 1280×768 `App Icon - Large` child layers
+  - for this public fixture the `1020` and `1021` entries are trivial zeros/ones
+- Apple `assetutil` summary for the materialized public fixture is preserved in `brandassets-target-device-tv-assetutil-summary.json`.
+
+### Real iconstack / renderingProperties fixtures discovered
+
+- Added a broader parser-based installed-CAR scan focused on layouts `1019`, `1020`, and `1021`.
+- New scan summary (`iconstack-scan-summary.json`):
+  - `cars_with_hits = 148`
+  - layout counts:
+
+```text
+1019: 543
+1020: 1665
+1021: 655
+```
+
+- Hit paths include Firefox, Chrome, Edge, and many Xcode application bundles such as FileMerge, Accessibility Inspector, Create ML, Simulator, Instruments-family assets, and the main Xcode resource CAR.
+- This upgrades the state from "no confirmed real fixture" to **many confirmed real fixtures** for:
+  - `layout 1019` = `IconImageStack`
+  - `layout 1020` = `IconGroup`
+  - `layout 1021` = `Named Gradient`
+- Copied two compact fixtures into the workspace for clean-room parser work:
+  - `fixtures/firefox-Assets.car` (719 KiB, SHA-256 `fc6c078547bf2de610249f55ebcca33d49f110933eda428cc79786729c7c886d`)
+  - `fixtures/filemerge-Assets.car` (151 KiB, SHA-256 `7ddf625b4ae20d4b3e7c01b8826405f20569ddbba941c4533bc2e58ae07688ac`)
+
+### Grammar findings from the real fixtures
+
+- `layout 1019` / `IconImageStack` root uses TLVs `1012`, `1020`, `1021`, `1004`, `1005`, `1006`.
+- `layout 1020` / `IconGroup` uses TLVs `1012`, `1020`, `1021`, `1004`, `1006`.
+- `layout 1021` / `Named Gradient` uses a compact payload beginning with observable signature `ARGG` plus referenced named-color strings.
+- `1012` is a real observable child-reference list across all three stack families now seen in the wild:
+  - public `1002` ImageStack
+  - private/real `1019` IconImageStack
+  - public `1018` SolidImageStack
+- `1019` root `1020` carries fixed 13-byte-per-entry records whose first u32 strongly correlates with layer kind (`0` for gradient background, `2` for group in the observed fixtures) and whose float slot strongly correlates with per-layer parallax depth values (`0.0`, `0.15`, `0.35`, `0.4`, `0.5`, `0.7` observed across fixtures).
+- `1020` group `1020` can instead carry a variable-length named reference payload such as:
+  - `FileMerge_Assets/Color-10`
+  - `FileMerge_Assets/Gradient-4`
+  - `FileMerge_Assets/Gradient-3`
+  - `FileMerge_Assets/Color-9`
+  This is strong evidence that actual `renderingProperties` includes per-group style references to named colors/gradients.
+- `1021` on stack/group families is a fixed-count 20-byte-per-entry record. Semantics are not fully closed yet, but real nonzero tuples are now captured in the workspace fixtures.
+
+### Implementation added from this discovery
+
+- Added `src/actool_linux/iconstack.py` with bounds-checked parsers for:
+  - icon stack root rendering-property entries
+  - icon stack auxiliary 20-byte entries
+  - icon group named style references
+  - named-gradient payloads
+- Extended `carinfo.inspect()` so the new observable fixture families decode as:
+  - `layer_stack_layers` / `icon_stack_layers` / `icon_group_layers`
+  - `icon_stack_rendering_properties`
+  - `icon_group_rendering_properties`
+  - `icon_stack_auxiliary`
+  - `named_gradient`
+- Added `tests/test_iconstack.py` and expanded the suite to `120` tests (`OK`, `skipped=11`).
+- Added `tools/iconstack_fixture_scan.py` for repeatable discovery of `1002`/`1019`/`1020`/`1021` fixtures.
+
+### Boundary update
+
+This phase **does** provide real current fixture bytes for the observable families underlying `stackData` / `renderingProperties` work. What remains incomplete is not fixture existence but the **complete semantic naming of every field** in the `1019` root `1020` records, the `1021` auxiliary records, and the full `ARGG` named-gradient payload grammar.

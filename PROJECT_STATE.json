@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-14",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 115,
-  "test_status": "OK, local suite 115/115 pass with 11 optional skips; current local state reset to origin/actool d0ab293 and verified",
+  "test_count": 120,
+  "test_status": "OK, local suite 120/120 pass with 11 optional skips; current local state synced to origin/actool plus iconstack/brandassets follow-up",
   "storage_versions": [
     15,
     16,
@@ -54,32 +54,34 @@
     "all 12 installed iOS/tvOS/watchOS/visionOS runtimes"
   ],
   "implemented": [
-    "BOM/CAR reader-writer",
-    "multi-level trees",
-    "DATA/JPEG/HEIF/colors",
-    "PNG deepmap2 variants",
-    "CBCK/LZFSE",
-    "PDF/SVG",
-    "AppIcons",
-    "all current CoreUI idioms",
-    "symbols and multi-weight templates",
-    "packed atlas INLK",
-    "layer/depth keys",
-    "watch family/role keys",
-    "thinning",
-    "launch sidecars",
-    "platform icon sidecar manifests",
-    "major CLI option parsing",
-    "capability report",
-    "runtime inventory tool",
-    "actool full CLI compatibility (all option combinations, exact stderr/stdout separation, 100% error/notice replication in xml1 and human-readable-text)",
     "AppIcon deployment metadata and exact platform-specific MSIS/CBCK/LZFSE sidecar manifests",
-    "Packed Atlas (acked Atlas) deterministic shelf packing and layout-1003/1004 page splitting",
-    "Image Stack & Layer Stack exact CoreUI layer-key rendition ordering and catalog integration",
-    "watchOS exact 12-family/5-role subtype and dimension2 mapping table",
-    "visionOS parallax/depth layer attributes and xros idiom mapping",
+    "AppIcons",
+    "BOM/CAR reader-writer",
     "CBCK MLEC mode 3 / codec 4 envelope and raw/LZFSE threshold boundaries across Xcode releases",
-    "explicit legacy palette-img parser/writer from public quantized-image grammar"
+    "CBCK/LZFSE",
+    "DATA/JPEG/HEIF/colors",
+    "Image Stack & Layer Stack exact CoreUI layer-key rendition ordering and catalog integration",
+    "PDF/SVG",
+    "PNG deepmap2 variants",
+    "Packed Atlas (acked Atlas) deterministic shelf packing and layout-1003/1004 page splitting",
+    "actool full CLI compatibility (all option combinations, exact stderr/stdout separation, 100% error/notice replication in xml1 and human-readable-text)",
+    "all current CoreUI idioms",
+    "capability report",
+    "decoded layout-1002 ImageStack / 1019 IconImageStack / 1020 IconGroup / 1021 Named Gradient fixtures",
+    "explicit legacy palette-img parser/writer from public quantized-image grammar",
+    "launch sidecars",
+    "layer/depth keys",
+    "major CLI option parsing",
+    "multi-level trees",
+    "packed atlas INLK",
+    "platform icon sidecar manifests",
+    "public tvOS .brandassets target-device-tv materialization probe",
+    "runtime inventory tool",
+    "symbols and multi-weight templates",
+    "thinning",
+    "visionOS parallax/depth layer attributes and xros idiom mapping",
+    "watch family/role keys",
+    "watchOS exact 12-family/5-role subtype and dimension2 mapping table"
   ],
   "unfinished": [
     "all macOS AppKit generations",
@@ -92,23 +94,27 @@
     "full CLI cross-product and byte diagnostics",
     "historical automatic palette-img selection heuristic",
     "private parallax grammar to source-level field mapping",
-    "real renderingProperties fixture bytes",
-    "real stackData fixture bytes",
-    "valid public or private Top Shelf / brandassets materializing input"
+    "valid public or private Top Shelf / brandassets materializing input",
+    "complete field-level semantics of layout-1019/1020 renderingProperties records",
+    "complete field-level semantics of layout-1021/gradient payload grammar",
+    "exact writer parity for public tvOS brandassets target-device-tv ImageStack/radiosity output",
+    "private parallax grammar to source-level semantic names"
   ],
   "authoritative_notes": [
     "HANDOFF.md",
     "ENGINEERING_LOG.md",
     "VERIFICATION.md"
   ],
-  "remote_session": "QX8mPOpocAXnJg0BOxaB",
+  "remote_session": "NoqRgiONpDaSlIzApHRa",
   "slow_work_policy": "defer; use short static/assetutil/inventory checks",
   "focused_verification_latest": {
     "host": "macOS 26.4 / Xcode 26.5 (17F42)",
-    "tests": "115 tests OK (local reset-to-origin baseline); focused remote string/oracle probes on QX8mPOpocAXnJg0BOxaB",
-    "remote_session": "QX8mPOpocAXnJg0BOxaB (macOS 26.4 / Xcode 26.5)",
-    "assetruntime_symbols": "assetruntime-layerstack-symbols-26_5.json",
-    "brandassets_probe": "brandassets-probe-26_5-summary.json"
+    "tests": "120 tests OK (local); focused remote probes on NoqRgiONpDaSlIzApHRa",
+    "remote_session": "NoqRgiONpDaSlIzApHRa (macOS 26.4 / Xcode 26.5)",
+    "brandassets_target_device_tv_matrix": "brandassets-target-device-tv-matrix.json",
+    "brandassets_target_device_tv_assetutil": "brandassets-target-device-tv-assetutil-summary.json",
+    "iconstack_scan": "iconstack-scan-summary.json",
+    "iconstack_fixture_summary": "iconstack-fixture-summary.json"
   },
   "minimal_environment_test_status": "OK, 6 optional-dependency skips",
   "full_optional_environment_test_status": "84 OK, no skips",
@@ -314,7 +320,19 @@
       "maximumParallaxImages",
       "parallaxDisplayConfiguration",
       "parallaxDisplayConfigurationForChild:"
-    ]
+    ],
+    "actual_iconstack_fixtures_discovered": true,
+    "actual_public_layerstack_fixture_discovered": true,
+    "iconstack_scan_summary": "iconstack-scan-summary.json",
+    "iconstack_layout_counts": {
+      "1021": 655,
+      "1019": 543,
+      "1020": 1665
+    },
+    "cars_with_iconstack_hits": 148,
+    "brandassets_target_device_tv_materializes": true,
+    "brandassets_target_device_tv_matrix": "brandassets-target-device-tv-matrix.json",
+    "brandassets_target_device_tv_assetutil": "brandassets-target-device-tv-assetutil-summary.json"
   },
   "watch_marketing_xcode_matrix": {
     "xcode_releases": [
@@ -495,7 +513,8 @@
       "solidimagestack",
       "stickersicon"
     ],
-    "brandassets_or_complicationset_templates_found": false
+    "brandassets_or_complicationset_templates_found": false,
+    "brandassets_materialization_note": "public documented .brandassets starts emitting Assets.car on tested Xcode 26.5 only when --target-device tv is supplied"
   },
   "interesting_car_scan": {
     "evidence": [
@@ -545,7 +564,17 @@
     "solidimagestack_tlv_parser": true,
     "texture_reference_parser": true,
     "solidimagestack_tlv_roundtrip": true,
-    "experimental_aggregate_writer": true
+    "experimental_aggregate_writer": true,
+    "public_brandassets_target_device_tv_fixture": "brandassets-target-tv-inspect.json",
+    "public_brandassets_target_device_tv_materialization_condition": "--target-device tv required in tested Xcode 26.5 matrix",
+    "iconstack_real_fixtures": "iconstack-fixture-summary.json",
+    "iconstack_layouts": [
+      "1002",
+      "1019",
+      "1020",
+      "1021"
+    ],
+    "iconstack_parser": true
   },
   "watch_complication_source_oracle": {
     "public_complicationset_oracle": "complicationset-endtoend-verify.json",

@@ -568,3 +568,189 @@ But the following are **still not solved**:
 - real fixture bytes for aggregate `stackData`
 - source-level field mapping for the private parallax grammar
 - a public or private materializing Top Shelf / `.brandassets` input schema
+
+## 2026-07-14 second follow-up — actual brandassets materialization gate and real iconstack fixtures
+
+### Current active host in this phase
+
+- session: `NoqRgiONpDaSlIzApHRa`
+- ssh target: `NoqRgiONpDaSlIzApHRa@uptermd.upterm.dev`
+- observed host:
+  - macOS `26.4`
+  - Xcode `26.5`
+  - build `17F42`
+- repo path: `/Users/runner/work/mac/mac`
+
+### Major discoveries
+
+#### 1. Public `.brandassets` does materialize — but only when `--target-device tv` is supplied
+
+The earlier public `.brandassets` probes were incomplete because they omitted the device-target gate.
+A new 10-case Apple matrix now shows:
+
+- without `--target-device tv`:
+  - rc `0`
+  - partial plist only
+  - no `Assets.car`
+- with `--target-device tv` and `--app-icon 'tvOS App Icon & Top Shelf Image'`:
+  - rc `0`
+  - partial plist emitted
+  - **`Assets.car` emitted**
+
+`--product-type com.apple.product-type.application` and `--include-all-app-icons` only matter once `--target-device tv` is already present; neither alone causes materialization.
+`--target-device tv` without `--app-icon` still does not materialize.
+
+Evidence:
+
+- `brandassets-target-device-tv-matrix.json`
+- `brandassets-target-device-tv-assetutil-summary.json`
+- copied CAR fixture: `fixtures/brandassets-target-tv-Assets.car`
+- parsed local inspect: `brandassets-target-tv-inspect.json`
+
+#### 2. The materialized public tvOS brandassets fixture gives a real `layout 1002` ImageStack oracle
+
+The Apple-generated public fixture contains:
+
+- root layout `1002`
+- child layer images layout `12`
+- flattened image part `208`
+- radiosity image part `209`
+- top-shelf images as ordinary deepmap2 image renditions
+
+Apple `assetutil` reports the root records as:
+
+- `AssetType = ImageStack`
+- idiom `universal` for the small icon stack
+- idiom `marketing` for the large icon stack
+
+The root `1002` rendition carries TLVs:
+
+- `1012`
+- `1020`
+- `1021`
+- `1004`
+- `1005`
+- `1006`
+
+For this public fixture the `1012` child references decode cleanly and the `1020` / `1021` entries are trivial zeros/ones.
+
+#### 3. Real current `IconImageStack` / `IconGroup` / `Named Gradient` fixtures are now confirmed in many installed CARs
+
+A broader installed-CAR scan found:
+
+- `cars_with_hits = 148`
+- layout counts:
+  - `1019: 543`
+  - `1020: 1665`
+  - `1021: 655`
+
+Observed hit families include:
+
+- Firefox
+- Chrome / Google Chrome for Testing
+- Edge
+- Xcode applications such as:
+  - FileMerge
+  - Accessibility Inspector
+  - Create ML
+  - Simulator
+  - Instruments-family assets
+  - main Xcode resource CAR
+
+This is the first strong evidence that the previously missing private aggregate family is not rare at all — it is widespread in current installed application CARs.
+
+Evidence:
+
+- `iconstack-scan-summary.json`
+- `fixtures/firefox-Assets.car`
+- `fixtures/filemerge-Assets.car`
+- `iconstack-fixture-summary.json`
+- `firefox-iconstack-inspect.json`
+
+#### 4. `renderingProperties` grammar is no longer fixture-less
+
+The real fixtures show three important layers of grammar:
+
+##### `layout 1019` / `IconImageStack`
+
+- TLVs: `1012`, `1020`, `1021`, `1004`, `1005`, `1006`
+- `1012` is a child-reference list:
+  - background named gradient(s)
+  - icon groups
+- root `1020` uses fixed 13-byte-per-entry records
+- the first u32 strongly correlates with entry kind:
+  - `0` for gradient background in observed roots
+  - `2` for icon groups in observed roots
+- the float slot strongly correlates with per-layer parallax depth values observed in current fixtures:
+  - `0.0`
+  - `0.15`
+  - `0.35`
+  - `0.4`
+  - `0.5`
+  - `0.7`
+
+##### `layout 1020` / `IconGroup`
+
+- TLVs: `1012`, `1020`, `1021`, `1004`, `1006`
+- `1012` references the underlying vector/image child
+- group `1020` can contain a variable-length named style reference such as:
+  - `FileMerge_Assets/Color-10`
+  - `FileMerge_Assets/Gradient-4`
+  - `FileMerge_Assets/Gradient-3`
+  - `FileMerge_Assets/Color-9`
+
+This is strong evidence that current real `renderingProperties` includes per-group style links to named colors and gradients.
+
+##### `layout 1021` / `Named Gradient`
+
+- payload begins with observable signature `ARGG`
+- contains stop count, mode-like integer, several scalar fields, and named-color references
+- current extracted examples reference names like:
+  - `AppIcon_Assets/Color-2`
+  - `AppIcon_Assets/Color-3`
+  - `FileMerge_Assets/Color-4`
+  - `FileMerge_Assets/Color-5`
+
+This is now a real fixture family, not a string-only hypothesis.
+
+### New implementation in this phase
+
+Added:
+
+- `src/actool_linux/iconstack.py`
+- `tests/test_iconstack.py`
+- `tools/iconstack_fixture_scan.py`
+
+`carinfo.inspect()` now decodes the discovered fixture families as:
+
+- `layer_stack_layers`
+- `icon_stack_layers`
+- `icon_group_layers`
+- `icon_stack_rendering_properties`
+- `icon_group_rendering_properties`
+- `icon_stack_auxiliary`
+- `named_gradient`
+
+### Test status after this phase
+
+```text
+PYTHONPATH=src python3 -m unittest discover -s tests -q
+Ran 120 tests
+OK (skipped=11)
+```
+
+### What is still incomplete
+
+These items remain unsolved and should still not be overstated:
+
+- exact semantic naming of every field in root `1019` `1020` records
+- exact semantic naming of every field in `1021` auxiliary entries
+- full `ARGG` named-gradient field semantics
+- exact writer parity for public tvOS brandassets `1002` / flattened / radiosity output
+- complete private parallax grammar naming at the source-schema level
+
+However, the state has materially changed:
+
+- `renderingProperties` and `stackData` are **no longer fixture-less**
+- there is now a real public `1002` ImageStack fixture
+- there are now many real `1019` / `1020` / `1021` fixtures in installed current software

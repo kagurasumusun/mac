@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "case": "base",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/partial-base.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": false,
+      "partial_exists": true,
+      "output_files": [],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/partial-base.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "target_tv",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/out-target_tv/Assets.car</string>\n\t\t\t<string>/tmp/brandmatrix2/partial-target_tv.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": true,
+      "partial_exists": true,
+      "output_files": [
+        "out-target_tv/Assets.car"
+      ],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/out-target_tv/Assets.car",
+            "/tmp/brandmatrix2/partial-target_tv.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "product_app",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/partial-product_app.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": false,
+      "partial_exists": true,
+      "output_files": [],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/partial-product_app.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "product_app_target_tv",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/out-product_app_target_tv/Assets.car</string>\n\t\t\t<string>/tmp/brandmatrix2/partial-product_app_target_tv.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": true,
+      "partial_exists": true,
+      "output_files": [
+        "out-product_app_target_tv/Assets.car"
+      ],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/out-product_app_target_tv/Assets.car",
+            "/tmp/brandmatrix2/partial-product_app_target_tv.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "include_all",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/partial-include_all.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": false,
+      "partial_exists": true,
+      "output_files": [],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/partial-include_all.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "include_all_target_tv",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/out-include_all_target_tv/Assets.car</string>\n\t\t\t<string>/tmp/brandmatrix2/partial-include_all_target_tv.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": true,
+      "partial_exists": true,
+      "output_files": [
+        "out-include_all_target_tv/Assets.car"
+      ],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/out-include_all_target_tv/Assets.car",
+            "/tmp/brandmatrix2/partial-include_all_target_tv.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "include_all_product_app",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/partial-include_all_product_app.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": false,
+      "partial_exists": true,
+      "output_files": [],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/partial-include_all_product_app.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "include_all_product_app_target_tv",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/out-include_all_product_app_target_tv/Assets.car</string>\n\t\t\t<string>/tmp/brandmatrix2/partial-include_all_product_app_target_tv.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": true,
+      "partial_exists": true,
+      "output_files": [
+        "out-include_all_product_app_target_tv/Assets.car"
+      ],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/out-include_all_product_app_target_tv/Assets.car",
+            "/tmp/brandmatrix2/partial-include_all_product_app_target_tv.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "no_appicon",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/partial-no_appicon.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": false,
+      "partial_exists": true,
+      "output_files": [],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/partial-no_appicon.plist"
+          ]
+        }
+      }
+    },
+    {
+      "case": "no_appicon_target_tv",
+      "exit": 0,
+      "stderr": "",
+      "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>com.apple.actool.compilation-results</key>\n\t<dict>\n\t\t<key>output-files</key>\n\t\t<array>\n\t\t\t<string>/tmp/brandmatrix2/partial-no_appicon_target_tv.plist</string>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n",
+      "car_exists": false,
+      "partial_exists": true,
+      "output_files": [],
+      "parsed": {
+        "com.apple.actool.compilation-results": {
+          "output-files": [
+            "/tmp/brandmatrix2/partial-no_appicon_target_tv.plist"
+          ]
+        }
+      }
+    }
+  ]
+}

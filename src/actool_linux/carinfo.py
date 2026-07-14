@@ -8,6 +8,12 @@ import sys
 from .bom import BOMError, BOMStore
 from .car import CARFile
 from .atlas import parse_atlas_link, parse_atlas_name_list, parse_atlas_trim
+from .iconstack import (
+    parse_iconstack_aux_list,
+    parse_iconstack_group_style_reference,
+    parse_iconstack_root_style_list,
+    parse_named_gradient_payload,
+)
 from .paletteimg import decode_quantized_image_payload, parse_theme_pixel_rendition
 from .solidstack import parse_solidimagestack_layer_list, parse_solidimagestack_layer_flags, parse_solidimagestack_layer_reserved
 from .texture import parse_texture_auxiliary_flag, parse_texture_reference_payload
@@ -15,6 +21,8 @@ from .texture import parse_texture_auxiliary_flag, parse_texture_reference_paylo
 
 def _decoded_tlvs(rendition) -> list[dict[str, object]]:
     rows = []
+    layout = rendition.csi.layout
+    part = rendition.key.get('kCRThemePartName')
     for tlv in rendition.csi.tlvs:
         item: dict[str, object] = {"tag": tlv.tag, "length": len(tlv.value)}
         try:
@@ -37,7 +45,8 @@ def _decoded_tlvs(rendition) -> list[dict[str, object]]:
                 item["atlas_name_list"] = list(parse_atlas_name_list(tlv.value).names)
             elif tlv.tag == 1012:
                 layers = parse_solidimagestack_layer_list(tlv.value)
-                item["solid_image_stack_layers"] = [
+                key = 'solid_image_stack_layers' if layout == 1018 else 'layer_stack_layers' if layout == 1002 else 'icon_stack_layers' if layout == 1019 else 'icon_group_layers' if layout == 1020 else 'stack_layers'
+                item[key] = [
                     {
                         "origin_x": layer.origin_x,
                         "origin_y": layer.origin_y,
@@ -51,18 +60,63 @@ def _decoded_tlvs(rendition) -> list[dict[str, object]]:
                     for layer in layers.layers
                 ]
             elif tlv.tag == 1020:
-                flags = parse_solidimagestack_layer_flags(tlv.value)
-                item["solid_image_stack_flags"] = [
-                    {
-                        "enabled": flag.enabled,
-                        "reserved0_hex": flag.reserved0.hex(),
-                        "reserved1_hex": flag.reserved1.hex(),
+                if layout == 1018:
+                    flags = parse_solidimagestack_layer_flags(tlv.value)
+                    item["solid_image_stack_flags"] = [
+                        {
+                            "enabled": flag.enabled,
+                            "reserved0_hex": flag.reserved0.hex(),
+                            "reserved1_hex": flag.reserved1.hex(),
+                        }
+                        for flag in flags.flags
+                    ]
+                elif layout == 1019:
+                    styles = parse_iconstack_root_style_list(tlv.value)
+                    item["icon_stack_rendering_properties"] = [
+                        {
+                            "kind": entry.kind,
+                            "value": entry.value,
+                            "enabled": entry.enabled,
+                            "reserved_hex": entry.reserved_hex,
+                        }
+                        for entry in styles.entries
+                    ]
+                elif layout == 1020 and part == 246:
+                    ref = parse_iconstack_group_style_reference(tlv.value)
+                    item["icon_group_rendering_properties"] = {
+                        "count": ref.count,
+                        "kind": ref.kind,
+                        "name": ref.name,
                     }
-                    for flag in flags.flags
-                ]
+                else:
+                    flags = parse_solidimagestack_layer_flags(tlv.value)
+                    item["stack_flags"] = [
+                        {
+                            "enabled": flag.enabled,
+                            "reserved0_hex": flag.reserved0.hex(),
+                            "reserved1_hex": flag.reserved1.hex(),
+                        }
+                        for flag in flags.flags
+                    ]
             elif tlv.tag == 1021:
-                reserved = parse_solidimagestack_layer_reserved(tlv.value)
-                item["solid_image_stack_reserved"] = [entry.raw.hex() for entry in reserved.entries]
+                if layout == 1018:
+                    reserved = parse_solidimagestack_layer_reserved(tlv.value)
+                    item["solid_image_stack_reserved"] = [entry.raw.hex() for entry in reserved.entries]
+                elif layout in (1002, 1019, 1020):
+                    aux = parse_iconstack_aux_list(tlv.value)
+                    item["icon_stack_auxiliary"] = [
+                        {
+                            "u32_1": entry.u32_1,
+                            "f32_1": entry.f32_1,
+                            "u32_2": entry.u32_2,
+                            "f32_2": entry.f32_2,
+                            "u32_3": entry.u32_3,
+                        }
+                        for entry in aux.entries
+                    ]
+                else:
+                    reserved = parse_solidimagestack_layer_reserved(tlv.value)
+                    item["stack_reserved"] = [entry.raw.hex() for entry in reserved.entries]
             elif tlv.tag == 1014:
                 aux = parse_texture_auxiliary_flag(tlv.value)
                 item["texture_auxiliary_flag"] = {"values": list(aux.values), "raw_hex": aux.raw.hex()}
@@ -87,6 +141,24 @@ def _decoded_payload(rendition) -> dict[str, object] | None:
             }
         except Exception as exc:
             return {'texture_reference_error': str(exc)}
+    if rendition.key.get('kCRThemePartName') == 247 and rendition.csi.rendition_data[:4] == b'ARGG':
+        try:
+            gradient = parse_named_gradient_payload(rendition.csi.rendition_data)
+            return {
+                'named_gradient': {
+                    'signature': gradient.signature,
+                    'stop_count': gradient.stop_count,
+                    'mode': gradient.mode,
+                    'scalar_1': gradient.scalar_1,
+                    'scalar_2': gradient.scalar_2,
+                    'scalar_3': gradient.scalar_3,
+                    'scalar_4': gradient.scalar_4,
+                    'scalar_5': gradient.scalar_5,
+                    'stops': [{'position': stop.position, 'name': stop.name} for stop in gradient.stops],
+                }
+            }
+        except Exception as exc:
+            return {'named_gradient_error': str(exc)}
     try:
         wrapper = parse_theme_pixel_rendition(rendition.csi.rendition_data)
     except Exception:

@@ -1,0 +1,967 @@
+{
+  "schema": 1,
+  "cars_with_hits": 148,
+  "layout_counts": {
+    "1021": 655,
+    "1019": 543,
+    "1020": 1665
+  },
+  "rows": [
+    {
+      "path": "/Applications/Firefox.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/149.0.7827.155/Helpers/Google Chrome for Testing Helper (Alerts).app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome for Testing.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/149.0.7827.201/Helpers/Google Chrome Helper (Alerts).app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Google Chrome.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/149.0.4022.98/Helpers/Microsoft Edge Helper (Alerts).app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 3
+      }
+    },
+    {
+      "path": "/Applications/Microsoft Edge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 3
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 6,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.0.1.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 10,
+        "1019": 6,
+        "1020": 21
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 6,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.1.1.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 12,
+        "1019": 9,
+        "1020": 30
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 6,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.2.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 12,
+        "1019": 9,
+        "1020": 30
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 6,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.3.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 12,
+        "1019": 9,
+        "1020": 30
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.4.1.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 9,
+        "1019": 9,
+        "1020": 30
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.5.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 9,
+        "1019": 9,
+        "1020": 30
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Accessibility Inspector.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Create ML.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/FileMerge.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Icon Composer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Instruments.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Applications/Reality Composer Pro.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 5,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Developer/Applications/Simulator.app/Contents/PlugIns/SimulatorShareExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Developer/Applications/Simulator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/Applications/Xcode_26.6.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 9,
+        "1019": 9,
+        "1020": 30
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Accessibility Reader.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Apple Diagnostics.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/AppleScript Utility.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/About This Mac.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Archive Utility.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 8,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/DVD Player.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Desk View.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 9,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Directory Utility.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Expansion Slot Utility.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 6,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Feedback Assistant.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 3
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Folder Actions Setup.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Keychain Access.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Ticket Viewer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/Wireless Diagnostics.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Applications/iOS App Installer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Automator Application Stub.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Batteries.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1020": 9,
+        "1019": 3
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 53,
+        "1019": 60,
+        "1020": 120
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Dock.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Enhanced Logging.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Erase Assistant.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/FileProvider-Feedback.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 3
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Finder.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/FolderActionsDispatcher.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Game Center.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 8,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/GameTrampoline.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 7,
+        "1019": 3,
+        "1020": 12
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Install Command Line Developer Tools.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Install in Progress.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Installer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/KeyboardSetupAssistant.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Medical Imaging Calibrator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/MusicRecognitionMac.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Pass Viewer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 6,
+        "1019": 6,
+        "1020": 18
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/PeopleViewService.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/PreviewShellMac.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Pro Display Calibrator.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 6
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Support/Shared Screen Viewer.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/AppleVNCServer.bundle/Contents/Support/LockScreen.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/AppleVNCServer.bundle/Contents/Support/SSDragHelper.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/AppleVNCServer.bundle/Contents/Support/Share Screen Request.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/Remote Desktop Message.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/Support/SSAssistanceCursor.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/Support/SSInvitationAgent.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/mbproximityhelper.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 3,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Siri.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 4,
+        "1019": 3,
+        "1020": 9
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Spotlight.app/Contents/Extensions/SpotlightPreferenceExtension.appex/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 3
+      }
+    },
+    {
+      "path": "/System/Library/CoreServices/Spotlight.app/Contents/Resources/Assets.car",
+      "counts": {
+        "1021": 2,
+        "1019": 3,
+        "1020": 3
+      }
+    }
+  ]
+}
