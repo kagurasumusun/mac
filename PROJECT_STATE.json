@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-14",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 120,
-  "test_status": "OK, local suite 120/120 pass with 11 optional skips; current local state synced to origin/actool plus iconstack/brandassets follow-up",
+  "test_count": 122,
+  "test_status": "OK, local suite 122/122 pass with 11 optional skips; current local state synced to origin/actool plus iconstack/brandassets and appearance-registry follow-up",
   "storage_versions": [
     15,
     16,
@@ -98,7 +98,11 @@
     "complete field-level semantics of layout-1019/1020 renderingProperties records",
     "complete field-level semantics of layout-1021/gradient payload grammar",
     "exact writer parity for public tvOS brandassets target-device-tv ImageStack/radiosity output",
-    "private parallax grammar to source-level semantic names"
+    "private parallax grammar to source-level semantic names",
+    "complete semantic naming for macOS iconstack appearance-specific auxiliary entries",
+    "complete semantic naming of root 1019 rendering-property records",
+    "complete semantic naming of group 1020 style-reference records",
+    "complete semantic naming of 1021 named-gradient scalar tuple"
   ],
   "authoritative_notes": [
     "HANDOFF.md",
@@ -109,12 +113,13 @@
   "slow_work_policy": "defer; use short static/assetutil/inventory checks",
   "focused_verification_latest": {
     "host": "macOS 26.4 / Xcode 26.5 (17F42)",
-    "tests": "120 tests OK (local); focused remote probes on NoqRgiONpDaSlIzApHRa",
+    "tests": "122 tests OK (local); focused remote probes on NoqRgiONpDaSlIzApHRa",
     "remote_session": "NoqRgiONpDaSlIzApHRa (macOS 26.4 / Xcode 26.5)",
     "brandassets_target_device_tv_matrix": "brandassets-target-device-tv-matrix.json",
     "brandassets_target_device_tv_assetutil": "brandassets-target-device-tv-assetutil-summary.json",
     "iconstack_scan": "iconstack-scan-summary.json",
-    "iconstack_fixture_summary": "iconstack-fixture-summary.json"
+    "iconstack_fixture_summary": "iconstack-fixture-summary.json",
+    "xcode_main_iconstack_dump": "xcode-main-iconstack-dump.json"
   },
   "minimal_environment_test_status": "OK, 6 optional-dependency skips",
   "full_optional_environment_test_status": "84 OK, no skips",
@@ -332,7 +337,14 @@
     "cars_with_iconstack_hits": 148,
     "brandassets_target_device_tv_materializes": true,
     "brandassets_target_device_tv_matrix": "brandassets-target-device-tv-matrix.json",
-    "brandassets_target_device_tv_assetutil": "brandassets-target-device-tv-assetutil-summary.json"
+    "brandassets_target_device_tv_assetutil": "brandassets-target-device-tv-assetutil-summary.json",
+    "macos_appearance_registry_for_iconstack": {
+      "NSAppearanceNameSystem": 0,
+      "NSAppearanceNameDarkAqua": 1,
+      "NSAppearanceNameAqua": 8,
+      "ISAppearanceTintable": 10
+    },
+    "xcode_main_iconstack_dump": "xcode-main-iconstack-dump.json"
   },
   "watch_marketing_xcode_matrix": {
     "xcode_releases": [

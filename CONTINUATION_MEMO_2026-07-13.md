@@ -754,3 +754,62 @@ However, the state has materially changed:
 - `renderingProperties` and `stackData` are **no longer fixture-less**
 - there is now a real public `1002` ImageStack fixture
 - there are now many real `1019` / `1020` / `1021` fixtures in installed current software
+
+## 2026-07-14 third follow-up — APPEARANCEKEYS and larger Xcode iconstack sample
+
+### New parser coverage
+
+`CARFile` now parses optional:
+
+- `APPEARANCEKEYS`
+- `LOCALIZATIONKEYS`
+
+and `carinfo.inspect()` surfaces both registries.
+
+### Confirmed macOS iconstack appearance mapping
+
+Real current iconstack fixtures now decode their own appearance registry directly:
+
+- `NSAppearanceNameSystem -> 0`
+- `NSAppearanceNameDarkAqua -> 1`
+- `NSAppearanceNameAqua -> 8`
+- `ISAppearanceTintable -> 10`
+
+This is important because the observed `1019` / `1020` iconstack fixtures use appearance IDs `1`, `8`, and `10`, and these are now grounded in the actual CAR registry instead of only in `assetutil` text.
+
+Test coverage added:
+
+- `tests/test_car_appearance_registry.py`
+
+Full suite now:
+
+```text
+Ran 122 tests
+OK (skipped=11)
+```
+
+### Larger Xcode 26.5 iconstack sample
+
+A targeted dump from the main Xcode 26.5 resource CAR was added:
+
+- `xcode-main-iconstack-dump.json`
+
+This confirms across `Xcode*`, `XcodeCloud*`, and `XcodeIntelligence*` icon assets:
+
+- `ARGG` named-gradient payloads with:
+  - `stop_count=2`, `mode=1` for two-stop gradients
+  - `stop_count=1`, `mode=0` for single-stop gradients
+- all observed Xcode main-resource gradients share the same scalar tuple:
+  - `0.0, 0.5, 0.0, 0.5, 1.0`
+
+That strongly suggests the five scalar fields encode real gradient geometry/behavior, not padding. The exact semantic names are still unresolved, so they should still be reported conservatively.
+
+The same larger sample also strengthens the current hypothesis that `1019` auxiliary `1021` blocks carry real per-layer style/parallax semantics, with observed value families such as:
+
+- `u32_2` in `{0,2,3}`
+- `f32_1` in `{0.0,0.5,0.6,0.7,0.9}`
+- `f32_2` in `{0.0,0.5,0.6,1.0}`
+
+### State change
+
+At this point the project is no longer missing fixture bytes for the aggregate family under investigation. The remaining work is **semantic naming and writer reproduction**, not basic fixture discovery.

@@ -84,6 +84,12 @@ class Rendition:
 
 
 @dataclass(frozen=True)
+class NamedValueRegistryEntry:
+    name: str
+    value: int
+
+
+@dataclass(frozen=True)
 class KeyFormat:
     byte_order: str
     attributes: tuple[int, ...]
@@ -182,6 +188,16 @@ def parse_rendition(key_raw: bytes, value_raw: bytes, key_format: KeyFormat) -> 
     return Rendition(tuple(values), named, parse_csi(value_raw))
 
 
+def parse_named_value_registry_entry(key_raw: bytes, value_raw: bytes) -> NamedValueRegistryEntry:
+    try:
+        name = key_raw.decode('utf-8')
+    except UnicodeDecodeError as exc:
+        raise BOMError('registry key is not UTF-8') from exc
+    if len(value_raw) < 2:
+        raise BOMError(f'registry value for {name!r} is truncated')
+    return NamedValueRegistryEntry(name, int.from_bytes(value_raw[:2], 'little'))
+
+
 class CARFile:
     def __init__(self, store: BOMStore):
         self.store = store
@@ -191,6 +207,14 @@ class CARFile:
             parse_extended_metadata(store.named_block("EXTENDED_METADATA"))
             if "EXTENDED_METADATA" in store.variables else None
         )
+        self.appearances = tuple(
+            parse_named_value_registry_entry(entry.key, entry.value)
+            for entry in read_leaf_entries(store, 'APPEARANCEKEYS')
+        ) if 'APPEARANCEKEYS' in store.variables else ()
+        self.localizations = tuple(
+            parse_named_value_registry_entry(entry.key, entry.value)
+            for entry in read_leaf_entries(store, 'LOCALIZATIONKEYS')
+        ) if 'LOCALIZATIONKEYS' in store.variables else ()
         self.facets = tuple(
             parse_facet(entry.key, entry.value)
             for entry in read_leaf_entries(store, "FACETKEYS")

@@ -836,3 +836,48 @@ TVTopShelfPrimaryImageWide
 ### Boundary update
 
 This phase **does** provide real current fixture bytes for the observable families underlying `stackData` / `renderingProperties` work. What remains incomplete is not fixture existence but the **complete semantic naming of every field** in the `1019` root `1020` records, the `1021` auxiliary records, and the full `ARGG` named-gradient payload grammar.
+
+## 2026-07-14 — Appearance registry parsing and larger Xcode iconstack sample
+
+- Added optional APPEARANCEKEYS / LOCALIZATIONKEYS registry parsing to `CARFile` and surfaced it through `carinfo.inspect()`.
+- Real macOS iconstack fixtures now decode their appearance registry directly instead of inferring appearance IDs only from `assetutil` text.
+- Verified on real copied fixtures:
+
+```text
+NSAppearanceNameSystem   -> 0
+NSAppearanceNameDarkAqua -> 1
+NSAppearanceNameAqua     -> 8
+ISAppearanceTintable     -> 10
+```
+
+- The public brandassets target-device-tv fixture uses the ordinary public registry only:
+
+```text
+UIAppearanceAny -> 0
+```
+
+- Added `tests/test_car_appearance_registry.py`; full suite increased to `122` tests, `OK (skipped=11)`.
+
+### Larger Xcode main-resource iconstack sample
+
+- Pulled a targeted JSON dump from the main Xcode 26.5 resource CAR (`xcode-main-iconstack-dump.json`) limited to `Xcode*`, `XcodeCloud*`, and `XcodeIntelligence*` iconstack assets.
+- Confirmed current named-gradient payloads across this larger sample:
+  - signature `ARGG`
+  - `stop_count=2`, `mode=1` for two-stop gradients
+  - `stop_count=1`, `mode=0` for one-stop gradients
+- All observed Xcode main-resource gradient payloads shared the same scalar tuple:
+
+```text
+scalar_1 = 0.0
+scalar_2 = 0.5
+scalar_3 = 0.0
+scalar_4 = 0.5
+scalar_5 = 1.0
+```
+
+- This contrasts with the Firefox/FileMerge family, which uses different scalar tuples, confirming that these five floats encode real gradient geometry/behavior rather than placeholder noise. The exact field names remain unresolved, so the parser still reports them conservatively as scalar fields.
+- The larger Xcode sample also showed appearance-dependent `1019` auxiliary tuples using values such as:
+  - `u32_2` in `{0,2,3}`
+  - `f32_1` in `{0.0,0.5,0.6,0.7,0.9}`
+  - `f32_2` in `{0.0,0.5,0.6,1.0}`
+- This strengthens the conclusion that the `1021` per-entry auxiliary block is carrying actual per-layer parallax/style semantics rather than unused padding.
