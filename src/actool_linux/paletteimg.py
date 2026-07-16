@@ -30,7 +30,12 @@ class PaletteImageError(ValueError):
 def _bit_width(palette_count: int) -> int:
     if not 1 <= palette_count <= MAX_PALETTE_COLORS:
         raise PaletteImageError("palette color count is out of range")
-    return max(1, (palette_count - 1).bit_length())
+    # Public quantized-image grammar stores indices at discrete widths; the
+    # 105-color public Timac fixture confirms 17..256 colors use whole bytes.
+    for bits in (1, 2, 4, 8):
+        if palette_count <= (1 << bits):
+            return bits
+    return 12
 
 
 
@@ -86,13 +91,10 @@ def _pack_row_indices(indices: bytes, width: int, bits_per_index: int) -> bytes:
 
 
 def decode_quantized_image_payload(raw_data: bytes, *, width: int, height: int, pixel_format: str = "ARGB") -> QuantizedImageData:
-    try:
-        import lzfse
-    except ImportError as exc:  # pragma: no cover - optional dependency
-        raise PaletteImageError("palette-img decoding requires the optional lzfse dependency") from exc
+    from . import lzfse_compat
     if pixel_format not in ("ARGB", "RGBW"):
         raise PaletteImageError(f"unsupported quantized pixel format: {pixel_format}")
-    decoded = lzfse.decompress(bytes(raw_data))
+    decoded = lzfse_compat.decompress(bytes(raw_data))
     if len(decoded) < 10:
         raise PaletteImageError("decoded quantized payload is truncated")
     magic, version = struct.unpack_from("<2I", decoded, 0)
@@ -121,10 +123,7 @@ def decode_quantized_image_payload(raw_data: bytes, *, width: int, height: int, 
 
 
 def encode_quantized_image_payload(palette_argb: bytes, indices: bytes, *, width: int, height: int, version: int = 1) -> bytes:
-    try:
-        import lzfse
-    except ImportError as exc:  # pragma: no cover - optional dependency
-        raise PaletteImageError("palette-img encoding requires the optional lzfse dependency") from exc
+    from . import lzfse_compat
     if version not in (0, 1):
         raise PaletteImageError("quantized payload version must be 0 or 1")
     if len(palette_argb) % 4:
@@ -137,7 +136,7 @@ def encode_quantized_image_payload(palette_argb: bytes, indices: bytes, *, width
         raise PaletteImageError("quantized index references a missing palette entry")
     packed_indices = _pack_row_indices(indices, width, bits)
     payload = struct.pack("<2IH", MAGIC, version, palette_count) + bytes(palette_argb) + packed_indices
-    return lzfse.compress(payload)
+    return lzfse_compat.compress(payload)
 
 
 

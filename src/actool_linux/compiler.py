@@ -6,12 +6,115 @@ from typing import Iterable
 import plistlib
 
 from .carwriter import (
-    app_icon_renditions, build_assets_car, color_rendition, data_rendition,
-    heif_rendition, jpeg_rendition, layered_image_renditions, png_rendition, resize_png, svg_renditions, symbol_rendition, png_dimensions,
+    AssetRendition, app_icon_renditions, build_assets_car, color_rendition, data_rendition,
+    heif_rendition, jpeg_rendition, layered_image_renditions, make_deepmap_csi_variant, png_rendition, resize_png, svg_renditions, symbol_rendition, png_dimensions,
+    _identifier,
 )
 from .atlas import packed_atlas_renditions, packed_watch_complication_renditions
-from .model import Catalog, Diagnostic, load_catalog
+from .imagestack import StackLayerImage, imagestack_renditions
+from .model import Asset, Catalog, Diagnostic, load_catalog
 from .appicons import app_icon_entry_rank, app_icon_sidecar_specs
+
+
+def _resolve_image_stack_layers(asset: Asset, assets: list[Asset]) -> list[dict[str, object]]:
+    """Resolve an image stack's layer references to concrete image entries.
+
+    Returns front-to-back order as declared in the stack's Contents.json.
+    Each row carries layer_name, filename, base directory, idiom, scale.
+    """
+    layers: list[dict[str, object]] = []
+    for layer_ref in asset.entries:
+        dirname = layer_ref.get("filename")
+        if not isinstance(dirname, str):
+            continue
+        layer_dir = asset.directory / dirname
+        layer_asset = next((c for c in assets if c.kind == "image-stack-layer" and c.directory == layer_dir), None)
+        if layer_asset is None:
+            continue
+        nested_image = next((c for c in assets if c.kind == "image" and c.directory.parent == layer_dir), None)
+        if nested_image is not None:
+            candidates = list(nested_image.entries)
+            selected_base = nested_image.directory
+        else:
+            candidates = list(layer_asset.entries)
+            selected_base = layer_dir
+        entry = next((e for e in candidates if isinstance(e.get("filename"), str) and (selected_base / str(e["filename"])).is_file()), None)
+        if entry is None:
+            continue
+        layers.append({
+            "layer_name": layer_asset.name,
+            "filename": str(entry["filename"]),
+            "base": selected_base,
+            "idiom": str(entry.get("idiom", "universal")),
+            "scale": str(entry.get("scale", "1x")),
+        })
+    return layers
+
+
+def compile_brand_assets(asset: Asset, assets: list[Asset], options: CompileOptions) -> tuple[list[AssetRendition], list[Diagnostic]]:
+    """Compile a tvOS .brandassets directory (roles: app icon stacks + shelves).
+
+    Observed materialization gate (Xcode 26.x): only when
+    `--target-device tv` and `--app-icon <brand name>` are both passed does
+    Apple actool emit a CAR for public .brandassets content.
+    """
+    renditions: list[AssetRendition] = []
+    diagnostics: list[Diagnostic] = []
+    if "tv" not in options.target_devices or options.app_icon != asset.name:
+        return renditions, diagnostics
+    stacks: list[tuple[dict[str, object], Asset]] = []
+    shelves: list[tuple[dict[str, object], Asset]] = []
+    for entry in asset.entries:
+        filename = entry.get("filename")
+        role = str(entry.get("role", ""))
+        if not isinstance(filename, str):
+            continue
+        target = asset.directory / filename
+        if role == "primary-app-icon" and target.suffix == ".imagestack":
+            stack_asset = next((c for c in assets if c.kind == "image-stack" and c.directory == target), None)
+            if stack_asset is not None:
+                stacks.append((entry, stack_asset))
+        elif role in ("top-shelf-image", "top-shelf-image-wide") and target.suffix == ".imageset":
+            image_asset = next((c for c in assets if c.kind == "image" and c.directory == target), None)
+            if image_asset is not None:
+                shelves.append((entry, image_asset))
+    if not stacks:
+        return renditions, diagnostics
+    # The primary (non-marketing) stack provides the aggregate identifier used
+    # by all aggregate records of both stacks (observed Apple behavior).
+    primary_name = next((s.name for _e, s in stacks if str(_e.get("size", "")) != "1280x768"), stacks[0][1].name)
+    primary_id = _identifier(primary_name)
+    for entry, stack_asset in stacks:
+        resolved = _resolve_image_stack_layers(stack_asset, assets)
+        if len(resolved) < 2:
+            continue
+        layers = [StackLayerImage(str(layer["layer_name"]), str(layer["filename"]), (layer["base"] / str(layer["filename"])).read_bytes())
+                  for layer in reversed(resolved)]
+        marketing = str(entry.get("size", "")) == "1280x768"
+        scale = int(str(resolved[0].get("scale", "1x"))[0]) if str(resolved[0].get("scale", "1x"))[0] in "123" else 1
+        if marketing:
+            renditions.extend(imagestack_renditions(stack_asset.name, layers, root_idiom=6, child_idiom=6, flattened_idiom=6, scale=scale, root_identifier=primary_id))
+        else:
+            renditions.extend(imagestack_renditions(stack_asset.name, layers, root_idiom=0, child_idiom=3, flattened_idiom=3, scale=scale, root_identifier=primary_id))
+    for _entry, image_asset in shelves:
+        chosen = next((e for e in image_asset.entries
+                       if isinstance(e.get("filename"), str) and str(e.get("idiom", "tv")) == "tv"
+                       and (image_asset.directory / str(e["filename"])).is_file()), None)
+        if chosen is None:
+            chosen = next((e for e in image_asset.entries
+                           if isinstance(e.get("filename"), str) and (image_asset.directory / str(e["filename"])).is_file()), None)
+        if chosen is None:
+            continue
+        png = (image_asset.directory / str(chosen["filename"])).read_bytes()
+        scale_text = str(chosen.get("scale", "1x"))
+        scale = int(scale_text[0]) if scale_text and scale_text[0] in "123" else 1
+        try:
+            csi = make_deepmap_csi_variant(png, str(chosen["filename"]), scale=scale, prefer_cbck=True, stack_bottom=True)
+        except ValueError as exc:
+            diagnostics.append(Diagnostic("error", f"invalid top shelf image: {exc}", image_asset.directory))
+            continue
+        renditions.append(AssetRendition(image_asset.name, csi, 181, 181, scale=scale, idiom=3))
+    return renditions, diagnostics
 
 
 @dataclass
@@ -63,6 +166,33 @@ def _partial_info(catalogs: Iterable[Catalog], options: CompileOptions) -> dict[
                 "CFBundleIconName": options.app_icon,
             }
         }
+    if options.app_icon and "tv" in options.target_devices and platform in ("appletvos", "appletvsimulator"):
+        for catalog in catalogs:
+            for asset in catalog.assets:
+                if asset.kind != "brand-assets" or asset.name != options.app_icon:
+                    continue
+                primary = shelf = shelf_wide = None
+                for entry in asset.entries:
+                    role = str(entry.get("role", ""))
+                    fn = entry.get("filename")
+                    if not isinstance(fn, str) or "." not in fn:
+                        continue
+                    stem = fn.rsplit(".", 1)[0]
+                    if role == "primary-app-icon" and str(entry.get("size", "")) != "1280x768":
+                        primary = stem
+                    elif role == "top-shelf-image":
+                        shelf = stem
+                    elif role == "top-shelf-image-wide":
+                        shelf_wide = stem
+                if primary is not None:
+                    result["CFBundleIcons"] = {"CFBundlePrimaryIcon": primary}
+                tv: dict[str, str] = {}
+                if shelf is not None:
+                    tv["TVTopShelfPrimaryImage"] = shelf
+                if shelf_wide is not None:
+                    tv["TVTopShelfPrimaryImageWide"] = shelf_wide
+                if tv:
+                    result["TVTopShelfImage"] = tv
     return result
 
 
@@ -124,7 +254,8 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
         if options.partial_info_plist:
             options.partial_info_plist.parent.mkdir(parents=True, exist_ok=True)
             with options.partial_info_plist.open("wb") as stream:
-                plistlib.dump(_partial_info(catalogs, options), stream, fmt=plistlib.FMT_BINARY)
+                # Observed Xcode 26.x writes the partial-info plist as XML.
+                plistlib.dump(_partial_info(catalogs, options), stream, fmt=plistlib.FMT_XML)
             # actool lists primary compiled products before this auxiliary plist.
             deferred_partial_info = options.partial_info_plist
 
@@ -233,6 +364,42 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                     except ValueError as exc:
                         diagnostics.append(Diagnostic("error", f"invalid complication set: {exc}", asset.directory))
                 continue
+            if asset.kind == "image-stack" and asset.directory.parent.suffix != ".brandassets":
+                platform = (options.platform or "appletvos").lower()
+                is_vision_stack = platform in ("xros", "xrsimulator", "visionos")
+                if is_vision_stack:
+                    pass  # handled by the legacy vision branch below
+                else:
+                    resolved_layers = _resolve_image_stack_layers(asset, assets)
+                    applicable = [layer for layer in resolved_layers if layer["idiom"] in ("universal",)]
+                    if len(resolved_layers) >= 2 and len(applicable) < 2:
+                        if not applicable:
+                            detail = "none have applicable content"
+                        elif len(applicable) == 1:
+                            detail = "only 1 has applicable content"
+                        else:
+                            detail = f"only {len(applicable)} have applicable content"
+                        message = (f'The image stack "{asset.name}" must have at least 2 layers with applicable content. '
+                                   f"Although it has {len(resolved_layers)} layers, {detail}.")
+                        diagnostics.append(Diagnostic("document", message, asset.directory,
+                                                      document={"affected-items": [f"./{asset.directory.name}"],
+                                                                "catalog": str(asset.catalog),
+                                                                "message": message,
+                                                                "type": "Unsupported Configuration"}))
+                        continue
+                    if len(applicable) >= 2:
+                        try:
+                            renditions.extend(imagestack_renditions(
+                                asset.name,
+                                [StackLayerImage(layer["layer_name"], layer["filename"], (layer["base"] / layer["filename"]).read_bytes())
+                                 for layer in reversed(applicable)],
+                                root_idiom=0, child_idiom=0, flattened_idiom=0,
+                                scale=int(str(applicable[0].get("scale", "1x"))[0]) if str(applicable[0].get("scale", "1x"))[0] in "123" else 1))
+                        except ValueError as exc:
+                            diagnostics.append(Diagnostic("error", f"invalid image stack: {exc}", asset.directory))
+                    continue
+            if asset.kind == "image-stack" and asset.directory.parent.suffix == ".brandassets":
+                continue
             if asset.kind == "image-stack":
                 layer_bytes: list[bytes] = []
                 layer_depths: list[int] = []
@@ -284,7 +451,12 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                     except ValueError as exc:
                         diagnostics.append(Diagnostic("error", f"invalid image stack: {exc}", asset.directory))
                 continue
-            if asset.kind in ("image-stack-layer", "brand-assets"):
+            if asset.kind == "image-stack-layer":
+                continue
+            if asset.kind == "brand-assets":
+                brand_out, brand_diags = compile_brand_assets(asset, assets, options)
+                renditions.extend(brand_out)
+                diagnostics.extend(brand_diags)
                 continue
 
             # Real AppIcon catalogs commonly contain many legacy sizes.  Select

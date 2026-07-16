@@ -50,8 +50,10 @@ class PaletteImgTests(unittest.TestCase):
         self.assertEqual(wrapper.compression_type, 8)
         decoded = decode_quantized_image_payload(wrapper.raw_data, width=image.csi.width, height=image.csi.height, pixel_format=image.csi.pixel_format)
         self.assertEqual(decoded.version, 1)
-        self.assertEqual(len(decoded.palette), 4)
-        self.assertEqual(decoded.bits_per_index, 2)
+        # Public Timac fixture ground truth: 105-color palette, whole-byte
+        # indices (discrete widths 1/2/4/8), one index per pixel.
+        self.assertEqual(len(decoded.palette), 105)
+        self.assertEqual(decoded.bits_per_index, 8)
         self.assertEqual(len(decoded.indices), image.csi.width * image.csi.height)
 
     def test_builds_palette_img_car(self):

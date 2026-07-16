@@ -12,6 +12,7 @@ class Diagnostic:
     message: str
     path: Path | None = None
     failure_reason: str | None = None
+    document: dict[str, Any] | None = None
 
     def render(self) -> str:
         prefix = f"{self.path}: " if self.path else ""

@@ -36,6 +36,9 @@ def result_plist(diagnostics: list[Diagnostic], outputs: list[Path], *, include_
     root: dict[str, object] = {}
     if outputs or include_compilation_results:
         root["com.apple.actool.compilation-results"] = {"output-files": [str(x) for x in outputs]}
+    document_errors = [d.document for d in diagnostics if d.document is not None]
+    if document_errors:
+        root["com.apple.actool.document.errors"] = document_errors
     for severity in ("error", "warning", "notice"):
         rows = []
         for d in diagnostics:

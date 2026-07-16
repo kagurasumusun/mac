@@ -21,14 +21,11 @@ class CBCKPayload:
     chunks: tuple[CBCKChunk, ...]
 
     def decompress(self) -> bytes:
-        try:
-            import lzfse
-        except ImportError as exc:
-            raise BOMError("CBCK decompression requires the optional lzfse dependency") from exc
+        from . import lzfse_compat
         output = bytearray()
         for index, chunk in enumerate(self.chunks):
             try:
-                output += lzfse.decompress(chunk.compressed)
+                output += lzfse_compat.decompress(chunk.compressed)
             except Exception as exc:
                 raise BOMError(f"CBCK chunk {index} has an invalid LZFSE stream") from exc
         return bytes(output)

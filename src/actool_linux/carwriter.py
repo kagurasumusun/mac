@@ -7,6 +7,7 @@ import struct
 import zlib
 
 from .bomwriter import BOMWriter
+from . import lzfse_compat
 from .paletteimg import build_palette_img_wrapper
 from .solidstack import (
     SolidImageStackLayerFlag,
@@ -21,6 +22,39 @@ from .texture import TextureAuxiliaryFlag, TextureReference, build_texture_auxil
 
 
 KEY_ATTRIBUTES = (7, 13, 1, 2, 3, 17, 11, 12)
+IOS_ATTRIBUTES = (7, 13, 12, 15, 16, 17, 1, 2)
+APP_ICON_ATTRIBUTES = (7, 13, 12, 15, 16, 9, 17, 1, 2)      # adds dimension2
+STACK_ATTRIBUTES = (7, 13, 12, 15, 16, 8, 17, 1, 2)        # adds dimension1
+LAYER_ATTRIBUTES = (7, 13, 12, 15, 16, 9, 17, 1, 2, 11)    # dimension2 + layer
+SYMBOL_ATTRIBUTES = (7, 13, 1, 2, 4, 17, 8, 9, 10, 14, 12, 19, 18, 25, 26, 27)
+
+# Rendition parts emitted for layered image stack aggregates (flattened /
+# radiosity). Apple compiles catalogs containing these with the iOS-family
+# key format even when every rendition is universal idiom.
+_IMAGE_STACK_PARTS = (208, 209)
+
+
+def _select_key_attributes(assets) -> tuple[int, ...]:
+    """Single source of truth for the CoreUI KEYFORMAT attribute tuple.
+
+    The tuple families mirror the layouts Apple actool emits per rendition
+    family; keep this ordered from most- to least-specific family.
+    """
+    seq = list(assets)
+    if any(a.glyph_weight or a.glyph_size or a.atlas_linked for a in seq):
+        return SYMBOL_ATTRIBUTES
+    if any(a.layer for a in seq):
+        return LAYER_ATTRIBUTES
+    if any(a.dimension1 for a in seq):
+        return STACK_ATTRIBUTES
+    if any(a.dimension2 for a in seq):
+        return APP_ICON_ATTRIBUTES
+    if any(a.idiom or a.appearance or a.subtype for a in seq):
+        return IOS_ATTRIBUTES
+    if any(a.part in _IMAGE_STACK_PARTS for a in seq):
+        return IOS_ATTRIBUTES
+    return KEY_ATTRIBUTES
+
 BITMAP_VALUE = bytes.fromhex(
     "01000000000000002400000008000000ffffffff01000000ffffffffffffffff"
     "01000000ffffffff0100000002000000"
@@ -362,13 +396,15 @@ def _decode_png_8bit(data: bytes) -> tuple[int, int, int, bytes, tuple[bytes, by
     width, height, depth, color_type, compression, filtering, interlace = struct.unpack(">IIBBBBB", ihdr)
     if not width or not height or width > 16384 or height > 16384: raise ValueError("PNG dimensions are invalid or exceed safety limit")
     valid_direct = depth == 8 and color_type in (2, 4, 6)
+    valid_grey = depth == 8 and color_type == 0
+    valid_grey16 = depth == 16 and color_type == 0
     valid_ga16 = depth == 16 and color_type == 4
     valid_indexed = color_type == 3 and depth in (1, 2, 4, 8)
-    if not (valid_direct or valid_ga16 or valid_indexed) or compression != 0 or filtering != 0 or interlace not in (0, 1):
-        raise ValueError("deepmap encoder accepts 8-bit RGB/GA/RGBA, 16-bit GA, or indexed PNG at depth 1/2/4/8, with optional Adam7 interlace")
+    if not (valid_direct or valid_grey or valid_grey16 or valid_ga16 or valid_indexed) or compression != 0 or filtering != 0 or interlace not in (0, 1):
+        raise ValueError("deepmap encoder accepts 8-bit greyscale/RGB/GA/RGBA, 16-bit greyscale/GA, or indexed PNG at depth 1/2/4/8, with optional Adam7 interlace")
     try: raw = zlib.decompress(bytes(idat))
     except zlib.error as exc: raise ValueError(f"invalid PNG deflate stream: {exc}") from exc
-    channels = 1 if color_type == 3 else 3 if color_type == 2 else 2 if color_type == 4 else 4
+    channels = 1 if color_type in (0, 3) else 3 if color_type == 2 else 2 if color_type == 4 else 4
     pixel_bytes = channels * depth // 8 if color_type != 3 else 0
     filter_bpp = max(1, (channels * depth + 7) // 8)
     if interlace == 0:
@@ -406,6 +442,22 @@ def _decode_png_8bit(data: bytes) -> tuple[int, int, int, bytes, tuple[bytes, by
             raise ValueError("Adam7 PNG has trailing decompressed data")
     if color_type == 4 and depth == 16:
         decoded = bytearray(value for i in range(0, len(decoded), 4) for value in (decoded[i], decoded[i + 2]))
+    if color_type == 0:
+        # Grayscale expands to grayscale+alpha. The optional tRNS gray sample
+        # becomes the transparent key; all other pixels are fully opaque.
+        trns_gray = struct.unpack(">H", transparency[:2])[0] if len(transparency) >= 2 else None
+        expanded = bytearray()
+        if depth == 16:
+            for i in range(0, len(decoded), 2):
+                sample = (decoded[i] << 8) | decoded[i + 1]
+                alpha = 0 if (trns_gray is not None and sample == trns_gray) else 255
+                expanded += bytes((decoded[i], alpha))
+        else:
+            for gray in decoded:
+                alpha = 0 if (trns_gray is not None and gray == (trns_gray & 0xFF)) else 255
+                expanded += bytes((gray, alpha))
+        decoded = expanded
+        color_type = 4
     if color_type == 3:
         if palette is None or not palette or len(palette) % 3 or len(palette) > 768:
             raise ValueError("indexed PNG has invalid or missing PLTE")
@@ -466,18 +518,15 @@ def _csi_png_deepmap(data: bytes, filename: str, *, scale: int = 1, vector_fallb
     dmp2 = b"dmp2" + bytes((1, 1, 10, bpp)) + struct.pack("<HH", width, height) + premultiplied
     mode = 2 if all_opaque else 0
     if indexed is not None and width * height >= 4096:
-        try:
-            import lzfse  # optional C extension, available on Linux/macOS
-            palette_bgra, indices = indexed; compressed = lzfse.compress(indices)
-            dmp2 = b"dmp2" + bytes((4, 1, 10, 4)) + struct.pack("<HHHH", width, height, len(palette_bgra) // 4, 4) + palette_bgra + struct.pack("<I", len(compressed)) + compressed
-            mode = 2
-        except ImportError:
-            pass
+        from . import lzfse_compat
+        palette_bgra, indices = indexed; compressed = lzfse_compat.compress(indices)
+        dmp2 = b"dmp2" + bytes((4, 1, 10, 4)) + struct.pack("<HHHH", width, height, len(palette_bgra) // 4, 4) + palette_bgra + struct.pack("<I", len(compressed)) + compressed
+        mode = 2
     payload = b"MLEC" + struct.pack("<7I", mode, 11, 16 + len(dmp2), 1, bpp, len(dmp2), 0) + dmp2
     flags = 276 if vector_fallback else 16
     header = bytearray(184); header[:4] = b"ISTC"; struct.pack_into("<5I", header, 4, 1, flags, width, height, scale * 100)
     header[24:28] = pixel_format; struct.pack_into("<I", header, 28, color_space); struct.pack_into("<I2H", header, 32, 0, 12, 0); header[40:168] = _fixed(filename, 128)
-    tlvs = b"".join((struct.pack("<2I5I",1001,20,1,0,0,width,height),struct.pack("<2I7I",1003,28,1,0,0,0,0,width,height),struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),struct.pack("<2II",1006,4,1),struct.pack("<2II",1007,4,32)))
+    tlvs = b"".join((struct.pack("<2I5I",1001,20,1,0,0,width,height),struct.pack("<2I7I",1003,28,1,0,0,0,0,width,height),struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),struct.pack("<2II",1006,4,1),struct.pack("<2II",1007,4,width * bpp)))
     struct.pack_into("<4I", header, 168, len(tlvs), 1, 0, len(payload))
     return bytes(header) + tlvs + payload
 
@@ -489,6 +538,88 @@ def _csi_png_palette_img(data: bytes, filename: str, *, scale: int = 1) -> bytes
     header = bytearray(184); header[:4] = b"ISTC"; struct.pack_into("<5I", header, 4, 1, 16, width, height, scale * 100)
     header[24:28] = b"BGRA"; struct.pack_into("<I", header, 28, 1); struct.pack_into("<I2H", header, 32, 0, 12, 0); header[40:168] = _fixed(filename, 128)
     tlvs = b"".join((struct.pack("<2I5I",1001,20,1,0,0,width,height),struct.pack("<2I7I",1003,28,1,0,0,0,0,width,height),struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),struct.pack("<2II",1006,4,1),struct.pack("<2II",1007,4,32)))
+    struct.pack_into("<4I", header, 168, len(tlvs), 1, 0, len(payload))
+    return bytes(header) + tlvs + payload
+
+
+def _optional_lzfse():
+    """LZFSE codec facade; always available via :mod:`lzfse_compat` fallback."""
+    return lzfse_compat
+
+
+# Observed Apple dmp2 chunking: deepmap CBCK splits by pixel rows so the raw
+# per-chunk index plane stays just under one mebibyte.
+DMP2_CBCK_CHUNK_RAW_CAP = 0xFFF00
+
+
+def make_deepmap_csi_variant(data: bytes, filename: str, *, scale: int = 1,
+                             prefer_cbck: bool = False, stack_bottom: bool = True) -> bytes:
+    """Deepmap2 CSI using the grammar variants observed in Apple output.
+
+    - uniform RGB(A) sources: dmp2 (4,1,10,4) palette-swatch + 1bpp index
+      plane (LZFSE), MLEC mode 2 for bottom-most opaque layers, else mode 0.
+    - varied RGB(A) sources: dmp2 (2,1,10,4) premultiplied-BGRA LZFSE stream,
+      MLEC mode 0.
+    - oversized sources with prefer_cbck: MLEC mode 3 codec 11 KCBC chunks;
+      each chunk carries its own field header + per-band dmp2.
+    - GA sources keep the original bounds-checked v1 grammar
+      (already Apple consumer verified).
+    """
+    width, height, color_type, pixels, indexed = _decode_png_8bit(data)
+    lzfse = lzfse_compat
+    if color_type == 4 or indexed is not None:
+        return _csi_png_deepmap(data, filename, scale=scale)
+    premultiplied = bytearray()
+    all_opaque = True
+    if color_type == 2:
+        for r, g, b in zip(pixels[0::3], pixels[1::3], pixels[2::3]):
+            premultiplied += bytes((b, g, r, 255))
+    else:
+        for r, g, b, alpha in zip(pixels[0::4], pixels[1::4], pixels[2::4], pixels[3::4]):
+            premultiplied += bytes(((b * alpha + 127) // 255, (g * alpha + 127) // 255, (r * alpha + 127) // 255, alpha))
+            all_opaque &= alpha == 255
+    premultiplied = bytes(premultiplied)
+    uniform = premultiplied[:4] * (width * height) == premultiplied
+
+    def band_dmp2(rows_pixels: bytes, band_height: int) -> bytes:
+        band_uniform = rows_pixels[:4] * (width * band_height) == rows_pixels
+        if band_uniform:
+            indices = b"\x00" * (width * band_height)
+            stream = lzfse.compress(indices)
+            return (b"dmp2" + bytes((4, 1, 10, 4)) + struct.pack("<HHHH", width, band_height, 1, 4)
+                    + rows_pixels[:4] + struct.pack("<I", len(stream)) + stream)
+        stream = lzfse.compress(rows_pixels)
+        return (b"dmp2" + bytes((2, 1, 10, 4)) + struct.pack("<HH", width, band_height)
+                + struct.pack("<HH", len(stream), 0) + stream)
+
+    row_bytes = width * 4
+    use_cbck = prefer_cbck and (row_bytes * height > DMP2_CBCK_CHUNK_RAW_CAP * 4) and height > 1
+    if use_cbck:
+        # Rows per chunk chosen under the raw cap, at least one row.
+        rows_per = max(1, DMP2_CBCK_CHUNK_RAW_CAP // row_bytes)
+        bands = [(y, min(rows_per, height - y)) for y in range(0, height, rows_per)]
+        chunks = []
+        for y, rows in bands:
+            band = band_dmp2(premultiplied[y * row_bytes:(y + rows) * row_bytes], rows)
+            blob = struct.pack("<4I", 1, 4, len(band), 0) + band
+            chunks.append(b"KCBC" + struct.pack("<4I", 0, 0, rows, len(blob)) + blob)
+        payload = b"MLEC" + struct.pack("<3I", 3, 11, len(chunks)) + b"".join(chunks)
+        mode_field = 3
+    else:
+        if uniform:
+            dmp2 = band_dmp2(premultiplied, height)
+            mode_field = 2 if (all_opaque and stack_bottom) else 0
+        else:
+            dmp2 = band_dmp2(premultiplied, height)
+            mode_field = 0
+        payload = b"MLEC" + struct.pack("<7I", mode_field, 11, 16 + len(dmp2), 1, 4, len(dmp2), 0) + dmp2
+    tlvs = b"".join((struct.pack("<2I5I", 1001, 20, 1, 0, 0, width, height),
+                     struct.pack("<2I7I", 1003, 28, 1, 0, 0, 0, 0, width, height),
+                     struct.pack("<2I8s", 1004, 8, b"\0\0\0\0\0\0\x80?"),
+                     struct.pack("<2II", 1006, 4, 1),
+                     struct.pack("<2II", 1007, 4, width * 4)))
+    header = bytearray(184); header[:4] = b"ISTC"; struct.pack_into("<5I", header, 4, 1, 16, width, height, scale * 100)
+    header[24:28] = b"BGRA"; struct.pack_into("<I", header, 28, 1); struct.pack_into("<I2H", header, 32, 0, 12, 0); header[40:168] = _fixed(filename, 128)
     struct.pack_into("<4I", header, 168, len(tlvs), 1, 0, len(payload))
     return bytes(header) + tlvs + payload
 
@@ -514,10 +645,6 @@ def _png_premultiplied_bgra(data: bytes) -> tuple[int, int, bytes, bool]:
 
 def _csi_png_cbck(data: bytes, filename: str, *, scale: int = 1) -> bytes:
     """Encode CoreUI chunked-bitmap (CBCK) with independent LZFSE streams."""
-    try:
-        import lzfse
-    except ImportError as exc:
-        raise ValueError("CBCK encoding requires the optional lzfse dependency") from exc
     width, height, pixels, _opaque = _png_premultiplied_bgra(data)
     row_bytes = width * 4
     # Xcode's 1024px AppIcon oracle uses 341-row chunks (0x155000 raw
@@ -526,14 +653,14 @@ def _csi_png_cbck(data: bytes, filename: str, *, scale: int = 1) -> bytes:
     chunks = []
     for y in range(0, height, rows_per_chunk):
         rows = min(rows_per_chunk, height - y)
-        compressed = lzfse.compress(pixels[y * row_bytes:(y + rows) * row_bytes])
+        compressed = lzfse_compat.compress(pixels[y * row_bytes:(y + rows) * row_bytes])
         chunks.append(b"KCBC" + struct.pack("<4I", 0, 0, rows, len(compressed)) + compressed)
     payload = b"MLEC" + struct.pack("<3I", 3, 4, len(chunks)) + b"".join(chunks)
     header = bytearray(184); header[:4] = b"ISTC"
     struct.pack_into("<5I", header, 4, 1, 0, width, height, scale * 100)
     header[24:28] = b"BGRA"; struct.pack_into("<I", header, 28, 1)
     struct.pack_into("<I2H", header, 32, 0, 12, 0); header[40:168] = _fixed(filename, 128)
-    tlvs = b"".join((struct.pack("<2I5I",1001,20,1,0,0,width,height),struct.pack("<2I7I",1003,28,1,0,0,0,0,width,height),struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),struct.pack("<2II",1006,4,1),struct.pack("<2II",1007,4,32)))
+    tlvs = b"".join((struct.pack("<2I5I",1001,20,1,0,0,width,height),struct.pack("<2I7I",1003,28,1,0,0,0,0,width,height),struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),struct.pack("<2II",1006,4,1),struct.pack("<2II",1007,4,width * 4)))
     struct.pack_into("<4I", header, 168, len(tlvs), 1, 0, len(payload))
     return bytes(header) + tlvs + payload
 
@@ -561,17 +688,13 @@ def _csi_texture_reference(name: str, reference: TextureReference, *, width: int
 
 
 def _csi_texture_data_from_png(data: bytes, filename: str, *, width: int, height: int, scale: int = 2, mode_field: int = 0x80000) -> bytes:
-    try:
-        import lzfse
-    except ImportError as exc:
-        raise ValueError("texture aggregate encoding requires the optional lzfse dependency") from exc
     tex_w, tex_h, pixels, _opaque = _png_premultiplied_bgra(data)
     row_bytes = tex_w * 4
     rows_per_chunk = max(1, 0x155555 // row_bytes)
     chunks = []
     for y in range(0, tex_h, rows_per_chunk):
         rows = min(rows_per_chunk, tex_h - y)
-        compressed = lzfse.compress(pixels[y * row_bytes:(y + rows) * row_bytes])
+        compressed = lzfse_compat.compress(pixels[y * row_bytes:(y + rows) * row_bytes])
         chunks.append(b"KCBC" + struct.pack("<4I", 0, 0, rows, len(compressed)) + compressed)
     payload = b"MLEC" + struct.pack("<3I", 1, 4, len(chunks)) + b"".join(chunks)
     header = bytearray(184); header[:4] = b"ISTC"
@@ -758,10 +881,7 @@ def _build_assets_car_multilevel(assets: list[AssetRendition], *, platform: str,
     for asset in ordered:
         old = facet_parts.setdefault(asset.name, asset.effective_facet_part)
         if old != asset.effective_facet_part: raise ValueError(f"renditions for {asset.name!r} disagree on facet part")
-    ios_attributes = (7,13,12,15,16,17,1,2); layer_attributes = (7,13,12,15,16,9,17,1,2,11); icon_attributes = (7,13,12,15,16,9,17,1,2)
-    stack_attributes = (7,13,12,15,16,8,17,1,2)
-    symbol_attributes = (7,13,1,2,4,17,8,9,10,14,12,19,18,25,26,27)
-    attrs = symbol_attributes if any(a.glyph_weight or a.glyph_size or a.atlas_linked for a in ordered) else layer_attributes if any(a.layer for a in ordered) else stack_attributes if any(a.dimension1 for a in ordered) else icon_attributes if any(a.dimension2 for a in ordered) else ios_attributes if any(a.idiom or a.appearance or a.subtype for a in ordered) else KEY_ATTRIBUTES
+    attrs = _select_key_attributes(ordered)
     locale_names = sorted({a.localization for a in ordered if a.localization}, key=lambda x: x.encode("utf-8"))
     locale_ids = {name: _identifier("localization:" + name) for name in locale_names}
     if len(set(locale_ids.values())) != len(locale_ids): raise ValueError("localization identifier collision")
@@ -822,14 +942,7 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
         previous = facet_parts.setdefault(asset.name, asset.effective_facet_part)
         if previous != asset.effective_facet_part:
             raise ValueError(f"renditions for {asset.name!r} disagree on facet part")
-    ios_attributes = (7, 13, 12, 15, 16, 17, 1, 2)
-    app_icon_attributes = (7, 13, 12, 15, 16, 9, 17, 1, 2)
-    stack_attributes = (7, 13, 12, 15, 16, 8, 17, 1, 2)
-    layer_attributes = (7,13,12,15,16,9,17,1,2,11)
-    symbol_attributes = (7,13,1,2,4,17,8,9,10,14,12,19,18,25,26,27)
-    key_attributes = symbol_attributes if any(asset.glyph_weight or asset.glyph_size or asset.atlas_linked for asset in ordered) else layer_attributes if any(asset.layer for asset in ordered) else stack_attributes if any(asset.dimension1 for asset in ordered) else app_icon_attributes if any(asset.dimension2 for asset in ordered) else ios_attributes if any(
-        asset.idiom or asset.appearance or asset.subtype for asset in ordered
-    ) else KEY_ATTRIBUTES
+    key_attributes = _select_key_attributes(ordered)
     locale_names = sorted({a.localization for a in ordered if a.localization}, key=lambda x: x.encode("utf-8"))
     locale_ids = {name: _identifier("localization:" + name) for name in locale_names}
     if len(set(locale_ids.values())) != len(locale_ids): raise ValueError("localization identifier collision")

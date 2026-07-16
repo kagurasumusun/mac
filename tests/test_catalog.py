@@ -216,6 +216,8 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(sorted(f.name for f in car.facets), ["Particle Sprite Atlas", "bokeh", "spark"])
 
     def test_compiles_tv_image_stack_catalog(self):
+        # Apple oracle (probe2/v1): standalone stack whose layers declare
+        # idiom "tv" has NO applicable content -> document error, no CAR, rc 0.
         png=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)/"Assets.xcassets";stack=root/"Hero.imagestack";front=stack/"Front.imagestacklayer";back=stack/"Back.imagestacklayer"
@@ -224,8 +226,38 @@ class CatalogTests(unittest.TestCase):
             for d,n in ((front,"front.png"),(back,"back.png")):
                 (d/n).write_bytes(png);(d/"Contents.json").write_text(json.dumps({"images":[{"idiom":"tv","scale":"1x","filename":n}],"info":{"author":"xcode","version":1}}))
             output=Path(tmp)/"out";result=compile_catalogs([root],CompileOptions(output,platform="appletvos",minimum_deployment_target="15.0"))
+            doc=[d for d in result.diagnostics if d.document]
+            self.assertEqual(len(doc),1)
+            self.assertIn('The image stack "Hero" must have at least 2 layers with applicable content',doc[0].message)
+            self.assertIn("none have applicable content",doc[0].message)
+            self.assertFalse((output/"Assets.car").exists())
+
+    def test_compiles_tv_image_stack_universal_aggregate(self):
+        # Apple oracle (probe2/v3): standalone stack with universal idiom
+        # emits the ImageStack aggregate (layout 1002 + flattened + radiosity).
+        import struct, zlib, binascii
+        def chunk(kind, payload):
+            return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", binascii.crc32(kind + payload) & 0xFFFFFFFF)
+        def png_rgba(w, h, rgba):
+            raw = (b"\x00" + bytes(rgba) * w) * h
+            return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 6, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b"")
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/"Assets.xcassets";stack=root/"Hero.imagestack";front=stack/"Front.imagestacklayer";back=stack/"Back.imagestacklayer"
+            front.mkdir(parents=True);back.mkdir()
+            (stack/"Contents.json").write_text(json.dumps({"layers":[{"filename":"Front.imagestacklayer"},{"filename":"Back.imagestacklayer"}],"info":{"author":"xcode","version":1}}))
+            for d,n,c in ((front,"front.png",(250,10,10,255)),(back,"back.png",(10,10,250,255))):
+                (d/n).write_bytes(png_rgba(4,4,c));(d/"Contents.json").write_text(json.dumps({"images":[{"idiom":"universal","scale":"1x","filename":n}],"info":{"author":"xcode","version":1}}))
+            output=Path(tmp)/"out";result=compile_catalogs([root],CompileOptions(output,platform="appletvos",minimum_deployment_target="15.0"))
             self.assertTrue(result.ok,[d.render() for d in result.diagnostics]);car=CARFile(BOMStore.from_path(output/"Assets.car"))
-            self.assertEqual(len(car.renditions),2);self.assertEqual(sorted(r.key["kCRThemeLayerName"] for r in car.renditions),[1,2]);self.assertTrue(all(r.key["kCRThemeIdiomName"]==3 for r in car.renditions))
+            layouts=sorted(r.csi.layout for r in car.renditions)
+            self.assertEqual(layouts,[0,0,12,12,1002])
+            parts=sorted(r.key["kCRThemePartName"] for r in car.renditions)
+            self.assertEqual(parts,[181,181,181,208,209])
+            self.assertTrue(all(r.key["kCRThemeIdiomName"]==0 for r in car.renditions))
+            root_rend=next(r for r in car.renditions if r.csi.layout==1002)
+            self.assertEqual(root_rend.csi.pixel_format,"DATA")
+            self.assertEqual(root_rend.csi.rendition_data,b"DWAR"+b"\0"*8)
+            self.assertEqual([t.tag for t in root_rend.csi.tlvs],[1012,1020,1021,1004,1005,1006])
 
     def test_compiles_vision_image_stack_with_explicit_depths(self):
         png=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
