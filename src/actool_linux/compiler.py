@@ -137,6 +137,7 @@ class CompileOptions:
     development_region: str | None = None
     compress_pngs: bool = True
     enable_on_demand_resources: bool = False
+    coreui_profile: "str | None" = None
 
 
 @dataclass
@@ -625,14 +626,15 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
             car_path = options.output / "Assets.car"
             car_path.write_bytes(build_assets_car(renditions, platform=options.platform or "macosx",
                                                    target=options.minimum_deployment_target or "13.0",
-                                                   thinning_arguments=thinning_arguments))
+                                                   thinning_arguments=thinning_arguments,
+                                                   coreui_profile=options.coreui_profile))
             outputs.append(car_path)
         if distill_failed:
             # Apple leaves a structurally incomplete CAR on this failure path.
             # Emit a safe readable failure CAR while preserving its observable
             # output-file contract and nonzero exit status.
             car_path = options.output / "Assets.car"
-            car_path.write_bytes(build_assets_car([data_rendition("__actool_distill_failure__", b"", "public.data")], platform=options.platform or "macosx", target=options.minimum_deployment_target or "13.0"))
+            car_path.write_bytes(build_assets_car([data_rendition("__actool_distill_failure__", b"", "public.data")], platform=options.platform or "macosx", target=options.minimum_deployment_target or "13.0", coreui_profile=options.coreui_profile))
             if car_path not in outputs: outputs.append(car_path)
     if deferred_partial_info is not None:
         if missing_app_icon and missing_launch_image:

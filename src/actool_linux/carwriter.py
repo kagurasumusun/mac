@@ -8,6 +8,7 @@ import zlib
 
 from .bomwriter import BOMWriter
 from . import lzfse_compat
+from .coreui import CoreUIProfile, resolve_profile
 from .paletteimg import build_palette_img_wrapper
 from .solidstack import (
     SolidImageStackLayerFlag,
@@ -25,6 +26,11 @@ KEY_ATTRIBUTES = (7, 13, 1, 2, 3, 17, 11, 12)
 IOS_ATTRIBUTES = (7, 13, 12, 15, 16, 17, 1, 2)
 APP_ICON_ATTRIBUTES = (7, 13, 12, 15, 16, 9, 17, 1, 2)      # adds dimension2
 STACK_ATTRIBUTES = (7, 13, 12, 15, 16, 8, 17, 1, 2)        # adds dimension1
+# macosx keeps its base tuple when packed atlases introduce dimension1 keys:
+# probe4b oracle shows the base order with attribute 8 inserted before the
+# element/part pair, i.e. (7,13,1,2,3,17,**8**,11,12). iOS-family platforms
+# instead use their own ordering (STACK_ATTRIBUTES above).
+MACOS_STACK_ATTRIBUTES = (7, 13, 1, 2, 3, 17, 8, 11, 12)   # macosx base + dimension1
 LAYER_ATTRIBUTES = (7, 13, 12, 15, 16, 9, 17, 1, 2, 11)    # dimension2 + layer
 SYMBOL_ATTRIBUTES = (7, 13, 1, 2, 4, 17, 8, 9, 10, 14, 12, 19, 18, 25, 26, 27)
 
@@ -61,7 +67,11 @@ def _select_key_attributes(assets, platform: str = "macosx") -> tuple[int, ...]:
     if any(a.layer for a in seq):
         return LAYER_ATTRIBUTES
     if any(a.dimension1 for a in seq):
-        return STACK_ATTRIBUTES
+        # Packed-atlas pagination: macosx inserts dimension1 into its base
+        # tuple (probe4b oracle), iOS-family platforms use STACK_ATTRIBUTES.
+        if (platform or "macosx").lower() in IOS_KEY_FORMAT_PLATFORMS:
+            return STACK_ATTRIBUTES
+        return MACOS_STACK_ATTRIBUTES
     if any(a.dimension2 for a in seq):
         return APP_ICON_ATTRIBUTES
     if any(a.part in _IMAGE_STACK_PARTS for a in seq):
@@ -126,15 +136,54 @@ def _identifier(name: str) -> int:
     return value or 1
 
 
-def _car_header(rendition_count: int) -> bytes:
+def _car_header(rendition_count: int, profile: "CoreUIProfile") -> bytes:
+    """CARHEADER block, version-stamped by the selected CoreUI dialect.
+
+    The trailing comment intentionally names this implementation rather than
+    mimicking Apple's provenance string; readers do not parse that field
+    (verified with assetutil/AppKit oracles on both dialects).
+    """
     return b"".join((
         b"RATC",
-        struct.pack("<4I", 918, 17, 0, rendition_count),
-        _fixed("@(#)PROGRAM:CoreUI  PROJECT:CoreUI-918.5\n", 128),
-        _fixed("actool-linux clean-room writer", 256),
+        struct.pack("<4I", profile.header_version, profile.header_field2, 0, rendition_count),
+        _fixed(profile.program_string, 128),
+        _fixed(profile.writer_comment, 256),
         b"\0" * 16,
-        struct.pack("<4I", 0, 5, 1, 1),
+        struct.pack("<4I", *profile.header_tail),
     ))
+
+
+# Appearance registry names observed in Apple APPEARANCEKEYS trees.
+APPEARANCE_NAMES = {0: "UIAppearanceAny", 1: "UIAppearanceDark", 2: "UIAppearanceHighContrastAny"}
+# macosx catalogs use the AppKit names instead (verified: colordata/probe3
+# oracles store NSAppearanceNameDarkAqua/NSAppearanceNameSystem). High-contrast
+# macosx names are unobserved; iOS-style names remain as documented fallback.
+MACOS_APPEARANCE_NAMES = {**APPEARANCE_NAMES, 0: "NSAppearanceNameSystem", 1: "NSAppearanceNameDarkAqua"}
+
+
+def _appearance_names_for(platform: str) -> dict[int, str]:
+    if (platform or "macosx").lower() == "macosx":
+        return MACOS_APPEARANCE_NAMES
+    return APPEARANCE_NAMES
+
+
+def _appearance_registry(ordered: list[AssetRendition], platform: str) -> list[tuple[str, int]]:
+    """Sorted (name, value) APPEARANCEKEYS records, or [] when no non-Any
+    appearance exists (registry emission rule observed in Apple oracles;
+    unrelated to packed-asset triggering, which probe4 showed is
+    registry-independent)."""
+    used_appearances = {asset.appearance for asset in ordered if asset.appearance}
+    unknown = used_appearances - set(APPEARANCE_NAMES)
+    if unknown:
+        raise ValueError(f"unsupported appearance value(s) {sorted(unknown)}; "
+                         f"known: {sorted(APPEARANCE_NAMES)}")
+    if not used_appearances:
+        return []
+    names = _appearance_names_for(platform)
+    return sorted(
+        [(names[0], 0)] + [(names[value], value) for value in used_appearances],
+        key=lambda item: item[0].encode("utf-8"),
+    )
 
 
 # Apple EXTENDED_METADATA records the deployment platform with its short
@@ -187,6 +236,47 @@ def _leaf_many(entries: list[tuple[int, int]], inline_keys: list[bytes], node_si
 
 def _leaf(value_id: int, key_id: int, inline_key: bytes, node_size: int) -> bytes:
     return _leaf_many([(value_id, key_id)], [inline_key] if inline_key else [], node_size)
+
+
+def _effective_identifier(asset: AssetRendition) -> int:
+    """Identifier after override. Overridden renditions join that facet
+    instead of minting a dangling one for their own name (observed: tvOS
+    brand-assets marketing image-stack renditions reuse the small app-icon
+    identifier and Apple writes no FACETKEYS record for their stack name)."""
+    if asset.identifier_override is not None:
+        return asset.identifier_override
+    return _identifier(asset.name)
+
+
+def _collect_facets(ordered: list[AssetRendition]) -> dict[int, dict[str, object]]:
+    """Effective facets keyed by identifier: ``{ident: {"name", "part"}}``.
+
+    Facet display name prefers the natural owner of the identifier (the
+    rendition whose name hashes to it); pure-override groups keep the first
+    name seen. Natural-name hash collisions remain an error.
+    """
+    facets: dict[int, dict[str, object]] = {}
+    natural: dict[str, int] = {}
+    for asset in ordered:
+        if asset.skip_facet:
+            continue
+        ident = _effective_identifier(asset)
+        if asset.identifier_override is None:
+            natural.setdefault(asset.name, ident)
+        entry = facets.get(ident)
+        if entry is None:
+            facets[ident] = {"name": asset.name, "part": asset.effective_facet_part,
+                             "natural": asset.identifier_override is None}
+            continue
+        if entry["part"] != asset.effective_facet_part:
+            raise ValueError(f"renditions for {asset.name!r} disagree on facet part")
+        # Prefer the name that naturally hashes to this identifier, even when
+        # that rendition also carries an explicit (equal) override.
+        if _identifier(asset.name) == ident and not entry["natural"]:
+            entry.update(name=asset.name, natural=True)
+    if len(set(natural.values())) != len(natural):
+        raise ValueError("asset identifier collision; rename one of the colliding assets")
+    return facets
 
 
 def _facet_value(identifier: int, part: int) -> bytes:
@@ -532,21 +622,65 @@ def resize_png(data: bytes, width: int, height: int) -> bytes:
         return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", zlib.crc32(kind + payload) & 0xFFFFFFFF)
     return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(bytes(scanlines), 9)) + chunk(b"IEND", b"")
 
+def _gray_ga_bytes(premultiplied: bytes) -> bytes | None:
+    """Interleaved premultiplied (v, a) bytes when every BGRA pixel is gray.
+
+    CoreUI normalizes grayscale-representable RGB(A) sources to GA8 (packed-
+    rendition verified: probe5 c04; standalone storage inferred — see
+    docs). The gray test runs on premultiplied channels; whether Apple
+    classifies pre- or post-premultiplication is unobserved and near-gray
+    inputs may collapse differently. Returns None when any pixel has
+    b != g or g != r.
+    """
+    blues, greens, reds = premultiplied[0::4], premultiplied[1::4], premultiplied[2::4]
+    if blues != greens or blues != reds:
+        return None
+    ga = bytearray(len(premultiplied) // 2)
+    ga[0::2] = blues
+    ga[1::2] = premultiplied[3::4]
+    return bytes(ga)
+
+
+def _csi_ga_deepmap(width: int, height: int, ga: bytes, filename: str, *, scale: int = 1,
+                    all_opaque: bool, flags: int = 16) -> bytes:
+    """GA8 (`` 8AG``) layout-12 deepmap with the verified v1 grammar."""
+    dmp2 = b"dmp2" + bytes((1, 1, 10, 2)) + struct.pack("<HH", width, height) + ga
+    mode = 2 if all_opaque else 0
+    payload = b"MLEC" + struct.pack("<7I", mode, 11, 16 + len(dmp2), 1, 2, len(dmp2), 0) + dmp2
+    header = bytearray(184); header[:4] = b"ISTC"; struct.pack_into("<5I", header, 4, 1, flags, width, height, scale * 100)
+    header[24:28] = b" 8AG"; struct.pack_into("<I", header, 28, 2); struct.pack_into("<I2H", header, 32, 0, 12, 0); header[40:168] = _fixed(filename, 128)
+    tlvs = b"".join((struct.pack("<2I5I", 1001, 20, 1, 0, 0, width, height),
+                     struct.pack("<2I7I", 1003, 28, 1, 0, 0, 0, 0, width, height),
+                     struct.pack("<2I8s", 1004, 8, b"\0\0\0\0\0\0\x80?"),
+                     struct.pack("<2II", 1006, 4, 1),
+                     struct.pack("<2II", 1007, 4, width * 2)))
+    struct.pack_into("<4I", header, 168, len(tlvs), 1, 0, len(payload))
+    return bytes(header) + tlvs + payload
+
+
 def _csi_png_deepmap(data: bytes, filename: str, *, scale: int = 1, vector_fallback: bool = False) -> bytes:
     width, height, color_type, pixels, indexed = _decode_png_8bit(data)
     premultiplied = bytearray()
     all_opaque = True
+    flags = 276 if vector_fallback else 16
     if color_type == 4:
         for gray, alpha in zip(pixels[0::2], pixels[1::2]):
             premultiplied += bytes(((gray * alpha + 127) // 255, alpha)); all_opaque &= alpha == 255
-        pixel_format, color_space, bpp = b" 8AG", 2, 2
+        return _csi_ga_deepmap(width, height, bytes(premultiplied), filename, scale=scale, all_opaque=all_opaque, flags=flags)
     elif color_type == 2:
         for r, g, b in zip(pixels[0::3], pixels[1::3], pixels[2::3]): premultiplied += bytes((b, g, r, 255))
-        pixel_format, color_space, bpp = b"BGRA", 1, 4
     else:
         for r, g, b, alpha in zip(pixels[0::4], pixels[1::4], pixels[2::4], pixels[3::4]):
             premultiplied += bytes(((b * alpha + 127) // 255, (g * alpha + 127) // 255, (r * alpha + 127) // 255, alpha)); all_opaque &= alpha == 255
-        pixel_format, color_space, bpp = b"BGRA", 1, 4
+    if indexed is None:
+        # Grayscale-representable RGB(A) sources normalize to GA8. The rule
+        # is verified for packed renditions (probe5 c04) and inferred for
+        # standalone storage (single gray-RGB(A) images are not yet probed;
+        # next probe batch candidate).
+        ga = _gray_ga_bytes(bytes(premultiplied))
+        if ga is not None:
+            return _csi_ga_deepmap(width, height, ga, filename, scale=scale, all_opaque=all_opaque, flags=flags)
+    pixel_format, color_space, bpp = b"BGRA", 1, 4
     dmp2 = b"dmp2" + bytes((1, 1, 10, bpp)) + struct.pack("<HH", width, height) + premultiplied
     mode = 2 if all_opaque else 0
     if indexed is not None and width * height >= 4096:
@@ -555,7 +689,6 @@ def _csi_png_deepmap(data: bytes, filename: str, *, scale: int = 1, vector_fallb
         dmp2 = b"dmp2" + bytes((4, 1, 10, 4)) + struct.pack("<HHHH", width, height, len(palette_bgra) // 4, 4) + palette_bgra + struct.pack("<I", len(compressed)) + compressed
         mode = 2
     payload = b"MLEC" + struct.pack("<7I", mode, 11, 16 + len(dmp2), 1, bpp, len(dmp2), 0) + dmp2
-    flags = 276 if vector_fallback else 16
     header = bytearray(184); header[:4] = b"ISTC"; struct.pack_into("<5I", header, 4, 1, flags, width, height, scale * 100)
     header[24:28] = pixel_format; struct.pack_into("<I", header, 28, color_space); struct.pack_into("<I2H", header, 32, 0, 12, 0); header[40:168] = _fixed(filename, 128)
     tlvs = b"".join((struct.pack("<2I5I",1001,20,1,0,0,width,height),struct.pack("<2I7I",1003,28,1,0,0,0,0,width,height),struct.pack("<2I8s",1004,8,b"\0\0\0\0\0\0\x80?"),struct.pack("<2II",1006,4,1),struct.pack("<2II",1007,4,width * bpp)))
@@ -611,6 +744,12 @@ def make_deepmap_csi_variant(data: bytes, filename: str, *, scale: int = 1,
             premultiplied += bytes(((b * alpha + 127) // 255, (g * alpha + 127) // 255, (r * alpha + 127) // 255, alpha))
             all_opaque &= alpha == 255
     premultiplied = bytes(premultiplied)
+    # Grayscale-representable RGB(A) sources normalize to GA8 before any
+    # grammar selection. Verified for packed renditions (probe5 c04);
+    # standalone gray-RGB(A) storage is inferred, not yet probed.
+    ga = _gray_ga_bytes(premultiplied)
+    if ga is not None:
+        return _csi_ga_deepmap(width, height, ga, filename, scale=scale, all_opaque=all_opaque)
     uniform = premultiplied[:4] * (width * height) == premultiplied
 
     def band_dmp2(rows_pixels: bytes, band_height: int) -> bytes:
@@ -901,41 +1040,48 @@ def _add_multilevel_tree(
     return descriptor_id
 
 
-def _build_assets_car_multilevel(assets: list[AssetRendition], *, platform: str, target: str, thinning_arguments: str = "") -> bytes:
+def _build_assets_car_multilevel(assets: list[AssetRendition], *, platform: str, target: str, thinning_arguments: str = "", coreui_profile: "CoreUIProfile | str | None" = None) -> bytes:
     """Large-catalog writer using true multi-level trees for all indexes."""
-    if any(a.appearance for a in assets) or any(a.localization for a in assets):
-        from .packed import pack_renditions
-        assets = pack_renditions(list(assets))
+    profile = resolve_profile(coreui_profile, platform)
+    # Packing needs no appearance/localization registry: a class with >= 2
+    # candidates is always packed (probe4 probe established this; the helper
+    # returns the input unchanged when no class qualifies).
+    from .packed import pack_renditions
+    assets = pack_renditions(list(assets))
     ordered = sorted(assets, key=lambda item: (item.name.encode("utf-8"), item.part, item.scale, item.csi))
-    facet_names = sorted({asset.name for asset in ordered if not asset.skip_facet}, key=lambda item: item.encode("utf-8"))
+    facets = _collect_facets(ordered)
+    facet_names = sorted({entry["name"] for entry in facets.values()}, key=lambda item: str(item).encode("utf-8"))
     names = [name.encode("utf-8") for name in facet_names]
     if any(not name or len(name) > 255 for name in names): raise ValueError("asset names must contain 1..255 UTF-8 bytes")
-    identifiers = {name: _identifier(name) for name in facet_names}
-    if len(set(identifiers.values())) != len(identifiers): raise ValueError("asset identifier collision; rename one of the colliding assets")
-    facet_parts: dict[str, int] = {}
-    for asset in ordered:
-        if asset.skip_facet: continue
-        old = facet_parts.setdefault(asset.name, asset.effective_facet_part)
-        if old != asset.effective_facet_part: raise ValueError(f"renditions for {asset.name!r} disagree on facet part")
+    facet_by_name = {entry["name"]: (ident, entry["part"]) for ident, entry in facets.items()}
     attrs = _select_key_attributes(ordered, platform)
     locale_names = sorted({a.localization for a in ordered if a.localization}, key=lambda x: x.encode("utf-8"))
     locale_ids = {name: _identifier("localization:" + name) for name in locale_names}
     if len(set(locale_ids.values())) != len(locale_ids): raise ValueError("localization identifier collision")
-    keys = [_rendition_key_for(asset, identifiers.get(asset.name, 0), attrs, locale_ids.get(asset.localization, 0)) for asset in ordered]
+    keys = [_rendition_key_for(asset, 0 if asset.skip_facet else _effective_identifier(asset), attrs, locale_ids.get(asset.localization, 0)) for asset in ordered]
     if len(set(keys)) != len(keys): raise ValueError("duplicate rendition key")
 
-    writer = BOMWriter(); writer.add_block(_car_header(len(ordered)), "CARHEADER")
+    writer = BOMWriter(); writer.add_block(_car_header(len(ordered), profile), "CARHEADER")
     if locale_names:
         locale_records = []
         for locale in locale_names:
             key_id = writer.add_block(locale.encode("utf-8")); value_id = writer.add_block(struct.pack("<H", locale_ids[locale]))
             locale_records.append((value_id, key_id, locale.encode("utf-8")))
         _add_multilevel_tree(writer, "LOCALIZATIONKEYS", locale_records, node_size=4096, key_size=0xFFFFFFFF)
+    appearance_registry = _appearance_registry(ordered, platform)
+    if appearance_registry:
+        appearance_records = []
+        for appearance_name, appearance_id in appearance_registry:
+            key_id = writer.add_block(appearance_name.encode("utf-8"))
+            value_id = writer.add_block(struct.pack("<H", appearance_id))
+            appearance_records.append((value_id, key_id, appearance_name.encode("utf-8")))
+        _add_multilevel_tree(writer, "APPEARANCEKEYS", appearance_records, node_size=4096, key_size=0xFFFFFFFF)
     # Allocate payload blocks before indexes; BOM references are stable and do
     # not require a historical Apple block ordering.
     facet_blocks = []
     for name, raw_name in zip(facet_names, names):
-        key_id = writer.add_block(raw_name); value_id = writer.add_block(_facet_value(identifiers[name], facet_parts[name]))
+        ident, part = facet_by_name[name]
+        key_id = writer.add_block(raw_name); value_id = writer.add_block(_facet_value(ident, part))
         facet_blocks.append((value_id, key_id, raw_name))
     writer.add_block(_key_format(attrs), "KEYFORMAT")
     rendition_blocks = []
@@ -949,12 +1095,12 @@ def _build_assets_car_multilevel(assets: list[AssetRendition], *, platform: str,
     writer.add_block(_extended_metadata(platform, target, thinning_arguments), "EXTENDED_METADATA")
     bitmap_records = []
     for name in facet_names:
-        value_id = writer.add_block(BITMAP_VALUE); identifier = identifiers[name]
+        value_id = writer.add_block(BITMAP_VALUE); identifier = facet_by_name[name][0]
         bitmap_records.append((value_id, identifier, struct.pack(">I", identifier)))
     _add_multilevel_tree(writer, "BITMAPKEYS", bitmap_records, node_size=1024, key_size=0, numeric_key=True, leaf_limit=64)
     return writer.build()
 
-def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", target: str = "13.0", thinning_arguments: str = "") -> bytes:
+def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", target: str = "13.0", thinning_arguments: str = "", coreui_profile: "CoreUIProfile | str | None" = None) -> bytes:
     """Build a CAR with any number of facets and renditions per facet.
 
     Renditions sharing ``name`` share one FACETKEYS record and identifier. This
@@ -964,39 +1110,27 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
     if not assets:
         raise ValueError("at least one asset is required")
     if len(assets) > 128 or len({asset.name for asset in assets}) > 128:
-        return _build_assets_car_multilevel(assets, platform=platform, target=target, thinning_arguments=thinning_arguments)
-    if any(a.appearance for a in assets) or any(a.localization for a in assets):
-        from .packed import pack_renditions
-        assets = pack_renditions(list(assets))
+        return _build_assets_car_multilevel(assets, platform=platform, target=target, thinning_arguments=thinning_arguments, coreui_profile=coreui_profile)
+    profile = resolve_profile(coreui_profile, platform)
+    # See _build_assets_car_multilevel: packing is registry-independent.
+    from .packed import pack_renditions
+    assets = pack_renditions(list(assets))
     ordered = sorted(assets, key=lambda item: (item.name.encode("utf-8"), item.part, item.scale, item.csi))
-    facet_names = sorted({asset.name for asset in ordered if not asset.skip_facet}, key=lambda item: item.encode("utf-8"))
+    facets = _collect_facets(ordered)
+    facet_names = sorted({entry["name"] for entry in facets.values()}, key=lambda item: str(item).encode("utf-8"))
     names = [name.encode("utf-8") for name in facet_names]
     if any(not name or len(name) > 255 for name in names):
         raise ValueError("asset names must contain 1..255 UTF-8 bytes")
-    identifiers = {name: _identifier(name) for name in facet_names}
-    if len(set(identifiers.values())) != len(identifiers):
-        raise ValueError("asset identifier collision; rename one of the colliding assets")
-    facet_parts: dict[str, int] = {}
-    for asset in ordered:
-        if asset.skip_facet:
-            continue
-        previous = facet_parts.setdefault(asset.name, asset.effective_facet_part)
-        if previous != asset.effective_facet_part:
-            raise ValueError(f"renditions for {asset.name!r} disagree on facet part")
+    facet_by_name = {entry["name"]: (ident, entry["part"]) for ident, entry in facets.items()}
     key_attributes = _select_key_attributes(ordered, platform)
     locale_names = sorted({a.localization for a in ordered if a.localization}, key=lambda x: x.encode("utf-8"))
     locale_ids = {name: _identifier("localization:" + name) for name in locale_names}
     if len(set(locale_ids.values())) != len(locale_ids): raise ValueError("localization identifier collision")
-    keys = [_rendition_key_for(asset, identifiers.get(asset.name, 0), key_attributes, locale_ids.get(asset.localization, 0)) for asset in ordered]
+    keys = [_rendition_key_for(asset, 0 if asset.skip_facet else _effective_identifier(asset), key_attributes, locale_ids.get(asset.localization, 0)) for asset in ordered]
     if len(set(keys)) != len(keys):
         raise ValueError("duplicate rendition key for the same asset, part, and scale")
     rendition_count = len(ordered); facet_count = len(facet_names)
-    used_appearances = {asset.appearance for asset in ordered if asset.appearance}
-    appearance_names = {0: "UIAppearanceAny", 1: "UIAppearanceDark", 2: "UIAppearanceHighContrastAny"}
-    appearance_registry = sorted(
-        [(appearance_names[0], 0)] + [(appearance_names[value], value) for value in used_appearances],
-        key=lambda item: item[0].encode("utf-8"),
-    ) if used_appearances else []
+    appearance_registry = _appearance_registry(ordered, platform)
     has_appearances = bool(appearance_registry)
 
     # IDs 1..5 are CARHEADER and rendition/facet descriptor+root. Appearance
@@ -1022,10 +1156,10 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
     rendition_records.sort(key=lambda item: item[0])
     rendition_entries = [(value_id, key_id) for _, value_id, key_id in rendition_records]
     rendition_inline = [key for key, *_ in rendition_records]
-    bitmap_entries = [(bitmap_value_base + i, identifiers[name]) for i, name in enumerate(facet_names)]
+    bitmap_entries = [(bitmap_value_base + i, facet_by_name[name][0]) for i, name in enumerate(facet_names)]
 
     writer = BOMWriter()
-    writer.add_block(_car_header(rendition_count), "CARHEADER")
+    writer.add_block(_car_header(rendition_count, profile), "CARHEADER")
     writer.add_block(_tree_descriptor(3, 4096, rendition_count, len(key_attributes) * 2), "RENDITIONS")
     writer.add_block(_leaf_many(rendition_entries, rendition_inline, 4096))
     writer.add_block(_tree_descriptor(5, 4096, facet_count, facet_key_size), "FACETKEYS")
@@ -1046,7 +1180,7 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
             writer.add_block(locale.encode("utf-8")); writer.add_block(struct.pack("<H", locale_ids[locale]))
     for name, name_raw in zip(facet_names, names):
         writer.add_block(name_raw)
-        writer.add_block(_facet_value(identifiers[name], facet_parts[name]))
+        writer.add_block(_facet_value(*facet_by_name[name]))
     writer.add_block(_key_format(key_attributes), "KEYFORMAT")
     for asset, key in zip(ordered, keys):
         writer.add_block(key)
@@ -1059,7 +1193,8 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
     return writer.build()
 
 
-def build_pdf_fallback_car(name: str, pdf: bytes, png_1x: bytes, png_2x: bytes, filename: str = "image.pdf", *, png_3x: bytes | None = None, platform: str = "macosx", target: str = "13.0") -> bytes:
+def build_pdf_fallback_car(name: str, pdf: bytes, png_1x: bytes, png_2x: bytes, filename: str = "image.pdf", *, png_3x: bytes | None = None, platform: str = "macosx", target: str = "13.0", coreui_profile: "CoreUIProfile | str | None" = None) -> bytes:
+    profile = resolve_profile(coreui_profile, platform)
     """Build a preserved PDF plus Xcode-style GA8 deepmap fallbacks."""
     name_raw = name.encode("utf-8")
     if not name_raw or len(name_raw) > 255: raise ValueError("asset name must contain 1..255 UTF-8 bytes")
@@ -1072,7 +1207,7 @@ def build_pdf_fallback_car(name: str, pdf: bytes, png_1x: bytes, png_2x: bytes, 
     sorted_records = sorted(enumerate(records), key=lambda item: item[1][0])
     entries = [(10 + index * 2, 9 + index * 2) for index, _ in sorted_records]
     inline = [record[0] for _, record in sorted_records]
-    writer = BOMWriter(); writer.add_block(_car_header(count), "CARHEADER")
+    writer = BOMWriter(); writer.add_block(_car_header(count, profile), "CARHEADER")
     writer.add_block(_tree_descriptor(3, 4096, count, 16), "RENDITIONS"); writer.add_block(_leaf_many(entries, inline, 4096))
     writer.add_block(_tree_descriptor(5, 4096, 1, len(name_raw)), "FACETKEYS"); writer.add_block(_leaf(7, 6, name_raw, 4096))
     writer.add_block(name_raw); writer.add_block(_facet_value(identifier, 0xB5)); writer.add_block(_key_format(), "KEYFORMAT")

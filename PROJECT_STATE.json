@@ -1,8 +1,8 @@
 {
-  "updated": "2026-07-14",
+  "updated": "2026-07-16",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 123,
-  "test_status": "OK, local suite 123/123 pass with 11 optional skips; current local state includes iconstack builders and targeted exception sampling",
+  "test_count": 145,
+  "test_status": "OK, local suite 145/145 pass with 11 optional skips without the lzfse C extension (1 skip with it).",
   "storage_versions": [
     15,
     16,
@@ -116,18 +116,26 @@
     "ENGINEERING_LOG.md",
     "VERIFICATION.md"
   ],
-  "remote_session": "NoqRgiONpDaSlIzApHRa",
+  "remote_session": "EGWf17GG5atCmsgJGl5B (unreachable since 2026-07-16 mid-session; uptermd auth rejection; last pushed remote HEAD 4511e86)",
   "slow_work_policy": "defer; use short static/assetutil/inventory checks",
   "focused_verification_latest": {
-    "host": "macOS 26.4 / Xcode 26.5 (17F42)",
-    "tests": "123 tests OK (local); focused remote probes on NoqRgiONpDaSlIzApHRa",
-    "remote_session": "NoqRgiONpDaSlIzApHRa (macOS 26.4 / Xcode 26.5)",
-    "brandassets_target_device_tv_matrix": "brandassets-target-device-tv-matrix.json",
-    "brandassets_xcode26_targettv_matrix": "brandassets-xcode26-targettv-matrix.json",
-    "iconstack_scan": "iconstack-scan-summary.json",
-    "iconstack_semantics_summary": "iconstack-semantics-summary.json",
-    "iconstack_exception_samples": "iconstack-exception-samples.json",
-    "iconstack_targeted_stats": "iconstack-targeted-stats.json"
+    "host": "macOS 26.4 / Xcode 26.5 (17F42) (session EGWf17GG5atCmsgJGl5B, now offline)",
+    "tests": "145 tests OK (local); probe3/probe4/probe5 Apple oracle suites analyzed locally",
+    "assetutil_semantic_parity": {
+      "basic": "5/5",
+      "colordata": "4/4 (macosx AppKit appearance names + registry tree parity)",
+      "brand": "14/14 (dangling 'App Icon - Large' facet eliminated)",
+      "scales": "7/8 (residual: atlas bin-packing geometry only)",
+      "probe3a": "21/23 (residual: atlas geometry x2)",
+      "probe3b": "5/6 (residual: atlas geometry)"
+    },
+    "oracle_suites": [
+      "probe-suite (basic/scales/colordata/brand/tvstack)",
+      "probe3 (appearance/packed triggers)",
+      "probe4 (registry-free packed matrix, 47 images)",
+      "probe5 (64-case trigger + v3 grammar sweep)"
+    ],
+    "probe6_staged": "tools/make_probe6.py — standalone gray-RGB(A) storage, GA v3-mini/LZFSE boundary refinement, two-color v4 usage, gray-RGB packing class; awaiting reachable host"
   },
   "minimal_environment_test_status": "OK, 6 optional-dependency skips",
   "full_optional_environment_test_status": "84 OK, no skips",
@@ -676,5 +684,25 @@
       "1003"
     ],
     "compiler_support_named_complication_set": true
+  },
+  "packed_assets_26_5": {
+    "trigger": "registry-independent; >= 2 candidates per (appearance, alpha-class, gray-class) class (probe4/probe5 oracles)",
+    "class_naming": "ZZZZPackedAsset-1.{opaque}.{gray}-gamut0",
+    "page_key": "attribute 8 (dimension1), pages numbered in class-name order; KEYFORMAT gains 8: (7,13,12,15,16,8,17,1,2) iOS-family, (7,13,1,2,3,17,8,11,12) macosx",
+    "link_tlv1010_tail": "(1,9)(2,181)[(8,page)](12,1)[(7,appearance)](0,0)",
+    "exclusions": "scale != 1, localized, non-universal idiom, subtype/glyph/dimension-carrying, aggregate (identifier_override) renditions; identifier hash unknown so Apple-side facet identifiers still differ (cosmetic)",
+    "gray_reencode": "gray-only RGB(A) sources store/pack as GA8 (packed-verified; standalone storage inference queued in probe6)",
+    "atlas_dmp2": "color: v4 palette <=255 colors else v2 raw LZFSE; gray: v2 raw LZFSE (v3-mini for single-swatch GA classes still undecoded, v2 substituted)",
+    "status": "implemented in packed.py; assetutil-verified shapes; atlas geometry differs from Apple's private packer (cosmetic)"
+  },
+  "coreui_dialect_profiles": {
+    "module": "src/actool_linux/coreui.py",
+    "profiles": [
+      "coreui-918 (Xcode 16.4 / CoreUI-918.5)",
+      "coreui-975-macos (Xcode 26.5 / CoreUI-975 [LAR], AssetCatalogAgent-AssetRuntime, tail (0,2,1,1))",
+      "coreui-975-device (iphoneos/appletvos, AssetCatalogSimulatorAgent, tail (0,2,1,2))"
+    ],
+    "cli_option": "--coreui-profile",
+    "structure_note": "dialect constants (header stamps, MLEC/dmp2/layout/TLV ids, KEYFORMAT tuples) centralized so future CoreUI updates edit one module + oracles"
   }
 }

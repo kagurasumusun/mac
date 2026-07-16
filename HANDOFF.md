@@ -2,7 +2,19 @@
 
 > Canonical full handoff: `SESSION_HANDOFF_COMPLETE.md`. Machine-verifiable hashes: `EVIDENCE_MANIFEST.json`; run `python3 tools/verify_handoff.py`.
 
-Last updated: 2026-07-13 (Etc/GMT-9)
+Last updated: 2026-07-16 (Etc/GMT-9)
+
+## Latest status (2026-07-16)
+
+- Workspace moves: local repo is `/home/user/mac-repo` (branch `actool`), remote repo `/Users/runner/work/mac/mac`. 145 local tests OK (11 optional skips without lzfse).
+- Xcode-26.5/CoreUI-975 dialect measured from Apple oracles: `CoreUI-975 [LAR]` + `AssetCatalogAgent-AssetRuntime` on macosx, `CoreUI-975` + `AssetCatalogSimulatorAgent` + tail `(0,2,1,2)` on iphoneos/appletvos; header stamps centralized in `src/actool_linux/coreui.py` (`CoreUIProfile`, selectable via `--coreui-profile`; legacy `coreui-918` profile = Xcode 16.4).
+- macosx APPEARANCEKEYS uses AppKit names (`NSAppearanceNameSystem`, `NSAppearanceNameDarkAqua`); multilevel writer now emits APPEARANCEKEYS too.
+- Packed assets (ZZZZPackedAsset/LINK): registry-independent trigger (>= 2 same-class `(appearance, alpha, gray)` candidates), GA sources pack into GA8 atlases, atlas pages keyed by attribute 8 (dimension1; macosx KEYFORMAT `(7,13,1,2,3,17,8,11,12)` vs iOS-family `(7,13,12,15,16,8,17,1,2)`), LINK tails `(1,9)(2,181)[(8,page)](12,1)[(7,appearance)](0,0)`, atlas naming `ZZZZPackedAsset-1.{opaque}.{gray}-gamut0`, aggregate renditions (identifier_override set) and non-1x/localized/idiom-bound sources never pack.
+- Grayscale-representable RGB(A) sources are re-encoded to GA8 (verified for packed renditions; standalone-path inference is queued for probe6 validation).
+- `assetutil --info` semantic parity (Apple consumer as judge): basic 5/5, colordata 4/4, brand 14/14, scales 7/8, probe3a 21/23, probe3b 5/6 — the only residual differences are atlas bin-packing geometry (Apple's private MaxRects-style heuristic is not replicated; documented cosmetic).
+- Remaining diff_cars residuals vs Apple oracles: identifier/localization 16-bit hash (unidentified), v3-mini dmp2 grammar (partially decoded, mid-token rule open), LZFSE encoder quality, CBCK band-chunking heuristic, radiosity approximation — all catalogued in "Unfinished work".
+- Remote Mac (session `EGWf17GG5atCmsgJGl5B`) went unreachable mid-session on 2026-07-16 (uptermd auth rejection); probe6 (standalone gray-RGB(A) storage, GA v3 boundary refinement, two-color v4 usage) is staged locally in `tools/make_probe6.py` and awaits a reachable host.
+- Local commit: `2d814c6` (dialect + packed rules + GA normalize + facet merge + docs + probe6 suite). Push to `kagurasumusun/mac:actool` requires the Mac host (osxkeychain credentials); reconnect and run the patch flow in "Push procedure".
 
 ## Mission and clean-room boundary
 
@@ -44,15 +56,24 @@ PYTHONPATH=src python -m actool_linux.cli --capabilities
 
 ## Current remote Mac
 
-Upterm session: `vyUvDyfVq5tQ5Ll20bR0`
+Upterm session (2026-07-16, went unreachable mid-session — re-run host before use): `EGWf17GG5atCmsgJGl5B`
 
 SSH:
 
 ```bash
 chmod 600 /home/user/.ssh/arena_upterm_ed25519
 ssh -i /home/user/.ssh/arena_upterm_ed25519 \
-  b8btbueUHxFMnZpY5cHt@uptermd.upterm.dev
+  EGWf17GG5atCmsgJGl5B@uptermd.upterm.dev
 ```
+
+Repository on the host: `/Users/runner/work/mac/mac` (branch `actool`, git author `actool-linux <actool-linux@users.noreply.github.com>`). Push is only possible from this host (osxkeychain GitHub credentials).
+
+### Push procedure (established 2026-07-16)
+
+1. Local: commit, then `find . -name __pycache__ -type d -exec rm -rf {} +` before any tarball sync (stale pyc incidents happened).
+2. Sync the worktree to the host (tarball excluding `.git`, caches, `work/`), run `PYTHONPATH=src python3 -m unittest discover -s tests -q` there.
+3. Host: `git add -A && git commit ... && git push origin actool`.
+4. Host: `git format-patch -1 --stdout` → fetch the patch → local: `git stash` (if local has the same working-tree changes), `git am <patch>`, verify `git diff HEAD stash@{0} --stat` is empty, then `git stash drop`. Local/remote SHAs converge.
 
 Use `/home/user/run_upterm_command.py SESSION COMMAND WAIT_SECONDS` for short commands. Use `run_upterm_interrupt.py` only for a genuinely stuck foreground process.
 
@@ -254,8 +275,16 @@ previousState, previousValue, deploymentTarget, glyphWeight, glyphSize
 - Full CLI option cross-product and byte-identical diagnostics corpus. Sixteen focused Xcode 26.5 stdout plist contracts are byte-identical, and version plists are byte-identical for ten distinct Xcode releases from 16.0 through 26.5. See ENGINEERING_LOG.md and xcode-actool-version-matrix.json.
 - Complete CBCK adoption thresholds across every Xcode.
 - Historical automatic palette-img selection heuristic.
-- Exact Xcode atlas pack/page heuristic.
+- Exact Xcode atlas pack/page heuristic (bin-packing + multi-page pagination).
 - Full AppIcon metadata and every platform's deployment side effects.
+- CoreUI facet/localization 16-bit identifier hash (name -> u16; sha256-prefix disproved). All hash-shaped diff_cars residuals trace to this.
+- dmp2 v3-mini grammar: swatch/opcode framing decoded, mid-token encoding rule open (Xcode 26.5 uses v3-mini for uniform color sources with <= 512 raw bytes and uniform GA sources of every probed size; our writer emits valid v1/v2/v4 instead).
+- GA atlas TLV1007 semantics (observed 224/224/96 does not match align16(w*bpp); we emit align16 — readable, cosmetic).
+- Apple LZFSE encoder quality (their bvx2 tables out-compress ours; structure matches, sizes differ).
+- CBCK band-chunk row/chunk heuristic (brand shelf 1404 vs 2435 bytes).
+- Radiosity approximation (brandassets alpha-derived pseudo-kernel).
+- Xcode 16.x option matrix and simulator boot matrix (deferred).
+- Standalone gray-RGB(A) storage format (probe6 staged, awaiting reachable host).
 
 ## Recommended short next steps
 

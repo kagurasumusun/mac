@@ -1022,3 +1022,42 @@ Boundary update:
 
 - `kind0` vs `kind1` on group-style references is still not semantically final.
 - however, we now know the unresolved current population is not arbitrary: it is concentrated in blank-name records plus a small number of explicit color-name references, which is a much narrower target for the remaining naming work.
+
+---
+
+## 2026-07-16 — probe4/probe5 oracle batch: packed-asset rules finalized, KEYFORMAT page semantics, CoreUI-975 dialect
+
+### Remote probes executed (macOS 26.4 / Xcode 26.5 17F42), outputs analyzed locally
+
+- `tools/make_probe4.py` (probe4-suite: 47-image registry-free catalogs, iphoneos + macosx)
+- `tools/make_probe5.py` (probe5-suite: 64 catalogs — packing trigger/param sweep + dmp2 grammar sweep)
+- assetutil semantic comparison: `xcrun assetutil --info` JSON both sides, keyed multiset diff.
+
+### Confirmed rules now implemented (tests in `tests/test_packed.py`, `tests/test_coreui.py`)
+
+1. Packed-asset trigger is registry-independent: a `(appearance, alpha-class, gray-class)` class packs iff it has >= 2 candidates (probe5 c01/c02/c03, probe4 47-image registry-free catalog fully packed).
+2. GA sources pack too, into GA8 atlases; atlas names `ZZZZPackedAsset-1.{opaque}.{gray}-gamut0`; opaque classes use MLEC mode 2, alpha classes mode 0.
+3. Atlas pages are keyed by attribute 8 (`dimension1`), numbered per appearance in class-name order. KEYFORMAT gains attribute 8: `(7,13,12,15,16,8,17,1,2)` (iOS-family), `(7,13,1,2,3,17,8,11,12)` (macosx base insert) — carwriter `MACOS_STACK_ATTRIBUTES`.
+4. LINK TLV-1010 tail pair order `(1,9)(2,181)[(8,page)](12,1)[(7,appearance)](0,0)`.
+5. Aggregate renditions (`identifier_override` set: image stacks, texture refs, brandassets marketing reuse) never pack; scale != 1 / localized / idiom-bound never pack.
+6. Gray-representable RGB(A) sources normalize to GA8 (packed-verified; standalone path inference, probe6 staged).
+7. macosx APPEARANCEKEYS uses AppKit names (`NSAppearanceNameSystem`, `NSAppearanceNameDarkAqua`); multilevel writer emits APPEARANCEKEYS (previously missing > 128 renditions); override-Identifier renditions merge into the existing facet (brandassets dangling facet removed: 13 -> 12 records, matches Apple).
+8. CARHEADER dialect profiles: `coreui-918`, `coreui-975-macos` (`CoreUI-975 [LAR]`, AssetCatalogAgent-AssetRuntime, tail `(0,2,1,1)`), `coreui-975-device` (AssetCatalogSimulatorAgent, tail `(0,2,1,2)`), auto by platform; selectable via `--coreui-profile`. Writer comment stays our own provenance string (clean-room).
+
+### assetutil semantic parity (Apple consumer as judge)
+
+basic 5/5, colordata 4/4, brand 14/14, scales 7/8, probe3a 21/23, probe3b 5/6.
+Only residual: atlas rectangle geometry (Apple's private MaxRects-style packer not replicated; LINK rects internally consistent).
+
+### Accept-reject ledger
+
+- REJECTED (again) "identifier = hash prefix": sha256/md5/sha1 first-2-bytes vs observed pairs — random order.
+- REJECTED "registry master switch for packing" (probe4 falsified it).
+- ACCEPTED "v4 palette swatch 0 = transparent padding, first-occurrence order" (roundtrip-verified in tests).
+- OPEN: v3-mini mid-token encoding (samples: 16px color -> `f0 1f`, 64px GA -> `f0 67`, 128px color -> `f0 3f`, 256px color -> `f0 df`, 1024px GA -> `f0 ff` x10 + `f0 37`); v3 emitted by readers is NOT required (v1/v2/v4 accepted everywhere) so this stays size-parity work.
+- OPEN: GA atlas TLV1007 (observed 224/224/96 does not follow align16(w*bpp)).
+- OPEN: standalone gray-RGB(A) storage (probe6 staged).
+
+### push state
+
+Remote host (session `EGWf17GG5atCmsgJGl5B`) became unreachable mid-session (uptermd auth rejection). Commits `2d814c6` are local; push to `kagurasumusun/mac:actool` via the host's osxkeychain credentials is queued per HANDOFF "Push procedure".

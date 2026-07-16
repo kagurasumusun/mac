@@ -48,6 +48,8 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--print-contents", action="store_true")
     p.add_argument("--output-format", choices=("human-readable-text","xml1"), default="xml1")
     p.add_argument("--version", action="store_true")
+    p.add_argument("--coreui-profile", default=None,
+                   help="CoreUI output dialect (coreui-975-macos, coreui-975-device, coreui-918; default: per-platform 975)")
     p.add_argument("--compatibility-xcode-version", choices=("16.0","16.1","16.2","16.3","16.4","26.0.1","26.1.1","26.2","26.3","26.4.1","26.5","26.6"), default="26.5")
     p.add_argument("--capabilities", action="store_true")
     return p
@@ -116,6 +118,7 @@ def main(argv: list[str] | None = None) -> int:
         warnings=ns.warnings,
         errors=ns.errors,
         notices=ns.notices,
+        coreui_profile=ns.coreui_profile,
         target_devices=tuple(ns.target_device),
         filter_for_device_model=ns.filter_for_device_model,
         filter_for_device_os_version=ns.filter_for_device_os_version,
