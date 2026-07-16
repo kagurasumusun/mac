@@ -1,8 +1,8 @@
 {
-  "updated": "2026-07-16",
+  "updated": "2026-07-16 (batch 2)",
   "mission": "Clean-room Linux actool/CoreUI CAR writer accepted by Apple consumers",
-  "test_count": 145,
-  "test_status": "OK, local suite 145/145 pass with 11 optional skips without the lzfse C extension (1 skip with it).",
+  "test_count": 150,
+  "test_status": "OK, 150/150 local (11 optional skips without the lzfse C extension); pushed as 95f58df",
   "storage_versions": [
     15,
     16,
@@ -116,18 +116,19 @@
     "ENGINEERING_LOG.md",
     "VERIFICATION.md"
   ],
-  "remote_session": "EGWf17GG5atCmsgJGl5B (unreachable since 2026-07-16 mid-session; uptermd auth rejection; last pushed remote HEAD 4511e86)",
+  "remote_session": "wvfFmRNMM7L0THD7wXmF (healthy; push path verified twice this session)",
   "slow_work_policy": "defer; use short static/assetutil/inventory checks",
   "focused_verification_latest": {
     "host": "macOS 26.4 / Xcode 26.5 (17F42) (session EGWf17GG5atCmsgJGl5B, now offline)",
-    "tests": "145 tests OK (local); probe3/probe4/probe5 Apple oracle suites analyzed locally",
+    "tests": "150 tests OK (local + remote); probe6 Apple oracle campaign executed",
     "assetutil_semantic_parity": {
       "basic": "5/5",
       "colordata": "4/4 (macosx AppKit appearance names + registry tree parity)",
       "brand": "14/14 (dangling 'App Icon - Large' facet eliminated)",
       "scales": "7/8 (residual: atlas bin-packing geometry only)",
       "probe3a": "21/23 (residual: atlas geometry x2)",
-      "probe3b": "5/6 (residual: atlas geometry)"
+      "probe3b": "5/6 (residual: atlas geometry)",
+      "probe6": "22/24 full match (tools/assetutil_semantic_matrix.py; residual: atlas geometry on gray-pair catalogs)"
     },
     "oracle_suites": [
       "probe-suite (basic/scales/colordata/brand/tvstack)",
@@ -691,7 +692,7 @@
     "page_key": "attribute 8 (dimension1), pages numbered in class-name order; KEYFORMAT gains 8: (7,13,12,15,16,8,17,1,2) iOS-family, (7,13,1,2,3,17,8,11,12) macosx",
     "link_tlv1010_tail": "(1,9)(2,181)[(8,page)](12,1)[(7,appearance)](0,0)",
     "exclusions": "scale != 1, localized, non-universal idiom, subtype/glyph/dimension-carrying, aggregate (identifier_override) renditions; identifier hash unknown so Apple-side facet identifiers still differ (cosmetic)",
-    "gray_reencode": "gray-only RGB(A) sources store/pack as GA8 (packed-verified; standalone storage inference queued in probe6)",
+    "gray_reencode": "gray-only RGB(A) sources store/pack as GA8 — CONFIRMED standalone + packed (probe6)",
     "atlas_dmp2": "color: v4 palette <=255 colors else v2 raw LZFSE; gray: v2 raw LZFSE (v3-mini for single-swatch GA classes still undecoded, v2 substituted)",
     "status": "implemented in packed.py; assetutil-verified shapes; atlas geometry differs from Apple's private packer (cosmetic)"
   },
@@ -704,5 +705,12 @@
     ],
     "cli_option": "--coreui-profile",
     "structure_note": "dialect constants (header stamps, MLEC/dmp2/layout/TLV ids, KEYFORMAT tuples) centralized so future CoreUI updates edit one module + oracles"
+  },
+  "dmp2_grammar_rules_26_5": {
+    "color_layout12": "distinct premultiplied colors <= 255 and raw > 512B -> v4 palette (ordinary images too); richer -> v2 raw LZFSE; uniform -> v4 single-swatch; MLEC mode 2 for all opaque non-CBCK sources",
+    "ga_layout12": "straight-gray constant -> v3 LZFSE frame (Apple internally prefers undecoded v3-mini for small/constant — we emit the byte-replicable LZFSE frame); straight-gray varying -> v2 LZFSE (Apple sometimes LZVN)",
+    "stream_length_field": "u32 (was u16; latent >=64KiB corruption fixed)",
+    "atlas_rules": "unchanged (color v4 <=255 swatches incl transparent pad, gray v2, page keys in attribute 8)",
+    "status": "implemented in carwriter.py/packed.py; assetutil-accepted across probe6 (24/24)"
   }
 }

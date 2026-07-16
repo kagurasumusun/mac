@@ -1061,3 +1061,26 @@ Only residual: atlas rectangle geometry (Apple's private MaxRects-style packer n
 ### push state
 
 Remote host (session `EGWf17GG5atCmsgJGl5B`) became unreachable mid-session (uptermd auth rejection). Commits `2d814c6` are local; push to `kagurasumusun/mac:actool` via the host's osxkeychain credentials is queued per HANDOFF "Push procedure".
+
+---
+
+## 2026-07-16 (second batch) — probe6 oracle campaign: dmp2 grammar rules finalized
+
+### Probe design (tools/make_probe6.py; run on macOS 26.4 / Xcode 26.5)
+
+24 single/pair-image catalogs (iphoneos + macosx twins): standalone gray-RGB(A), GA value/alpha ramps, GA uniform 40/48/56 px (v3-mini/LZFSE boundary), 2-color checkerboards 4x4/64x64, uniform RGB 64x64, gray-RGB pair.
+
+### Findings (all implemented; verifier = xcrun assetutil --info, 24/24 acceptance)
+
+1. CONFIRMED: standalone gray-representable RGB(A) sources store as GA8 (pf/mode/Content parity exact). The earlier "inferred" rule is now verified on both platforms.
+2. Grammar rule for layout-12 color sources: distinct premultiplied colors <= 255 and raw > 512 B -> dmp2 v4 palette (chk64 oracle: 2 swatches, first plane index of pixel(0,0)=1, swatch order is cosmetic/undocumented), else v2 raw LZFSE when richer (AlphaRamp32 999 B stream), v4 1-swatch for uniform. MLEC mode = 2 for every fully-opaque non-CBCK source incl. non-uniform (chk04/chk64/ga_vgrad oracles) — we previously forced 0 for non-uniform.
+3. Grammar rule for GA sources selected on the STRAIGHT (source) gray: constant -> v3 (ga_agrad alpha-ramp oracle is v3 despite varying premultiplied v), varying -> v2 (ga_vgrad). GA v3-LZFSE frame = dmp2 (3,1,10,2) w,h,u32 len,bvx2...bvx$ (byte-replicable; ga048 sample). Apple also has a smaller "v3-mini" opcode encoding (<= ~4096 raw B for GA, <= 512 B for color uniform, and small multi-swatch like chk04): still the ONLY undecoded Apple-emitted form; we emit valid v4/v2/v3-LZFSE substitutes (documented).
+4. v2 stream-length field is u32 (AlphaRamp oracle e7030000); our u16 frame was a latent corruption for streams >= 64 KiB — fixed everywhere (carwriter, packed atlases, decoders).
+5. v2 GA streams: Apple sometimes uses LZVN (ga_vgrad stream starts 68 01 ff f0; LZVN is a public/deprecated Apple codec). We emit LZFSE frames — mirrors GA-atlas v2 shape, assetutil-accepted. LZVN encoder queued as an open item.
+6. pair-catalog check: two gray-RGB images pack into one GA8 atlas named ZZZZPackedAsset-1.1.1-gamut0 (both platforms); LINK + atlas accepted; only the rectangle geometry differs (Apple 70x44 vs ours 44x70 — private bin-packer).
+
+### Parity after this batch
+
+tools/assetutil_semantic_matrix.py (new, runs on the Mac host): probe6 22/24 full matches; the 2 differences are atlas rectangle geometry only. Legacy suites unchanged (basic 5/5, colordata 4/4, brand 14/14, scales 7/8, probe3a 21/23, probe3b 5/6). diff payload gaps narrowed (basic GA16 66 vs 82 B (was 556), Gray8 64 vs 80 B (was 172)).
+
+Tests: 150 OK (incl. C-extension-less run, 11 optional skips).
