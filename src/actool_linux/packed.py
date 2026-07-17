@@ -264,8 +264,8 @@ def _shelf_pack(rects: list[tuple[int, int]]) -> tuple[list[tuple[int, int]], in
         key = (max(width, height), height, width)
         if best is None or key < best[0]:
             best = (key, width, height, pos)
+
     if best is None:
-        # Fallback to sufficiently wide nominal canvas
         max_w = max(r[0] for r in rects) + 2 * pad
         total_w = sum(r[0] + pad for r in rects) + pad
         for test_w in range(max_w, total_w + pad + 1, max(1, (total_w - max_w) // 20 or 1)):
@@ -276,6 +276,7 @@ def _shelf_pack(rects: list[tuple[int, int]]) -> tuple[list[tuple[int, int]], in
                 key = (max(width, height), height, width)
                 if best is None or key < best[0]:
                     best = (key, width, height, pos)
+
     assert best is not None
     _, width, height, positions = best
     return positions, width, height
