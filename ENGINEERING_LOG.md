@@ -1189,3 +1189,33 @@ mismatches went 8 -> 0. assetutil semantic matrix on the Mac host for the
 four packed cases c02..c05: 4/4 FULL matches (was 0/4 solely from the atlas
 rectangle delta). Remaining per-case diffs: facet-hash16 (documented
 cosmetic) and multi-swatch mini ISA payload bytes (open).
+
+### Multi-swatch mini ISA — first half decoded (2026-07-17)
+
+Workbench: tools/mini-workbench/. Apple-oracle atlas mini streams (v4-mini,
+multi-swatch) across n1..n8 / m1..m8 / probe5 c02..c05 were aligned against
+ground-truth painted planes (LINK rects + BGRA palette + source PNGs).
+
+Established rules (consistent on n1, n5, m1, m2, m5-partial; exact full
+covers on n1/n5/m1):
+stream bottom-up; paint = L/R halo [x-1,x+w+1) on image rows {y+h-1, y+h};
+leading zeros L0 >= 25 -> `f0 V` with V = L0-25 (c02/c05), else `fX` with
+X = L0-9 (5/5 cases); continuation `f0 V` = V+16; `38 XX` = row-copy LZ
+dist=W len=XX; rep `4N V` = V x hi, `5N V` = V x lo; bare `fX` = zeros X+2;
+`eN` literals with probable row-end zero pad at stream tail; palette is
+straight BGRA (confirmed by token structure, fixing an earlier RGBA mixup
+that produced phantom rule contradictions).
+
+Open vocabulary: `6N`/f-group "row-program" encoding on tall swatches
+(c02: `6e02 f9 6e00 f3` x9 + special group; count of 2-emissions exceeds
+available 2-runs under bottom-2 paint, so a row-template/repeat state is
+implicated), pair token `40 U V` (m5; reverse-emit candidate), `c8`/`ce`,
+`30 U`, `fe/fa/f8` long forms, multi `68 01 NN` sections, GA multi-swatch.
+
+### Oracle diff census (2026-07-17)
+
+tools/mini-workbench/compat_stats.py over 94 Apple-vs-ours CAR pairs
+(probe5 64, probe6 24, probe3 2, basic/brand/scales/colordata 4):
+structural/size mismatches = 0; hash16-only = 73 (documented cosmetic);
+payload = 21 (16 packed-atlas mini streams + probe3 x2 + basic/brand/
+scales dmp2 mode-selection boundary cases).

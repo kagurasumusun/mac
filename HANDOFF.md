@@ -359,3 +359,31 @@ probe oracles): insertion area-dESC/width/height/reverse-tree, prefix-width
 candidates, objective min (max(W,H), H, W), even-floor canvas. See
 ENGINEERING_LOG "Packed-atlas geometry fully decoded". Remaining CAR diffs on
 atlas cases are only facet-hash16 (cosmetic) and multi-swatch mini ISA bytes.
+
+## 2026-07-17 update — mini ISA half-decoded; session transfer via PAT push
+
+Session state: HEAD on branch `actool` contains the complete packer parity
+work (guillotine hole-filling) through commit b1ae580 plus this handoff set:
+tools/mini-workbench/ (ISA analysis bench), tools/make_atlas_sweep.py
+(37-case packer/ISA sweep generator; corpus already compiled locally under
+/home/user/work/atlas-sweep, ours output in sweep-ours, tarball staged at
+/tmp/atlas-sweep.tgz), MINI_ISA_NOTES.md (live ISA notes), ENGINEERING_LOG
+sections "Multi-swatch mini ISA — first half decoded" and "Oracle diff
+census".
+
+Verification posture (freshly measured, see census section): 94 Apple
+oracle pairs, 0 structural/size mismatches, 73 hash16-only (documented
+cosmetic), 21 payload (16 packed-atlas mini + 5 mode-boundary cases).
+assetutil semantic matrix on packed cases c02..c05 = 4/4 FULL on the Mac
+host (measured with the b1ae580 packer).
+
+Immediately-pending remote actions (need a Mac endpoint, e.g. upterm):
+1) /tmp/atlas-sweep.tgz -> compile with Apple actool, run
+   tools/atlas_geometry_probe.py + mini-workbench diff on all 37 cases to
+   validate packer generality and feed the ISA row-program solve;
+2) rerun the full Apple oracle matrix if any doubt about host state.
+
+Working notes: push is currently done from this Linux workspace directly to
+GitHub with a user-supplied PAT (osxkeychain no longer required). The
+remote Mac repo /Users/runner/work/mac/mac may lag behind origin; resync
+it with a plain fetch/reset when a Mac endpoint returns.
