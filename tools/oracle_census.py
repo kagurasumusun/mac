@@ -61,10 +61,12 @@ def main() -> int:
     names = sorted(set(acars) | set(ocars))
     total = Counter()
     struct_detail = []
+    pair_detail = {}
     for n in names:
         if n not in acars or n not in ocars:
             total["missing"] += 1
             struct_detail.append((n, "missing-one-side"))
+            pair_detail[n] = {"class": "missing"}
             continue
         outp = subprocess.run(
             [sys.executable, str(REPO / "tools/diff_cars.py"), "--json", "-",
@@ -76,17 +78,25 @@ def main() -> int:
         except Exception:
             total["struct"] += 1
             struct_detail.append((n, "unparseable"))
+            pair_detail[n] = {"class": "struct", "kinds": ["unparseable"]}
             continue
         kinds = classify(mismatches)
         if not kinds:
             total["exact"] += 1
+            pair_detail[n] = {"class": "exact"}
         elif kinds <= {"hash16"}:
             total["hash16"] += 1
+            pair_detail[n] = {"class": "hash16",
+                              "diffs": [str(d) for d in mismatches]}
         elif any(k.startswith("struct") for k in kinds):
             total["struct"] += 1
             struct_detail.append((n, sorted(kinds)))
+            pair_detail[n] = {"class": "struct", "kinds": sorted(kinds),
+                              "diffs": [str(d) for d in mismatches][:40]}
         else:
             total["payload"] += 1
+            pair_detail[n] = {"class": "payload",
+                              "diffs": [str(d) for d in mismatches][:40]}
 
     summary = {
         "apple_root": str(ns.apple),
@@ -94,6 +104,7 @@ def main() -> int:
         "pairs": len(names),
         "counts": dict(total),
         "struct_detail": struct_detail,
+        "pair_detail": pair_detail,
     }
     text = json.dumps(summary, indent=2, ensure_ascii=False)
     if ns.json:

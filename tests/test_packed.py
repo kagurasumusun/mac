@@ -430,8 +430,10 @@ class AtlasPaletteOverflowTests(unittest.TestCase):
         dmp2 = _atlas_dmp2(300, 1, bytes(bgra), gray=False)
         self.assertEqual(dmp2[4], 2)  # raw-BGRA LZFSE grammar, no KeyError
 
-        # and end-to-end through pack_renditions (atlas is layout 1004)
-        assets = self._rainbow_assets(96)  # 96*4 = 384 colors per appearance bucket
+        # and end-to-end through pack_renditions (atlas is layout 1004).
+        # 6 images x 64 colors land on one page under the 2026-07 pagination
+        # rule (area 384 <= 20736, count <= 18) -> 384 colors in one page.
+        assets = self._rainbow_assets(6, per_color=64)
         packed = pack_renditions(assets)
         atlas = next(a for a in packed if a.name == atlas_name(opaque=True, gray=False))
         tlv_length, _one, _zero, payload_length = struct.unpack_from("<4I", atlas.csi, 168)

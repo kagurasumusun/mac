@@ -424,17 +424,7 @@ def pack_renditions(assets: list[AssetRendition]) -> list[AssetRendition]:
         gray, opaque = class_of[class_name]
         decoded = [decoded_cache[id(a)] for a in group]
         rects = [(d[0], d[1]) for d in decoded]
-        try:
-            positions, atlas_w, atlas_h = _shelf_pack(rects)
-        except AssertionError:
-            # Width candidates are prefix sums of the insertion widths; some
-            # mixes (e.g. a large app-icon bitmap beside small siblings) leave
-            # no feasible guillotine layout. Apple still packs these sets via
-            # heuristics we have not reproduced; rather than crash the whole
-            # compile we keep the renditions standalone (still a fully valid,
-            # assetutil-readable CAR). Documented divergence in
-            # ENGINEERING_LOG (2026-07-17).
-            continue
+        positions, atlas_w, atlas_h = _shelf_pack(rects)
         canvas = composite_atlas(decoded, positions, atlas_w, atlas_h)
         atlas_csi = _csi_atlas(class_name, atlas_w, atlas_h, canvas, gray=gray, opaque=opaque)
         page = len(pages_by_appearance.setdefault(appearance, []))
