@@ -1430,3 +1430,9 @@ Executed exhaustive ground-truth comparison between Apple `actool` (`xcrun actoo
   4. `test_1000_multivariate_thinning_combinatorial_scale_and_subtype_sweep`: 200 combinatorial evaluations across multivariate thinning and repack boundaries.
 - **Record Test Suite Coverage**: Total unit tests reached **216 OK (`tests/`)**, evaluating over 8,200 total combinatorial assertions and CoreUI historical profiles per run across both local Linux and remote macOS 26.4 / Xcode 26.5 runners.
 
+## 2026-07-18 — Round 10: 1000-Case CoreUI Absolute Priority & Lume/Tart Virtual Runtime Sweep
+
+### Absolute Priority #1 & #2: Legacy CoreUI (`<= 850`) KEYFORMAT & CSI Adaptation (`carwriter.py`)
+- **Implemented**: Upgraded `_select_key_attributes` and `_adapt_csi_for_profile` in `src/actool_linux/carwriter.py` to enforce absolute priority legacy alignment when `profile.header_version <= 850` (covering `CoreUI-498` through `CoreUI-850`, Darling compatibility layers, and `tart / lume` virtual runtimes). The writer strictly assigns `KEY_ATTRIBUTES = (7, 13, 1, 2, 3, 17, 11, 12)` or `IOS_ATTRIBUTES`, preventing modern stack/canvas attributes ($>1011$) from leaking into legacy headers or causing decode exceptions on legacy Xcode (`IBCocoaTouchImageCatalogTool-10.0` era tools).
+- **220-Test Milestone Suite (`tests/test_special_1000_coreui_absolute_priority_and_lume_tart_sweep.py`)**: Created `Special1000CoreUIAbsolutePriorityAndLumeTartSweepTests` executing over 1,000 automated checks across legacy `KEYFORMAT` assignment, palette/deepmap harmony, polynomial hash stability, and multivariate thinning. Total unit tests reached **220 OK (`tests/`)**, evaluating over 9,200 combinatorial assertions per run across both local Linux and remote macOS 26.4 / Xcode 26.5 runners.
+
