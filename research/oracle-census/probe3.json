@@ -1,0 +1,21 @@
+{
+  "apple_root": "/Users/runner/work/_temp/apple/probe3",
+  "ours_root": "/Users/runner/work/_temp/ours/probe3",
+  "pairs": 2,
+  "counts": {
+    "struct": 1,
+    "payload": 1
+  },
+  "struct_detail": [
+    [
+      "probe3a/Assets.car",
+      [
+        "hash16",
+        "payload",
+        "struct:/renditions/('Loc8', 181, 1, 0, 0, 0, 20711, 85, 0, 0, 0, 0, 0)",
+        "struct:/renditions/('Loc8', 181, 1, 0, 0, 0, 4651, 85, 0, 0, 0, 0, 0)",
+        "struct:/renditions/('ZZZZPackedAsset-1.1.0-gamut0', 181, 1, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0)/size"
+      ]
+    ]
+  ]
+}

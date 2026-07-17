@@ -1,0 +1,10 @@
+{
+  "apple_root": "/Users/runner/work/_temp/apple/probe6",
+  "ours_root": "/Users/runner/work/_temp/ours/probe6",
+  "pairs": 24,
+  "counts": {
+    "payload": 8,
+    "hash16": 16
+  },
+  "struct_detail": []
+}

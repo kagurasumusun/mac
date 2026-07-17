@@ -1,0 +1,21 @@
+{
+  "apple_root": "/Users/runner/work/_temp/apple/probe-basic",
+  "ours_root": "/Users/runner/work/_temp/ours/probe-basic",
+  "pairs": 4,
+  "counts": {
+    "payload": 2,
+    "hash16": 1,
+    "struct": 1
+  },
+  "struct_detail": [
+    [
+      "scales/Assets.car",
+      [
+        "hash16",
+        "payload",
+        "struct:/renditions/('Variant', 181, 1, 0, 0, 0, 29613, 85, 0, 0, 0, 0, 0)",
+        "struct:/renditions/('Variant', 181, 1, 0, 0, 0, 50255, 85, 0, 0, 0, 0, 0)"
+      ]
+    ]
+  ]
+}
