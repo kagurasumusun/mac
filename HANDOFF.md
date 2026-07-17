@@ -14,6 +14,7 @@ Last updated: 2026-07-17 (Etc/GMT-9)
 
 ## Status (2026-07-17, license hygiene)
 
+- **History purge done (2026-07-17)**: `git filter-repo` removed `firefox-Assets.car`/`filemerge-Assets.car`/`timac-article.html` from ALL history; force-push `e969d3c → 9e8c364`; final tree verified diff-zero against the pre-purge tip; every referenced pre-`9e8c364` SHA in docs is superseded (content-identical). Fixture-suite v2 (vec/ios specials) generated via one-shot workflow; see ENGINEERING_LOG.
 - **Done**: fixture bot landed `6e81b5b` (macOS 26.4 / Xcode 26.5 17F42): `selfgen-rich` registry pinned {System:0,DarkAqua:1,Aqua:8}, stacks recognized as `ImageStack`, clean-room solidstack recognized as `SolidImageStack`; one-shot workflow deleted after collection. 172 tests / 0 skips. (Previous bullet:) Removed third-party compiled fixtures (`fixtures/firefox-Assets.car`, `fixtures/filemerge-Assets.car`) and the copied blog article; replacements are self-made (`tools/make_public_fixtures.py`) and are compiled + validated by Apple actool/assetutil through the one-shot workflow `generate-fixtures.yml`, then committed back by the fixture bot. `tests/test_car_appearance_registry.py` skips until `fixtures/selfgen-rich-Assets.car` lands; pin values from the generated artifact afterwards. Packer infeasible-layout crash converted to a documented standalone-rendition fallback.
 
 ## Status (2026-07-16)

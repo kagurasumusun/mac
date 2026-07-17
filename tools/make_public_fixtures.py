@@ -68,6 +68,68 @@ def png_gray_seed(width: int, height: int, gray: int) -> bytes:
     return _png(width, height, rows * height, 0)
 
 
+def png_gray16_seed(width: int, height: int, base: int) -> bytes:
+    """16-bit gray PNG: vertical gradient around a seed base value."""
+    rows = bytearray()
+    for y in range(height):
+        rows.append(0)
+        v = (base + y * (4096 // max(height, 1))) % 65536
+        rows += struct.pack(">H", v) * width
+    return _png16(width, height, bytes(rows), 0)
+
+
+def png_ga16_seed(width: int, height: int, base: int) -> bytes:
+    """16-bit gray+alpha PNG: gray gradient + alpha ramp."""
+    rows = bytearray()
+    for y in range(height):
+        rows.append(0)
+        for x in range(width):
+            g = (base + (x + y) * 512) % 65536
+            a = min(65535, 32768 + (x * 32768 // max(width - 1, 1)))
+            rows += struct.pack(">HH", g, a)
+    return _png16(width, height, bytes(rows), 4)
+
+
+def _png16(width: int, height: int, rows: bytes, color_type: int) -> bytes:
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 16, color_type, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(rows, 9))
+        + chunk(b"IEND", b"")
+    )
+
+
+def make_pdf(pt: float, seed: int) -> bytes:
+    """Minimal self-authored one-page PDF: filled rect + bezier stroke."""
+    def col(v: int) -> str:
+        return f"{(v % 256) / 255:.3f}"
+    content = (
+        f"{col(seed*37)} {col(seed*91)} {col(seed*53)} rg\n"
+        f"4 4 {pt-8:.0f} {pt-8:.0f} re f\n"
+        f"{col(seed*11)} {col(seed*61)} {col(seed*29)} RG 3 w\n"
+        f"8 8 m {pt/2:.0f} {pt-8:.0f} {pt-8:.0f} {pt/2:.0f} {pt-8:.0f} 8 c S\n"
+    ).encode()
+    objs = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {pt:.0f} {pt:.0f}] /Contents 4 0 R >>".encode(),
+        b"<< /Length " + str(len(content)).encode() + b" >>\nstream\n" + content + b"endstream",
+    ]
+    out = bytearray(b"%PDF-1.4\n")
+    offsets = []
+    for i, body in enumerate(objs, 1):
+        offsets.append(len(out))
+        out += f"{i} 0 obj\n".encode() + body + b"\nendobj\n"
+    xref = len(out)
+    out += f"xref\n0 {len(objs)+1}\n".encode()
+    out += b"0000000000 65535 f \n"
+    for off in offsets:
+        out += f"{off:010d} 00000 n \n".encode()
+    out += (f"trailer\n<< /Size {len(objs)+1} /Root 1 0 R >>\n"
+            f"startxref\n{xref}\n%%EOF\n").encode()
+    return bytes(out)
+
+
 def write_json(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, indent=2))
@@ -200,9 +262,135 @@ def build_selfgen_brand(root: Path) -> None:
     write_json(cat / "Contents.json", INFO)
 
 
+# --------------------------------------------------------------------------
+# selfgen-vec.xcassets — special payloads: PDF vector, 16-bit PNGs, JPEG,
+# high-contrast color, extended sRGB, typed datasets.
+
+def build_selfgen_vec(root: Path) -> None:
+    cat = root / "selfgen-vec.xcassets"
+
+    d = cat / "SelfVector.imageset"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "vector.pdf").write_bytes(make_pdf(64.0, 7))
+    write_json(d / "Contents.json", {
+        "images": [{"idiom": "universal", "filename": "vector.pdf"}],
+        "properties": {"preserves-vector-representation": True}, **INFO})
+
+    d = cat / "SelfGA16.imageset"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "ga16.png").write_bytes(png_ga16_seed(24, 24, 5000))
+    write_json(d / "Contents.json",
+               {"images": [{"idiom": "universal", "scale": "1x", "filename": "ga16.png"}], **INFO})
+
+    d = cat / "SelfGray16.imageset"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "gray16.png").write_bytes(png_gray16_seed(24, 24, 40000))
+    write_json(d / "Contents.json",
+               {"images": [{"idiom": "universal", "scale": "1x", "filename": "gray16.png"}], **INFO})
+
+    jpeg = root / "_jpeg_work"
+    try:
+        from PIL import Image
+        img = Image.new("RGB", (32, 32))
+        px = img.load()
+        for yy in range(32):
+            for xx in range(32):
+                px[xx, yy] = (xx * 255 // 31, yy * 255 // 31, (xx + yy) * 255 // 62)
+        jpeg.mkdir(parents=True, exist_ok=True)
+        img.save(jpeg / "photo.jpg", quality=88)
+        d = cat / "SelfPhoto.imageset"
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "photo.jpg").write_bytes((jpeg / "photo.jpg").read_bytes())
+        write_json(d / "Contents.json",
+                   {"images": [{"idiom": "universal", "scale": "1x", "filename": "photo.jpg"}], **INFO})
+    except ImportError:
+        pass  # JPEG case skipped when Pillow is unavailable
+
+    d = cat / "SelfHighContrastColor.colorset"
+    d.mkdir(parents=True, exist_ok=True)
+    write_json(d / "Contents.json", {"colors": [
+        {"idiom": "universal", "color": {"color-space": "srgb", "components": {
+            "red": "0.55", "green": "0.42", "blue": "0.80", "alpha": "1.0"}}},
+        {"idiom": "universal",
+         "appearances": [{"appearance": "contrast", "value": "high"}],
+         "color": {"color-space": "srgb", "components": {
+             "red": "0.80", "green": "0.70", "blue": "1.00", "alpha": "1.0"}}},
+    ], **INFO})
+
+    d = cat / "SelfTranslucentColor.colorset"
+    d.mkdir(parents=True, exist_ok=True)
+    write_json(d / "Contents.json", {"colors": [
+        {"idiom": "universal", "color": {"color-space": "display-p3", "components": {
+            "red": "1.0", "green": "0.82", "blue": "0.1", "alpha": "0.5"}}},
+    ], **INFO})
+
+    for name, fn, data, uti in (
+            ("SelfJsonBlob.dataset", "blob.json", b'{"self": "authored", "n": 42}\n', "public.json"),
+            ("SelfTextBlob.dataset", "memo.txt", b"actool-linux self-authored text\n", "public.text")):
+        d = cat / name
+        d.mkdir(parents=True, exist_ok=True)
+        (d / fn).write_bytes(data)
+        write_json(d / "Contents.json", {"data": [
+            {"idiom": "universal", "filename": fn, "universal-type-identifier": uti}], **INFO})
+
+    write_json(cat / "Contents.json", INFO)
+
+
+# --------------------------------------------------------------------------
+# selfgen-ios.xcassets — iphone/ipad idioms, dark appearances, localization.
+
+def build_selfgen_ios(root: Path) -> None:
+    cat = root / "selfgen-ios.xcassets"
+
+    for idiom, scales in (("iphone", ("1x", "2x", "3x")), ("ipad", ("1x", "2x"))):
+        d = cat / f"SelfIcon_{idiom}.imageset"
+        d.mkdir(parents=True, exist_ok=True)
+        images = []
+        for scale in scales:
+            px = {"1x": 20, "2x": 40, "3x": 60}[scale]
+            fn = f"icon_{idiom}{scale}.png"
+            (d / fn).write_bytes(png_rgba_gradient_seed(px, px, px ^ len(idiom)))
+            images.append({"idiom": idiom, "scale": scale, "filename": fn})
+        write_json(d / "Contents.json", {"images": images, **INFO})
+
+    d = cat / "SelfMode.imageset"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "any.png").write_bytes(png_rgba_gradient_seed(24, 24, 13))
+    (d / "dark.png").write_bytes(png_rgba_gradient_seed(24, 24, 29))
+    write_json(d / "Contents.json", {"images": [
+        {"idiom": "universal", "scale": "1x", "filename": "any.png"},
+        {"idiom": "universal", "scale": "1x",
+         "appearances": [{"appearance": "luminosity", "value": "dark"}], "filename": "dark.png"},
+    ], **INFO})
+
+    d = cat / "SelfHello.imageset"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "base.png").write_bytes(png_rgba_gradient_seed(24, 24, 37))
+    (d / "ja.png").write_bytes(png_rgba_gradient_seed(24, 24, 43))
+    write_json(d / "Contents.json", {"images": [
+        {"idiom": "universal", "scale": "1x", "filename": "base.png"},
+        {"idiom": "universal", "scale": "1x", "locale": "ja", "filename": "ja.png"},
+    ], **INFO})
+
+    d = cat / "SelfP3Color.colorset"
+    d.mkdir(parents=True, exist_ok=True)
+    write_json(d / "Contents.json", {"colors": [
+        {"idiom": "universal", "color": {"color-space": "display-p3", "components": {
+            "red": "1.0", "green": "0.25", "blue": "0.35", "alpha": "1.0"}}},
+        {"idiom": "universal",
+         "appearances": [{"appearance": "luminosity", "value": "dark"}],
+         "color": {"color-space": "display-p3", "components": {
+             "red": "1.0", "green": "0.55", "blue": "0.60", "alpha": "1.0"}}},
+    ], **INFO})
+
+    write_json(cat / "Contents.json", INFO)
+
+
 CASES = {
     "selfgen-rich": build_selfgen_rich,
     "selfgen-brand": build_selfgen_brand,
+    "selfgen-vec": build_selfgen_vec,
+    "selfgen-ios": build_selfgen_ios,
 }
 
 ARGS = {
@@ -210,6 +398,8 @@ ARGS = {
                               "--app-icon", "SelfAppIcon"]},
     "selfgen-brand": {"args": ["--platform", "appletvos", "--minimum-deployment-target", "15.0",
                                "--app-icon", "Icon", "--target-device", "tv"]},
+    "selfgen-vec": {"args": ["--platform", "macosx", "--minimum-deployment-target", "13.0"]},
+    "selfgen-ios": {"args": ["--platform", "iphoneos", "--minimum-deployment-target", "15.0"]},
 }
 
 

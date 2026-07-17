@@ -13,13 +13,13 @@
     },
     {
       "path": "ENGINEERING_LOG.md",
-      "sha256": "5f5e8cd8f579280fa60f7e1b9d952546f2160f998033cac3812a756ca3acd2b5",
-      "size": 101482
+      "sha256": "52c9d9d093e3ef57f8ed2640a95f62721a4c20cf1cb8daca3ece2e41e3cd1316",
+      "size": 103001
     },
     {
       "path": "HANDOFF.md",
-      "sha256": "f089de463d871860df577ee8d3a5955af233e32ebd1793fea123bc66611671ec",
-      "size": 26454
+      "sha256": "a7e4f7d2d84ab673011291615f548689ab9c9929689b2f5aa347f2716c99a843",
+      "size": 26861
     },
     {
       "path": "PROJECT_STATE.json",
@@ -48,8 +48,8 @@
     },
     {
       "path": "fixtures/README.md",
-      "sha256": "95c26857e1030fd3fc2dc57cca122cf53c0a2cc364129c1600eb3cfe64295df3",
-      "size": 1821
+      "sha256": "971f6223dcebf6d773ad3defbc7b6a9436a76d562e4855166c4a2946161b5370",
+      "size": 2304
     },
     {
       "path": "fixtures/SELF-GENERATED.md",
@@ -57,19 +57,9 @@
       "size": 747
     },
     {
-      "path": "fixtures/report/selfgen-rich.assetutil.json",
-      "sha256": "35638dfe29a4414fce2bc22f89e74dcfae11ae05977baf9bcccfb974e4d2f650",
-      "size": 12681
-    },
-    {
       "path": "fixtures/report/selfgen-solidstack-demo.assetutil.json",
       "sha256": "4e958c3106856d6f84028f3ab3c407b70a0eb5b79aca4650e6d85f5fd705781f",
       "size": 7772
-    },
-    {
-      "path": "fixtures/report/selfgen-stacks.assetutil.json",
-      "sha256": "130c165652e447c2b5aa710818aba460ec1cf24bd69acc91e65cd9b22f31a5bb",
-      "size": 10768
     },
     {
       "path": "fixtures/selfgen-rich-Assets.car",
@@ -508,8 +498,8 @@
     },
     {
       "path": "tools/make_public_fixtures.py",
-      "sha256": "4800dc40d98592ab1e5ca01a934d824d2cafb972d26208422fe6b4f209cee3be",
-      "size": 10609
+      "sha256": "8923a6a335414de162dcd57a0bcd34ebb1f71c5dc98ab46b8d3576ce5f83dbb6",
+      "size": 18920
     },
     {
       "path": "tools/option_cross_product.py",

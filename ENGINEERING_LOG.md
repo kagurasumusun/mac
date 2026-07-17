@@ -1268,3 +1268,26 @@ scales dmp2 mode-selection boundary cases).
   - Apple `assetutil --info` ground truth preserved under `fixtures/report/`.
 - `tests/test_car_appearance_registry.py` values pinned from the generated artifact;
   full suite: 172 tests, 0 skips (lzfse+cairosvg present).
+
+## 2026-07-17 — Git history purge of third-party fixture blobs
+
+- History rewritten (`git filter-repo --invert-paths` on `fixtures/firefox-Assets.car`,
+  `fixtures/filemerge-Assets.car`, `public-fixtures/timac-article.html`) and force-pushed:
+  `e969d3c` → `9e8c364`. All four post-purge commits replayed byte-identically
+  (final tree git-diff-zero vs `e969d3c`). No commit in current history contains the
+  three files anymore. Note: unreachable objects may persist on GitHub until their gc;
+  the practical exposure ended with the force-push of purged refs.
+- All historical SHAs referenced in this log and in HANDOFF/PROJECT_STATE up to `e969d3c`
+  are superseded by their rewritten equivalents (content-identical trees).
+
+## 2026-07-17 — Self-made fixtures v2: special/multi-pattern CAR set
+
+- Extended `tools/make_public_fixtures.py`: new self-authored cases `selfgen-vec`
+  (PDF preserve-vector, 16-bit GA/gray PNG, self-rendered JPEG via Pillow,
+  high-contrast color, translucent Display-P3, typed public.json/public.text datasets)
+  and `selfgen-ios` (iphone/ipad idioms at 1x/2x/3x, dark appearance images, `ja`
+  localized variant documenting the Loc8 path, light/dark Display-P3 colors).
+- extended-sRGB was rejected by the clean-room diagnostics (matches the Apple-observed
+  behavior of compiled catalogs); swapped to translucent Display-P3.
+- One-shot workflow v2 stages every case, validates with the clean-room parser AND
+  Apple `assetutil` ground truth, records provenance, and commits back.
