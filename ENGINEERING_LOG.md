@@ -1248,3 +1248,23 @@ scales dmp2 mode-selection boundary cases).
   falls back to standalone renditions (still valid, assetutil-readable output) with the
   divergence documented here; Apple's packing of such sets is a known heuristic gap.
 - `tools/update_manifest.py` now drops manifest rows whose files no longer exist.
+
+## 2026-07-17 — Self-made fixtures generated on GitHub-hosted macOS runner
+
+- One-shot workflow `generate-fixtures.yml` (triggered by its own push) ran on `macos-latest`
+  = macOS 26.4 / Xcode 26.5 (17F42) — same toolchain identity as the probed oracle baseline
+  (run: kagurasumusun/mac actions/runs/29551913130). Workflow deleted after collection.
+- Fixtures committed by the fixture bot (commit `6e81b5b`):
+  - `fixtures/selfgen-rich-Assets.car` (1,272,776 B, sha256 28cd4425…) — Apple actool compile
+    of the self-authored rich catalog. appearance registry = {System:0, DarkAqua:1, Aqua:8}
+    (same Aqua/DarkAqua family structure as the removed real-world fixture; tintable entries
+    are app-specific and absent). Apple `assetutil` AssetTypes: Color, Data, Image,
+    Icon Image, MultiSized Image, PackedImage.
+  - `fixtures/selfgen-stacks-Assets.car` (1,353,704 B, sha256 91f279d8…) — Apple actool;
+    assetutil AssetType `ImageStack` recognized.
+  - `fixtures/selfgen-solidstack-demo.car` (151,224 B, sha256 b6be2773…) — clean-room writer
+    (`build_solid_image_stack_aggregate_car`, layout 1018); **Apple `assetutil` recognizes
+    AssetType `SolidImageStack`** — Apple-tooling validation of the clean-room stack writer.
+  - Apple `assetutil --info` ground truth preserved under `fixtures/report/`.
+- `tests/test_car_appearance_registry.py` values pinned from the generated artifact;
+  full suite: 172 tests, 0 skips (lzfse+cairosvg present).

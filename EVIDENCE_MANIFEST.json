@@ -13,13 +13,13 @@
     },
     {
       "path": "ENGINEERING_LOG.md",
-      "sha256": "49b5f8a43ba551c5efc62080dd25dd569c624c3f4e3ccb2a64b33aa3e984b552",
-      "size": 100006
+      "sha256": "5f5e8cd8f579280fa60f7e1b9d952546f2160f998033cac3812a756ca3acd2b5",
+      "size": 101482
     },
     {
       "path": "HANDOFF.md",
-      "sha256": "9864688db90389d1401547f92c855e5117181d87844887dbed69cca2661e53d5",
-      "size": 26147
+      "sha256": "f089de463d871860df577ee8d3a5955af233e32ebd1793fea123bc66611671ec",
+      "size": 26454
     },
     {
       "path": "PROJECT_STATE.json",
@@ -45,6 +45,51 @@
       "path": "docs/USED_SCRIPTS.md",
       "sha256": "072bf90a8d9b1d230f8989e430045427c6f69d922fa0ba0b08d65a09043a1f44",
       "size": 3226
+    },
+    {
+      "path": "fixtures/README.md",
+      "sha256": "95c26857e1030fd3fc2dc57cca122cf53c0a2cc364129c1600eb3cfe64295df3",
+      "size": 1821
+    },
+    {
+      "path": "fixtures/SELF-GENERATED.md",
+      "sha256": "c0cc8f3f9fc530e301a720b83c32113e0b5b7041fa14d9d44b48e957361d9571",
+      "size": 747
+    },
+    {
+      "path": "fixtures/report/selfgen-rich.assetutil.json",
+      "sha256": "35638dfe29a4414fce2bc22f89e74dcfae11ae05977baf9bcccfb974e4d2f650",
+      "size": 12681
+    },
+    {
+      "path": "fixtures/report/selfgen-solidstack-demo.assetutil.json",
+      "sha256": "4e958c3106856d6f84028f3ab3c407b70a0eb5b79aca4650e6d85f5fd705781f",
+      "size": 7772
+    },
+    {
+      "path": "fixtures/report/selfgen-stacks.assetutil.json",
+      "sha256": "130c165652e447c2b5aa710818aba460ec1cf24bd69acc91e65cd9b22f31a5bb",
+      "size": 10768
+    },
+    {
+      "path": "fixtures/selfgen-rich-Assets.car",
+      "sha256": "28cd4425760d8f73098791b2a4a151e1bbfe8f77e0a3958b8a130b076cbc10ad",
+      "size": 1272776
+    },
+    {
+      "path": "fixtures/selfgen-solidstack-demo.car",
+      "sha256": "b6be2773c64693afc003dc5b7dc079a77f15a7ced3cbf6780c33146244046f57",
+      "size": 151224
+    },
+    {
+      "path": "fixtures/selfgen-stacks-Assets.car",
+      "sha256": "91f279d8f0fb222ae4945fb829194a8bd69deca429d53af036b64d2e22f97e3d",
+      "size": 1353704
+    },
+    {
+      "path": "public-fixtures/README.md",
+      "sha256": "90ac995368f404ffa0a59704dadcbd0bb59901ebb249bf917a436477e5011c90",
+      "size": 973
     },
     {
       "path": "pyproject.toml",
@@ -165,6 +210,36 @@
       "path": "research/runtime-fixed.json",
       "sha256": "8b68a85e5de75ce448a622e03475f4bc74a8912bc3df44c93ada7c28a9cd8d7d",
       "size": 23421
+    },
+    {
+      "path": "research/runtime-screenshots-verified/visionOS-26.2.png",
+      "sha256": "5ae4d9e1b4c139e51766694b41f78aa5fbc044da4cb6d837182564fea1b1b643",
+      "size": 6004314
+    },
+    {
+      "path": "research/runtime-screenshots-verified/visionOS-26.4.png",
+      "sha256": "5ae4d9e1b4c139e51766694b41f78aa5fbc044da4cb6d837182564fea1b1b643",
+      "size": 6004314
+    },
+    {
+      "path": "research/runtime-screenshots-verified/visionOS-26.5.png",
+      "sha256": "5ae4d9e1b4c139e51766694b41f78aa5fbc044da4cb6d837182564fea1b1b643",
+      "size": 6004314
+    },
+    {
+      "path": "research/runtime-screenshots-verified/watchOS-26.2.png",
+      "sha256": "db69f8e5fefd95d7bd1eea486fed35f4ed393e410fcf3000a69ce0ce5767dc3b",
+      "size": 7863
+    },
+    {
+      "path": "research/runtime-screenshots-verified/watchOS-26.4.png",
+      "sha256": "b16fd102ff4c05d14a26d7d06eda635bcad675d637f8ad4362bd45947f655879",
+      "size": 7375
+    },
+    {
+      "path": "research/runtime-screenshots-verified/watchOS-26.5.png",
+      "sha256": "e71a83de2cfe2e4170b6e8a743d8d0ee8549eea52f2d99b4f3ee8631baa5e1cd",
+      "size": 7060
     },
     {
       "path": "research/runtime-tv262.json",
@@ -430,6 +505,11 @@
       "path": "tools/layer_stack_fixture_scan.py",
       "sha256": "2fc615c050a43463ee4fc6417302efc9f167a62402003a4c6ffb26b0387b06be",
       "size": 1545
+    },
+    {
+      "path": "tools/make_public_fixtures.py",
+      "sha256": "4800dc40d98592ab1e5ca01a934d824d2cafb972d26208422fe6b4f209cee3be",
+      "size": 10609
     },
     {
       "path": "tools/option_cross_product.py",

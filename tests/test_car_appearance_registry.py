@@ -18,10 +18,13 @@ class CARAppearanceRegistryTests(unittest.TestCase):
     def test_selfgen_rich_appearance_registry(self):
         car = CARFile(BOMStore.from_path(RICH_FIXTURE))
         registry = {entry.name: entry.value for entry in car.appearances}
-        # Pinned values measured from the CI-generated fixture; update together
-        # with tools/make_public_fixtures.py when inputs change.
-        self.assertIn('NSAppearanceNameAqua', registry)
-        self.assertIn('NSAppearanceNameDarkAqua', registry)
+        # Values pinned from the fixture generated on the GitHub-hosted macOS
+        # runner (macOS 26.4 / Xcode 26.5 17F42); see fixtures/SELF-GENERATED.md.
+        self.assertEqual(registry, {
+            'NSAppearanceNameSystem': 0,
+            'NSAppearanceNameDarkAqua': 1,
+            'NSAppearanceNameAqua': 8,
+        })
 
     def test_brandassets_target_tv_appearance_registry(self):
         car = CARFile(BOMStore.from_path('fixtures/brandassets-target-tv-Assets.car'))
