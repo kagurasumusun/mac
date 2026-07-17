@@ -328,6 +328,16 @@ class CARWriterTests(unittest.TestCase):
         self.assertEqual(sum(r.csi.layout==1007 for r in car.renditions),6)
         self.assertEqual(sum(r.csi.layout==1008 for r in car.renditions),6)
 
+    def test_localization_and_long_identifier_formulas(self):
+        from actool_linux.carwriter import _identifier, _localization_identifier
+        self.assertEqual(_localization_identifier("de"), 4651)
+        self.assertEqual(_localization_identifier("ja"), 29613)
+        self.assertEqual(_localization_identifier("en"), 31336)
+        long_name = "App Icon - Large/Middle/Content/HighContrast/Variant/Subtype/VeryLongNameSuffixExceedingThirtyTwoBytes"
+        val = _identifier(long_name)
+        self.assertGreater(val, 0)
+        self.assertLessEqual(val, 65535)
+
 
 if __name__ == "__main__":
     unittest.main()

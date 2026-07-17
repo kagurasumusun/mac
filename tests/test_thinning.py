@@ -45,5 +45,16 @@ class ThinningTests(unittest.TestCase):
         self.assertEqual(names, {b"base.png", b"ja.png", b"dark.png"})
 
 
+    def test_thinning_subtype_and_scale_fallbacks(self):
+        assets = [
+            png_rendition("P", PNG, "univ.png", idiom="universal", scale=1),
+            png_rendition("P", PNG, "watch.png", idiom="watch", scale=2),
+            png_rendition("P", PNG, "watch3.png", idiom="watch", scale=3),
+        ]
+        selected = thin_renditions(assets, ThinningOptions(idiom="watch", scale=2))
+        names = {x.csi[40:168].split(b"\0", 1)[0] for x in selected}
+        self.assertEqual(names, {b"watch.png"})
+
+
 if __name__ == "__main__":
     unittest.main()

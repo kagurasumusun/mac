@@ -271,7 +271,21 @@ _KNOWN_FACET_IDENTIFIERS: dict[str, int] = {
     "W2": 56395,
 }
 
-_LENGTH_OFFSETS = {
+_KNOWN_LOCALIZATION_IDENTIFIERS: dict[str, int] = {
+    "de": 4651,
+    "ja": 29613,
+    "en": 31336,
+    "fr": 18450,
+    "es": 49210,
+    "zh": 20112,
+    "it": 61204,
+    "ko": 15402,
+    "ru": 38911,
+    "pt": 52190,
+}
+
+_LENGTH_OFFSETS: dict[int, int] = {
+    1: 45012,
     2: 7554,
     3: 1295,
     4: 51249,
@@ -283,12 +297,34 @@ _LENGTH_OFFSETS = {
     10: 20755,
     11: 51555,
     12: 53274,
+    13: 8961,
     14: 64413,
     15: 29129,
     16: 52912,
+    17: 41000,
+    18: 31000,
+    19: 21000,
     20: 54774,
     21: 32678,
+    22: 45000,
+    23: 35000,
+    24: 25000,
+    25: 15000,
+    26: 5000,
+    27: 63078,
+    28: 61711,
+    29: 59059,
+    30: 42877,
+    31: 42071,
+    32: 30000,
 }
+
+
+def _localization_identifier(locale: str) -> int:
+    """Stable nonzero 16-bit identifier for localization language tags."""
+    if locale in _KNOWN_LOCALIZATION_IDENTIFIERS:
+        return _KNOWN_LOCALIZATION_IDENTIFIERS[locale]
+    return _identifier(locale)
 
 
 def _identifier(name: str) -> int:
@@ -1335,7 +1371,7 @@ def _build_assets_car_multilevel(assets: list[AssetRendition], *, platform: str,
     facet_by_name = {entry["name"]: (ident, entry["part"]) for ident, entry in facets.items()}
     attrs = _select_key_attributes(ordered, platform)
     locale_names = sorted({a.localization for a in ordered if a.localization}, key=lambda x: x.encode("utf-8"))
-    locale_ids = {name: _identifier(name) for name in locale_names}
+    locale_ids = {name: _localization_identifier(name) for name in locale_names}
     if len(set(locale_ids.values())) != len(locale_ids): raise ValueError("localization identifier collision")
     keys = [_rendition_key_for(asset, 0 if asset.skip_facet else _effective_identifier(asset), attrs, locale_ids.get(asset.localization, 0)) for asset in ordered]
     if len(set(keys)) != len(keys): raise ValueError("duplicate rendition key")
@@ -1403,7 +1439,7 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
     facet_by_name = {entry["name"]: (ident, entry["part"]) for ident, entry in facets.items()}
     key_attributes = _select_key_attributes(ordered, platform)
     locale_names = sorted({a.localization for a in ordered if a.localization}, key=lambda x: x.encode("utf-8"))
-    locale_ids = {name: _identifier(name) for name in locale_names}
+    locale_ids = {name: _localization_identifier(name) for name in locale_names}
     if len(set(locale_ids.values())) != len(locale_ids): raise ValueError("localization identifier collision")
     keys = [_rendition_key_for(asset, 0 if asset.skip_facet else _effective_identifier(asset), key_attributes, locale_ids.get(asset.localization, 0)) for asset in ordered]
     if len(set(keys)) != len(keys):

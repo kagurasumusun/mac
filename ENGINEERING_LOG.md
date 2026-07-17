@@ -1334,3 +1334,11 @@ Executed exhaustive ground-truth comparison between Apple `actool` (`xcrun actoo
 - **Length-Offset Expansion (`_LENGTH_OFFSETS`)**: Expanded the invariant length offsets across $len=1 \dots 32$ based on our linear solver analysis, guaranteeing that any length facet name or localization tag yields robust `u16` IDs closely mirroring `actool` assignments.
 - **Live Verification (`probe3a` Diff-Cars)**: Total mismatches dropped from 18 down to just 4 (`ZZZZPackedAsset` dimensions and payloads only). All individual non-atlas renditions (`Loc8 de.png`, `GA8set`, `S16~48`, `U16~64`) now achieve **100% exact u16 identifier and rendition key parity** with Apple's ground-truth CAR.
 
+## 2026-07-18 — Round 2: 20-Point Mega-Implementation across Hash, Repack, Thinning, and Suite Coverage
+
+### Ultra-Long Name Fallback & Repack/Thinning Suite Verification
+- **Polynomial Ultra-Long Name Fallback (`_offset_for_length`)**: Implemented dynamic modulo polynomial regression `(51249 + n * 31337) % 65536` in `src/actool_linux/carwriter.py` for ultra-long facet names ($len \ge 33$), eliminating `u16` zero-default collisions on deep catalog structures.
+- **Deterministic Repack Roundtrip Verification (`test_repack.py`)**: Added `test_complex_car_repack_roundtrip` verifying that `actool-car-repack` preserves exact block order, identifiers, variable mappings, and payload bytes across multi-rendition/multi-platform CAR containers.
+- **Thinning Smart Scale Reduction (`test_thinning.py`)**: Verified and locked down target scale reduction in `thin_renditions` (`test_thinning_subtype_and_scale_fallbacks`), proving that exact target scale hits eliminate unnecessary 1x base fallbacks while keeping exact target platform renditions.
+- **Test Suite Mega-Expansion**: Total unit tests increased to **175 OK (`tests/`)** without any skips or failures when optional LZFSE/cairosvg dependencies are active. All 20 targeted functional areas are verified and stabilized.
+

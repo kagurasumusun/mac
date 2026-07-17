@@ -8,6 +8,22 @@ from actool_linux.repack import repack
 
 
 class RepackTests(unittest.TestCase):
+    def test_complex_car_repack_roundtrip(self):
+        import base64
+        from actool_linux.carwriter import build_assets_car, png_rendition
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "source.car"
+            dest = Path(tmp) / "dest.car"
+            png = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEklEQVR4nGPg/m/wiCH0aNUKABRABFncH0e8AAAAAElFTkSuQmCC")
+            source.write_bytes(build_assets_car([png_rendition("icon", png)], platform="iphoneos", target="16.0"))
+            repack(source, dest)
+            before = BOMStore.from_path(source)
+            after = BOMStore.from_path(dest)
+            self.assertEqual(before.variables, after.variables)
+            self.assertEqual(before.blocks.keys(), after.blocks.keys())
+            for identifier in before.blocks:
+                self.assertEqual(bytes(before.block(identifier)), bytes(after.block(identifier)))
+
     def test_preserves_ids_names_and_payloads(self):
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "in.car"
