@@ -1,0 +1,25 @@
+name: Manual SSH Debug Only
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  ssh-only:
+    runs-on: macos-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Start SSH Session
+        uses: owenthereal/action-upterm@v1
+        with:
+          wait-timeout-minutes: 360
+          upterm-version: v0.22.0
+
+      
