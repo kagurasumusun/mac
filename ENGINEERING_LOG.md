@@ -1300,3 +1300,18 @@ scales dmp2 mode-selection boundary cases).
   - `selfgen-rich-Assets.car` regenerated (1,272,776 B), `selfgen-stacks`/`solidstack-demo` byte-identical.
 - One-shot workflow v2 deleted after collection (same single-use pattern as v1).
 - EVIDENCE_MANIFEST updated with the new fixtures + Apple assetutil ground truth reports.
+
+## 2026-07-18 — Packed atlas large-set exhaustion fix & live oracle verification
+
+### Packed atlas free-region exhaustion resolved (`src/actool_linux/packed.py`)
+- **Problem**: When compiling large candidate matrices (`probe4` registry-free packed matrix with 47 images), `_shelf_pack` sorted input rectangles descending by area (`w*h`). On candidate testing (`pack_at(w_nom)`), early prefix-sum widths (`w_nom`) were narrower than the maximum single-element width of later tiles, resulting in `AssertionError("atlas free-region exhaustion")` and preventing `probe4a`/`probe4b` compilation (`exit_code: 1`).
+- **Fix**: Replaced the hard assertion with a graceful boolean fallback (`return None, 0`), allowing `_shelf_pack` to skip infeasible nominal widths (`if pos is None: continue`) and added a guaranteed bounding-canvas fallback loop (`max_w = max(r[0] for r in rects) + 2 * pad`).
+- **Result**: `probe4a` and `probe4b` now compile cleanly (`exit_code: 0`, `car: true`) on both Linux and the remote macOS 26.4 / Xcode 26.5 environment. All 172 unit tests (`tests/`) pass without regressions.
+
+### Live semantic comparison vs Apple `actool` (`assetutil_semantic_matrix.py`)
+Executed exhaustive ground-truth comparison between Apple `actool` (`xcrun actool`) and `actool-linux` across the generated probe suites on the macOS runner:
+- **`probe-suite` (basic/brand/colordata/scales/tvstack)**: **4/4 full semantic matches**. `tvstack` correctly returns `car: false` on both Apple and our implementation.
+- **`probe5` (64-case trigger & v3 grammar sweep)**: **64/64 full semantic matches (100% agreement)**.
+- **`probe6` (24-case gray-RGB/GA v3-mini/LZFSE sweep)**: **24/24 full semantic matches (100% agreement)**.
+- **`probe3` & `probe4` (packed atlas cases)**: Individual rendition names, scales, idioms, pixel formats, flags, and `AssetType` entries match 100%. Residual diffs (`13 cases total across the full matrix`) are strictly isolated to **packed atlas bin-packing geometry and pagination** (`ZZZZPackedAsset` tile width/height and whether gray tiles split into a second atlas page vs packing into one large page).
+
