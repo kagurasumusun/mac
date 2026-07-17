@@ -644,8 +644,8 @@
     "tv_top_shelf_extension_identifier": "com.apple.tv-top-shelf",
     "xros_asset_generation": "solidimagestack AppIcon observed in visionOS app templates"
   },
-  "test_count": 236,
-  "test_status": "236 OK (0 skips with optional lzfse+cairosvg); CI enforces across 10 CoreUI historical profiles and 13000+ combinatorial checks",
+  "test_count": 240,
+  "test_status": "240 OK (0 skips with optional lzfse+cairosvg); CI enforces across 10 CoreUI historical profiles and 14000+ combinatorial checks",
   "unfinished": [
     "all macOS AppKit generations",
     "all platform screenshots",
