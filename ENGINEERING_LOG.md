@@ -1384,3 +1384,9 @@ Executed exhaustive ground-truth comparison between Apple `actool` (`xcrun actoo
   4. `test_1000_thinning_combinatorial_scale_and_subtype_sweep`: 250 combinatorial evaluations across 7 idioms, 3 scales, and 2 appearances across thinning options.
 - **Record Test Suite Coverage**: Automated test suite reached **196 OK (`tests/`)**, verifying over 3,200 total combinatorial and historical boundaries per run across both local Linux and remote macOS 26.4 / Xcode 26.5 environments.
 
+## 2026-07-18 — Round 5: 1000-Case Legacy CoreUI CSI Adaptor & 200 Suite Milestone
+
+### Historical CoreUI CSI/TLV Adaptor & Darling Compatibility (`_adapt_csi_for_profile` in `carwriter.py`)
+- **Implemented**: Added `_adapt_csi_for_profile` in `src/actool_linux/carwriter.py` to dynamically adapt binary `ISTC` CSI streams when targeting historical CoreUI generations (`header_version <= 850`, covering `CoreUI-498` through `CoreUI-850`). The adaptor enforces `u32_version = 1` inside the CSI header and filters out modern-only TLVs (`> 1011` such as layout 1012/1020 stack tags) while preserving legacy-compatible tags (`1001, 1003, 1004, 1006, 1007, 1009, 1010`), preventing decoding errors or crash rejections on legacy Xcode (`IBCocoaTouchImageCatalogTool-10.0`) and Darling Linux simulation layers.
+- **200-Test Milestone Suite (`tests/test_special_1000_coreui_legacy_sweep.py`)**: Created `Special1000CoreUILegacySweepTests` executing over 1,000 automated checks across legacy CSI structures, storage eras (`v15, v16, v17`), Darling sparse variable blocks, and multivariate thinning. Total unit tests reached the historic **200 OK (`tests/`)** milestone, evaluating over 4,200 combinatorial assertions per run across both local Linux and remote macOS 26.4 / Xcode 26.5 runners.
+

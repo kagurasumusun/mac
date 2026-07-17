@@ -428,6 +428,42 @@ DEPLOYMENT_PLATFORM_TOKENS = {
 }
 
 
+def _adapt_csi_for_profile(csi: bytes, profile: "CoreUIProfile") -> bytes:
+    if profile.header_version >= 900 or len(csi) < 184 or not csi.startswith(b"ISTC"):
+        return csi
+    tlv_length, one, zero, payload_length = struct.unpack_from("<4I", csi, 168)
+    head_tlvs = csi[184:184 + tlv_length]
+    payload = csi[184 + tlv_length:]
+    rebuilt_tlvs = bytearray()
+    cursor = 0
+    while cursor + 8 <= len(head_tlvs):
+        tag, length = struct.unpack_from("<2I", head_tlvs, cursor)
+        if tag in (1001, 1003, 1004, 1006, 1007, 1009, 1010):
+            rebuilt_tlvs += head_tlvs[cursor:cursor + 8 + length]
+        cursor += 8 + length
+    out = bytearray(csi[:184])
+    struct.pack_into("<4I", out, 168, len(rebuilt_tlvs), 1, 0, len(payload))
+    return bytes(out) + bytes(rebuilt_tlvs) + payload
+
+
+def _adapt_csi_for_profile(csi: bytes, profile: "CoreUIProfile") -> bytes:
+    if profile.header_version >= 900 or len(csi) < 184 or not csi.startswith(b"ISTC"):
+        return csi
+    tlv_length, one, zero, payload_length = struct.unpack_from("<4I", csi, 168)
+    head_tlvs = csi[184:184 + tlv_length]
+    payload = csi[184 + tlv_length:]
+    rebuilt_tlvs = bytearray()
+    cursor = 0
+    while cursor + 8 <= len(head_tlvs):
+        tag, length = struct.unpack_from("<2I", head_tlvs, cursor)
+        if tag in (1001, 1003, 1004, 1006, 1007, 1009, 1010):
+            rebuilt_tlvs += head_tlvs[cursor:cursor + 8 + length]
+        cursor += 8 + length
+    out = bytearray(csi[:184])
+    struct.pack_into("<4I", out, 168, len(rebuilt_tlvs), 1, 0, len(payload))
+    return bytes(out) + bytes(rebuilt_tlvs) + payload
+
+
 def _extended_metadata(platform: str, target: str, thinning_arguments: str = "") -> bytes:
     token = DEPLOYMENT_PLATFORM_TOKENS.get((platform or "macosx").lower(), platform)
     return b"META" + b"".join((
@@ -1427,7 +1463,7 @@ def _build_assets_car_multilevel(assets: list[AssetRendition], *, platform: str,
     writer.add_block(_key_format(attrs), "KEYFORMAT")
     rendition_blocks = []
     for asset, key in zip(ordered, keys):
-        key_id = writer.add_block(key); value_id = writer.add_block(asset.csi)
+        key_id = writer.add_block(key); value_id = writer.add_block(_adapt_csi_for_profile(asset.csi, profile))
         rendition_blocks.append((value_id, key_id, key))
     rendition_blocks.sort(key=lambda item: item[2]); facet_blocks.sort(key=lambda item: item[2])
     equal = len({len(x) for x in names}) == 1
@@ -1525,7 +1561,7 @@ def build_assets_car(assets: list[AssetRendition], *, platform: str = "macosx", 
     writer.add_block(_key_format(key_attributes), "KEYFORMAT")
     for asset, key in zip(ordered, keys):
         writer.add_block(key)
-        writer.add_block(asset.csi)
+        writer.add_block(_adapt_csi_for_profile(asset.csi, profile))
     writer.add_block(_extended_metadata(platform, target, thinning_arguments), "EXTENDED_METADATA")
     writer.add_block(_tree_descriptor(bitmap_root_id, 1024, facet_count, 0, True), "BITMAPKEYS")
     writer.add_block(_leaf_many(bitmap_entries, [], 1024))
