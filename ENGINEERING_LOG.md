@@ -1374,3 +1374,13 @@ Executed exhaustive ground-truth comparison between Apple `actool` (`xcrun actoo
   4. `test_1000_darling_and_legacy_container_resilience_sweep`: 200 checks verifying sparse variable mapping structures (`RATC` era storage v15) commonly encountered in Darling/legacy Linux simulation runtimes.
 - **Record Test Suite Coverage**: Total unit tests surged to **192 OK (`tests/`)**, verifying over 2,200 total dynamic boundary and historical generation conditions per test run.
 
+## 2026-07-18 — Round 4: 1000-Case Deep Historical CoreUI & Special Boundary Sweep
+
+### Deep Legacy & Special Vector Exhaustive Probing (`tests/test_special_1000_historical_deep_cases.py`)
+- **Implemented**: Created `Special1000HistoricalDeepCasesTests` executing over 1,000 deep assertions across historical TLVs, multi-scale legacy appearances, ultra-long emoji/multibyte paths, and giant uniform tile matrices:
+  1. `test_1000_historical_coreui_legacy_tlv_and_palette_sweep`: 250 checks across historical CoreUI profiles (`498..850`) verifying exact legacy header and multi-scale/appearance CSI dimensions.
+  2. `test_1000_ultralong_multibyte_and_emoji_deep_hash_sweep`: 250 deep hash evaluations across multibyte CJK, combined emojis (`👨‍👩‍👧‍👦`), and 250-byte truncated path boundaries.
+  3. `test_1000_giant_uniform_atlas_pagination_and_canvas_sweep`: 250 checks across massive uniform matrices (180 items) and ultra-giant tile boundaries (`1200..1800` px) across multi-page shelf bounds.
+  4. `test_1000_thinning_combinatorial_scale_and_subtype_sweep`: 250 combinatorial evaluations across 7 idioms, 3 scales, and 2 appearances across thinning options.
+- **Record Test Suite Coverage**: Automated test suite reached **196 OK (`tests/`)**, verifying over 3,200 total combinatorial and historical boundaries per run across both local Linux and remote macOS 26.4 / Xcode 26.5 environments.
+
