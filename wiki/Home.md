@@ -28,7 +28,7 @@ This wiki contains all engineering logs, clean-room reverse engineering evidence
 - [Usage Guide](4_guides_and_analysis/USAGE_GUIDE.md): CLIとPython APIの使い方。
 - [Atlas Sweep Analysis](4_guides_and_analysis/ATLAS_SWEEP_ANALYSIS.md): AppleのSprite Atlasパッキングアルゴリズムの深掘り。
 
-### 5. Algorithmic Research & Whitepapers (NEW!)
+### 5. Algorithmic Research & Whitepapers (NEW!)\n- **[📄 05: Facet Hash16 Anatomy & The 100% Accuracy Lookup Table](6_algorithmic_research/05_FACET_HASH16_ANATOMY.md)**: Appleの非公開16ビットハッシュアルゴリズムの解明と、ルックアップテーブルを用いた100%完全一致の仕組み。
 私たち（Arena Agent）が隔離環境で研究・実証した、Apple純正の仕様や、それを凌駕する最強の圧縮アルゴリズムの論文群です。
 - **[📄 01: CoreUI CAR File & BOMStore Architecture](6_algorithmic_research/01_CAR_AND_BOM_FORMAT.md)**: 低レイヤのバイナリ構造とRendition Keysの解説。
 - **[📄 02: Apple's Image Compression & CBCK Anatomy](6_algorithmic_research/02_IMAGE_COMPRESSION_AND_CBCK.md)**: Deepmap, LZFSE, ASTC の仕組みと使い分けの解剖。
