@@ -512,6 +512,7 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                                                              platform=options.platform or "iphoneos"))
                         for sidecar_name, width, height in app_icon_sidecar_specs(options.platform or "iphoneos"):
                             sidecar = options.output / sidecar_name
+                            sidecar.parent.mkdir(parents=True, exist_ok=True)
                             sidecar.write_bytes(resize_png(source_png, width, height)); outputs.append(sidecar)
                         app_icon_emitted.add(asset.name)
                     except ValueError as exc:
@@ -584,6 +585,7 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                     idiom_suffix = "~ipad" if idiom == "ipad" else ""
                     launch_path = options.output / f"{asset.name}-{version_tag}{scale_suffix}{idiom_suffix}.png"
                     if launch_path not in outputs:
+                        launch_path.parent.mkdir(parents=True, exist_ok=True)
                         launch_path.write_bytes(source.read_bytes()); outputs.append(launch_path)
                     occupied_slots.add(slot); continue
 
@@ -632,6 +634,7 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
             if options.filter_for_device_model: thinning_arguments += (" " if thinning_arguments else "") + "model " + options.filter_for_device_model
             if options.filter_for_device_os_version: thinning_arguments += (" " if thinning_arguments else "") + "os-version " + options.filter_for_device_os_version
             car_path = options.output / "Assets.car"
+            car_path.parent.mkdir(parents=True, exist_ok=True)
             car_path.write_bytes(build_assets_car(renditions, platform=options.platform or "macosx",
                                                    target=options.minimum_deployment_target or "13.0",
                                                    thinning_arguments=thinning_arguments,
@@ -642,6 +645,7 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
             # Emit a safe readable failure CAR while preserving its observable
             # output-file contract and nonzero exit status.
             car_path = options.output / "Assets.car"
+            car_path.parent.mkdir(parents=True, exist_ok=True)
             car_path.write_bytes(build_assets_car([data_rendition("__actool_distill_failure__", b"", "public.data")], platform=options.platform or "macosx", target=options.minimum_deployment_target or "13.0", coreui_profile=options.coreui_profile))
             if car_path not in outputs: outputs.append(car_path)
     if deferred_partial_info is not None:

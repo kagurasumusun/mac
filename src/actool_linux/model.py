@@ -62,7 +62,22 @@ def load_catalog(path: Path) -> Catalog:
     if path.suffix != ".xcassets":
         diagnostics.append(Diagnostic("warning", "asset catalog does not use the .xcassets extension", path))
 
-    for contents in sorted(path.rglob("Contents.json")):
+    namespaces = set()
+    contents_files = sorted(path.rglob("Contents.json"))
+    for contents in contents_files:
+        directory = contents.parent
+        if directory == path:
+            continue
+        try:
+            raw = json.loads(contents.read_text(encoding="utf-8"))
+            if isinstance(raw, dict):
+                props = raw.get("properties")
+                if isinstance(props, dict) and props.get("provides-namespace") in (True, "true", "YES"):
+                    namespaces.add(directory)
+        except Exception:
+            pass
+
+    for contents in contents_files:
         directory = contents.parent
         if directory == path:
             continue
@@ -94,5 +109,13 @@ def load_catalog(path: Path) -> Catalog:
             filename = entry.get("filename")
             if isinstance(filename, str) and not (directory / filename).exists():
                 diagnostics.append(Diagnostic("warning", f"referenced file is missing: {filename}", contents))
-        assets.append(Asset(path, directory, kind, directory.stem, raw, valid_entries))
+        name_parts = [directory.stem]
+        parent = directory.parent
+        while parent != path and parent != parent.parent:
+            if parent in namespaces:
+                name_parts.insert(0, parent.name)
+            parent = parent.parent
+        asset_name = "/".join(name_parts)
+
+        assets.append(Asset(path, directory, kind, asset_name, raw, valid_entries))
     return Catalog(path, assets, diagnostics)

@@ -38,7 +38,8 @@ class ThinningOptions:
 
     def metadata_arguments(self) -> str:
         fields: list[str] = []
-        if self.idiom is not None: fields += ["idiom", str(self.idiom_id())]
+        idiom_id = self.idiom_id()
+        if idiom_id is not None: fields += ["idiom", str(idiom_id)]
         if self.scale is not None: fields += ["scale", str(self.scale)]
         if self.appearance is not None: fields += ["appearance", str(self.appearance)]
         if self.localization is not None: fields += ["localization", self.localization]

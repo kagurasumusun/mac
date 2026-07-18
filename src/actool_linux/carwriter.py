@@ -1894,16 +1894,24 @@ def build_color_car(name: str, red: float, green: float, blue: float, alpha: flo
 
 
 def write_data_car(path: Path | str, name: str, data: bytes, uti: str = "public.data", **kwargs) -> None:
-    Path(path).write_bytes(build_data_car(name, data, uti, **kwargs))
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(build_data_car(name, data, uti, **kwargs))
 
 
 def write_jpeg_car(path: Path | str, name: str, data: bytes, filename: str = "image.jpg", **kwargs) -> None:
-    Path(path).write_bytes(build_jpeg_car(name, data, filename, **kwargs))
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(build_jpeg_car(name, data, filename, **kwargs))
 
 
 def write_heif_car(path: Path | str, name: str, data: bytes, filename: str = "image.heic", **kwargs) -> None:
-    Path(path).write_bytes(build_heif_car(name, data, filename, **kwargs))
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(build_heif_car(name, data, filename, **kwargs))
 
 
 def write_color_car(path: Path | str, name: str, red: float, green: float, blue: float, alpha: float = 1.0, **kwargs) -> None:
-    Path(path).write_bytes(build_color_car(name, red, green, blue, alpha, **kwargs))
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(build_color_car(name, red, green, blue, alpha, **kwargs))
