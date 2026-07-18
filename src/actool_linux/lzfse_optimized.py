@@ -77,7 +77,7 @@ class LZFSEOptimized:
 
                 if hash_val in hash_table:
                     match_pos = hash_table[hash_val]
-                    match_len = self._find_match_length(data, match_pos, i)
+                    match_len = self._find_match_length(memoryview(data), match_pos, i)
 
                     if match_len >= self.MIN_MATCH_LENGTH:
                         # Emit literals before match
@@ -120,7 +120,7 @@ class LZFSEOptimized:
         h = (h * 0x1e35a7bd) >> (24 - self.hash_bits)
         return h & ((1 << self.hash_bits) - 1)
 
-    def _find_match_length(self, data: bytes, pos1: int, pos2: int) -> int:
+    def _find_match_length(self, data: memoryview, pos1: int, pos2: int) -> int:
         """Find the length of matching bytes at two positions."""
         length = 0
         max_len = min(self.max_match_length, len(data) - pos2)

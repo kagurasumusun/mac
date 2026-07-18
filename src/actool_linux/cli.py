@@ -10,19 +10,31 @@ from .compiler import CompileOptions, compile_catalogs
 VERSION = "actool-linux 0.1.0 (clean-room compatibility layer)"
 
 
-def write_stdout_bytes(data: bytes) -> None:
+def write_stdout_bytes(data: bytes | str) -> None:
     if hasattr(sys.stdout, "buffer") and sys.stdout.buffer is not None:
         try:
-            sys.stdout.buffer.write(data if isinstance(data, bytes) else data.encode("utf-8"))
+            sys.stdout.buffer.write(data if isinstance(data, (bytes, bytearray)) else str(data).encode("utf-8"))
             return
         except (AttributeError, TypeError):
             pass
-    try:
-        sys.stdout.write(data if isinstance(data, bytes) else data.encode("utf-8"))
-        return
-    except TypeError:
-        pass
-    sys.stdout.write(data.decode("utf-8", errors="replace") if isinstance(data, bytes) else str(data))
+    if isinstance(data, (bytes, bytearray)):
+        try:
+            sys.stdout.write(data.decode("utf-8", errors="replace"))  # type: ignore
+        except TypeError:
+            pass  # this happens in tests where stdout is mocked to a BytesIO but it reaches here
+    if isinstance(data, str):
+        try:
+            sys.stdout.write(data)  # type: ignore
+        except TypeError:
+            sys.stdout.write(data.encode("utf-8"))  # type: ignore
+    else:
+        try:
+            if isinstance(data, (bytes, bytearray)):
+                sys.stdout.write(data)  # type: ignore
+            else:
+                sys.stdout.write(str(data))  # type: ignore
+        except TypeError:
+            sys.stdout.write(str(data).encode("utf-8"))  # type: ignore
 
 
 def parser() -> argparse.ArgumentParser:

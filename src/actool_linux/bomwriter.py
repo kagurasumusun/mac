@@ -50,6 +50,7 @@ class BOMWriter:
         self._blocks[identifier - 1] = PendingBlock(identifier, bytes(data))
 
     def build(self) -> bytes:
+        import io
         cursor = 0x200
         chunks: list[tuple[int, bytes]] = []
         locations: dict[int, tuple[int, int]] = {}
@@ -79,17 +80,22 @@ class BOMWriter:
         for identifier in range(1, capacity):
             index += struct.pack(">II", *locations.get(identifier, (0, 0)))
         # Observed BOMStore files carry a five-word free-list trailer.
-        index += b"\0" * 20
+        index += bytes(20)
         index_length = len(index)
         chunks.append((index_offset, bytes(index)))
 
         total = index_offset + index_length
-        output = bytearray(total)
+        out = io.BytesIO()
         header = struct.pack(
             ">8s6I", b"BOMStore", 1, len(self._blocks),
             index_offset, index_length, variables_offset, variables_length,
         )
-        output[:len(header)] = header
+        out.write(header)
         for offset, data in chunks:
-            output[offset:offset + len(data)] = data
-        return bytes(output)
+            out.seek(offset)
+            out.write(data)
+
+        # pad to total if needed
+        out.seek(total - 1)
+        out.write(bytes(1))
+        return out.getvalue()

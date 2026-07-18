@@ -323,7 +323,7 @@ class IconStackRenderingProperties:
         output.extend(struct.pack('<I', len(self.entries)))
         for entry in self.entries:
             output.extend(struct.pack('<If', entry['kind'], entry['value']))
-            name_bytes = entry['inferred_kind_name'].encode('utf-8')
+            name_bytes = str(entry['inferred_kind_name']).encode('utf-8')
             output.extend(struct.pack('<I', len(name_bytes)))
             output.extend(name_bytes)
 
