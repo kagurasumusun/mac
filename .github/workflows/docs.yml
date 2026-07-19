@@ -1,4 +1,4 @@
-name: Documentation CI/CD (Rustdoc & DeepWiki Sync)
+name: Documentation CI/CD & DeepWiki Auto-Sync
 
 on:
   push:
@@ -28,10 +28,11 @@ jobs:
       - name: Generate Rustdoc API Documentation
         run: cargo doc --workspace --no-deps
 
-      - name: Prepare Pages Index Redirect
+      - name: Prepare Pages Index Redirect & Touch .nojekyll
         run: |
           mkdir -p target/doc_site
           cp -r target/doc/* target/doc_site/
+          touch target/doc_site/.nojekyll
           echo '<meta http-equiv="refresh" content="0; url=actool_rs/index.html">' > target/doc_site/index.html
 
       - name: Setup Pages
@@ -45,3 +46,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Trigger DeepWiki Re-indexing Ping
+        run: |
+          echo "Pinging DeepWiki re-indexing engine for kagurasumusun/Apple-Toolsets..."
+          curl -s -L "https://deepwiki.com/kagurasumusun/Apple-Toolsets" -H "User-Agent: GitHub-Actions-DeepWiki-Sync/1.0" > /dev/null
+          curl -s -X POST "https://deepwiki.com/api/reindex" \
+            -H "Content-Type: application/json" \
+            -d '{"repo": "kagurasumusun/Apple-Toolsets"}' || true
