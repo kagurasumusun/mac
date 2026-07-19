@@ -1187,7 +1187,13 @@ def make_deepmap_csi_variant(data: bytes, filename: str, *, scale: int = 1,
 
     row_bytes = width * 4
     use_cbck = prefer_cbck and (row_bytes * height > DMP2_CBCK_CHUNK_RAW_CAP * 4) and height > 1
-    if use_cbck:
+    if use_cbck and _OPTIMIZE_MODE in ("smart", "hybrid", "alpha", "omni", "omega"):
+        # Use optimized CBCK (codec=4) instead of DMP2 CBCK (codec=11)
+        from . import _csi_png_cbck as _optimized_cbck
+        # Temporarily use codec=4 path
+        optimized_csi = _optimized_cbck(data, filename, scale=scale)
+        return optimized_csi
+    elif use_cbck:
         # Rows per chunk chosen under the raw cap, at least one row.
         rows_per = max(1, DMP2_CBCK_CHUNK_RAW_CAP // row_bytes)
         bands = [(y, min(rows_per, height - y)) for y in range(0, height, rows_per)]
@@ -1307,6 +1313,14 @@ def _csi_png_cbck(data: bytes, filename: str, *, scale: int = 1) -> bytes:
     if _OPTIMIZE_MODE == "omega":
         from ..research.omega_compression import omega_compress
         return omega_compress(pixels, width, height, filename, scale=scale)
+
+    if _OPTIMIZE_MODE == "alpha":
+        from ..research.alpha_compression import alpha_compress
+        return alpha_compress(pixels, width, height, filename, scale=scale)
+
+    if _OPTIMIZE_MODE == "astc-ultra":
+        from ..research.astc_optimized import astc_ultra_compress
+        return astc_ultra_compress(pixels, width, height, filename, scale=scale)
 
     row_bytes = width * 4
     # Xcode's 1024px AppIcon oracle uses 341-row chunks (0x155000 raw

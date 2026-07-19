@@ -64,7 +64,7 @@ def parser() -> argparse.ArgumentParser:
                    help="CoreUI output dialect (coreui-975-macos, coreui-975-device, coreui-918; default: per-platform 975)")
     p.add_argument("--compatibility-xcode-version", choices=("16.0", "16.1", "16.2", "16.3", "16.4", "26.0.1", "26.1.1", "26.2", "26.3", "26.4.1", "26.5", "26.6"), default="26.5")
     p.add_argument("--capabilities", action="store_true")
-    p.add_argument("--optimize", choices=("smart", "hybrid", "ultimate", "astc", "omni", "omni2", "omega"), default=None)
+    p.add_argument("--optimize", choices=("smart", "hybrid", "ultimate", "astc", "omni", "omni2", "omega", "alpha", "astc-ultra"), default=None)
     return p
 
 
