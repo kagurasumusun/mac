@@ -1,7 +1,7 @@
 import base64,json,plistlib,tempfile,unittest
 from pathlib import Path
-from actool_linux.stable.compiler import CompileOptions,compile_catalogs
-from actool_linux.stable.diagnostics import result_plist,unknown_argument_plist,version_plist
+from actool_linux.compiler import CompileOptions,compile_catalogs
+from actool_linux.diagnostics import result_plist,unknown_argument_plist,version_plist
 PNG=base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=')
 def info():return {'info':{'author':'xcode','version':1}}
 class DiagnosticContractTests(unittest.TestCase):

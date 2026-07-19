@@ -6,7 +6,7 @@ import numpy as np
 
 sys.path.insert(0, "/home/user/repo-cleanup")
 
-from actool_linux.research.tet_ultimate import (
+from actool_linux.tet_ultimate import (
     left_predictor, top_predictor, auto_crop, remove_gamma,
     jpeg_adaptive_quantization, heif_ctu_optimization,
     pdf_path_simplification, color_space_conversion,

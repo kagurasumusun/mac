@@ -1,8 +1,8 @@
 import base64
 import unittest
-from actool_linux.stable.atlas import AtlasKeyToken, AtlasLink, build_atlas_link, parse_atlas_link, build_packed_atlas_car
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.car import CARFile
+from actool_linux.atlas import AtlasKeyToken, AtlasLink, build_atlas_link, parse_atlas_link, build_packed_atlas_car
+from actool_linux.bom import BOMStore
+from actool_linux.car import CARFile
 
 P1=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
 P2=base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEklEQVR4nGPg/m/wiCH0aNUKABRABFncH0e8AAAAAElFTkSuQmCC")

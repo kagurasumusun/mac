@@ -1,5 +1,5 @@
 import unittest
-from actool_linux.stable.appicons import app_icon_entry_rank, app_icon_sidecar_specs
+from actool_linux.appicons import app_icon_entry_rank, app_icon_sidecar_specs
 
 class AppIconSidecarTests(unittest.TestCase):
  def test_ios_compatibility_manifest(self):

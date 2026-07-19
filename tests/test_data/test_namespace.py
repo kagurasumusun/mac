@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from actool_linux.stable.model import load_catalog
+from actool_linux.model import load_catalog
 
 def setup_catalog():
     root = Path("test_ns.xcassets")

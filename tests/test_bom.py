@@ -1,7 +1,7 @@
 import struct
 import unittest
 
-from actool_linux.stable.bom import BOMError, BOMStore
+from actool_linux.bom import BOMError, BOMStore
 
 
 def synthetic_bom() -> bytes:

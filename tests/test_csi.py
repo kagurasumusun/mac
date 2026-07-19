@@ -1,8 +1,8 @@
 import struct
 import unittest
 
-from actool_linux.stable.bom import BOMError
-from actool_linux.stable.csi import parse_csi
+from actool_linux.bom import BOMError
+from actool_linux.csi import parse_csi
 
 
 def make_csi() -> bytes:

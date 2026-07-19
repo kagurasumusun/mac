@@ -3,8 +3,8 @@ import struct
 import unittest
 import zlib
 
-from actool_linux.stable.carwriter import build_assets_car, png_rendition, _car_header
-from actool_linux.stable.coreui import (
+from actool_linux.carwriter import build_assets_car, png_rendition, _car_header
+from actool_linux.coreui import (
     COREUI_918, COREUI_975_DEVICE, COREUI_975_MACOS, PROFILES, profile_for_platform,
     resolve_profile,
 )
@@ -57,7 +57,7 @@ class CoreUIProfileTests(unittest.TestCase):
         self.assertIn("coreui-800", set(PROFILES))
 
     def test_auto_select_profile(self):
-        from actool_linux.stable.coreui import auto_select_profile, COREUI_700, COREUI_850, COREUI_918_MACOS
+        from actool_linux.coreui import auto_select_profile, COREUI_700, COREUI_850, COREUI_918_MACOS
         self.assertIs(auto_select_profile("macosx", "11.0"), COREUI_700)
         self.assertIs(auto_select_profile("macosx", "13.0"), COREUI_850)
         self.assertIs(auto_select_profile("macosx", "15.0"), COREUI_918_MACOS)
@@ -68,7 +68,7 @@ class CoreUIProfileTests(unittest.TestCase):
         self.assertNotIn(b"Xcode", raw)
 
     def test_unknown_appearance_rejected(self):
-        from actool_linux.stable.carwriter import AssetRendition
+        from actool_linux.carwriter import AssetRendition
         asset = AssetRendition("Red", png_rendition("Red", _png()).csi, 181, appearance=42)
         with self.assertRaises(ValueError):
             build_assets_car([asset])

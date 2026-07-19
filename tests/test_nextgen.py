@@ -1,5 +1,5 @@
 """Test SmartCBCKEncoder basic functionality."""
-from actool_linux.nextgen.smart_cbck import SmartCBCKEncoder
+from actool_linux.smart_cbck import SmartCBCKEncoder
 import struct
 import numpy as np
 
@@ -30,7 +30,7 @@ def test_smart_cbck_apple_parseable():
     encoder = SmartCBCKEncoder(clean_alpha=True)
     encoded = encoder.encode(data.tobytes(), 64, 64)
 
-    from actool_linux.stable.cbck import parse_cbck
+    from actool_linux.cbck import parse_cbck
     parsed = parse_cbck(encoded)
     assert parsed.mode == 3
     assert parsed.codec == 4
@@ -45,8 +45,8 @@ def test_smart_cbck_transparency_cleaning():
     encoder = SmartCBCKEncoder(clean_alpha=True)
     encoded = encoder.encode(data.tobytes(), 32, 32)
 
-    from actool_linux.stable.cbck import parse_cbck
-    from actool_linux.stable import lzfse_compat
+    from actool_linux.cbck import parse_cbck
+    from actool_linux import lzfse_compat
 
     parsed = parse_cbck(encoded)
     for chunk in parsed.chunks:

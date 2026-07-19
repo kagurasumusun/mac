@@ -1,6 +1,6 @@
 import unittest
 
-from actool_linux.stable.solidstack import (
+from actool_linux.solidstack import (
     build_solidimagestack_layer_flags,
     build_solidimagestack_layer_list,
     build_solidimagestack_layer_reserved,

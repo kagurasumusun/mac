@@ -3,12 +3,12 @@ import unittest
 from pathlib import Path
 import tempfile
 
-from actool_linux.stable.bom import BOMStore, BOMError
-from actool_linux.stable.car import CARFile
-from actool_linux.stable.carwriter import build_assets_car, png_rendition, _identifier, _localization_identifier, _csi_jpeg, AssetRendition
-from actool_linux.stable.repack import repack
-from actool_linux.stable.thinning import ThinningOptions, thin_renditions
-from actool_linux.stable.packed import pack_renditions
+from actool_linux.bom import BOMStore, BOMError
+from actool_linux.car import CARFile
+from actool_linux.carwriter import build_assets_car, png_rendition, _identifier, _localization_identifier, _csi_jpeg, AssetRendition
+from actool_linux.repack import repack
+from actool_linux.thinning import ThinningOptions, thin_renditions
+from actool_linux.packed import pack_renditions
 
 PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
 
@@ -53,7 +53,7 @@ class Special1000CasesTests(unittest.TestCase):
 
     def test_1000_atlas_pagination_and_giant_tiles_sweep(self):
         """Sweep 250 tile dimensions and massive uniform tile sets across multi-page shelf pagination bounds."""
-        from actool_linux.stable.packed import _csi_atlas
+        from actool_linux.packed import _csi_atlas
         # 1. 150 uniform items packed into multiple pages
         items = [png_rendition(f"Uni_{i}", PNG, f"u{i}.png") for i in range(150)]
         packed = pack_renditions(items)
@@ -95,7 +95,7 @@ class Special1000CasesTests(unittest.TestCase):
 
     def test_1000_repack_and_sparse_bom_resilience_sweep(self):
         """Sweep 100 BOM container permutations across sparse IDs, empty blocks, and roundtrip preservation."""
-        from actool_linux.stable.bomwriter import BOMWriter
+        from actool_linux.bomwriter import BOMWriter
         # 1. Sparse index repack roundtrip
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp) / "sparse.car"

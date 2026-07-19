@@ -1,4 +1,4 @@
-from actool_linux.research.semantic_fusion import SemanticFusionAtlas
+from actool_linux.semantic_fusion import SemanticFusionAtlas
 import numpy as np
 
 def run_test():

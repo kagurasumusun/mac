@@ -13,14 +13,14 @@ import numpy as np
 # Add project to path
 sys.path.insert(0, "/home/user/repo-cleanup")
 
-from actool_linux.nextgen.smart_cbck import SmartCBCKEncoder, smart_encode_png_cbck
-from actool_linux.research.lpc_lzfse import (
+from actool_linux.smart_cbck import SmartCBCKEncoder, smart_encode_png_cbck
+from actool_linux.lpc_lzfse import (
     lpc_encode_pure,
     lpc_encode_apple_compat,
     extract_palette,
     analyze_chunk_compressibility,
 )
-from actool_linux.research.planar_delta_lzfse import (
+from actool_linux.planar_delta_lzfse import (
     planar_delta_encode,
     planar_delta_decode,
     delta_encode_plane,
@@ -52,14 +52,14 @@ def test_smart_cbck_apple_compatible():
     assert count > 0, "Expected at least 1 chunk"
 
     # Parse using stable/cbck.py parser (Apple format)
-    from actool_linux.stable.cbck import parse_cbck
+    from actool_linux.cbck import parse_cbck
     parsed = parse_cbck(payload)
     assert parsed.mode == 3
     assert parsed.codec == 4
     assert len(parsed.chunks) == count
 
     # Verify each chunk can be LZFSE-decompressed to valid BGRA
-    from actool_linux.stable import lzfse_compat
+    from actool_linux import lzfse_compat
     total_pixels = 0
     for chunk in parsed.chunks:
         decompressed = lzfse_compat.decompress(chunk.compressed)
@@ -92,11 +92,11 @@ def test_smart_cbck_with_transparency():
     encoder = SmartCBCKEncoder(clean_alpha=True)
     payload = encoder.encode(bgra.tobytes(), w, h)
 
-    from actool_linux.stable.cbck import parse_cbck
+    from actool_linux.cbck import parse_cbck
     parsed = parse_cbck(payload)
 
     # Verify clean alpha: decompressed transparent pixels should have RGB=0
-    from actool_linux.stable import lzfse_compat
+    from actool_linux import lzfse_compat
     for chunk in parsed.chunks:
         decompressed = lzfse_compat.decompress(chunk.compressed)
         arr = np.frombuffer(decompressed, dtype=np.uint8).reshape(-1, 4)
@@ -152,7 +152,7 @@ def test_lpc_apple_compat():
     compressed = lpc_encode_apple_compat(bgra, max_colors=16)
 
     # Verify it's valid LZFSE that decompresses to correct size
-    from actool_linux.stable import lzfse_compat
+    from actool_linux import lzfse_compat
     decompressed = lzfse_compat.decompress(compressed)
     assert len(decompressed) == w * h * 4, f"Size mismatch: {len(decompressed)} != {w * h * 4}"
 
@@ -205,7 +205,7 @@ def test_planar_delta_compress():
     """Test planar-delta + LZFSE compression."""
     print("\n=== Test 6: Planar-Delta + LZFSE Compression ===")
 
-    from actool_linux.research.planar_delta_lzfse import planar_delta_compress, planar_delta_decompress
+    from actool_linux.planar_delta_lzfse import planar_delta_compress, planar_delta_decompress
 
     # Smooth gradient image
     w, h = 128, 128
@@ -224,7 +224,7 @@ def test_planar_delta_compress():
 
     assert np.array_equal(decompressed, bgra), "Planar-delta+LZFSE roundtrip failed!"
 
-    from actool_linux.stable import lzfse_compat
+    from actool_linux import lzfse_compat
     direct = lzfse_compat.compress(bgra.tobytes())
 
     ratio = len(compressed) / len(direct)
@@ -240,7 +240,7 @@ def test_comparison():
     """Compare all compression strategies on the same image."""
     print("\n=== Test 7: Strategy Comparison ===")
 
-    from actool_linux.stable import lzfse_compat
+    from actool_linux import lzfse_compat
 
     # UI-like image (mix of solid blocks and gradients)
     w, h = 256, 256

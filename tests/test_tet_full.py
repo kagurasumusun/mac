@@ -6,7 +6,7 @@ import numpy as np
 
 sys.path.insert(0, "/home/user/repo-cleanup")
 
-from actool_linux.research.tet_full import (
+from actool_linux.tet_full import (
     # ① Color Quantization
     octree_quantization,
     wu_quantization,

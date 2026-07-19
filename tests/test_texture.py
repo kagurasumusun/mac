@@ -1,6 +1,6 @@
 import unittest
 
-from actool_linux.stable.texture import build_texture_auxiliary_flag, build_texture_reference_payload, parse_texture_auxiliary_flag, parse_texture_reference_payload
+from actool_linux.texture import build_texture_auxiliary_flag, build_texture_reference_payload, parse_texture_auxiliary_flag, parse_texture_reference_payload
 
 REFERENCE_HEX = '5254585400000000370000000100000001000000010001001c00000000000000010029000200b500080001000c000200110076c40f00080000000000'
 AUX_HEX = '000000000000000001000000'

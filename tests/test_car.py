@@ -1,8 +1,8 @@
 import struct
 import unittest
 
-from actool_linux.stable.bom import BOMError
-from actool_linux.stable.car import parse_car_header, parse_key_format
+from actool_linux.bom import BOMError
+from actool_linux.car import parse_car_header, parse_key_format
 
 
 class CARTests(unittest.TestCase):

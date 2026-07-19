@@ -4,9 +4,9 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.car import CARFile
-from actool_linux.stable.compiler import CompileOptions, compile_catalogs
+from actool_linux.bom import BOMStore
+from actool_linux.car import CARFile
+from actool_linux.compiler import CompileOptions, compile_catalogs
 
 PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEklEQVR4nGPg/m/wiCH0aNUKABRABFncH0e8AAAAAElFTkSuQmCC")
 

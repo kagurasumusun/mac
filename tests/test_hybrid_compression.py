@@ -13,15 +13,15 @@ import numpy as np
 
 sys.path.insert(0, "/home/user/repo-cleanup")
 
-from actool_linux.research.hybrid_compression import (
+from actool_linux.hybrid_compression import (
     HybridCompressor,
     STRATEGY_DIRECT,
     STRATEGY_LPC,
     STRATEGY_PLANAR,
     STRATEGY_AGGRESSIVE,
 )
-from actool_linux.stable.cbck import parse_cbck
-from actool_linux.stable import lzfse_compat
+from actool_linux.cbck import parse_cbck
+from actool_linux import lzfse_compat
 
 
 def test_hybrid_basic():
@@ -326,7 +326,7 @@ def test_csi_full_pipeline():
     """Test the full CSI pipeline with hybrid compression."""
     print("\n=== Test 7: Full CSI Pipeline ===")
 
-    from actool_linux.research.hybrid_compression import hybrid_compress_for_cbck
+    from actool_linux.hybrid_compression import hybrid_compress_for_cbck
 
     # Create test image
     bgra = np.zeros((128, 128, 4), dtype=np.uint8)

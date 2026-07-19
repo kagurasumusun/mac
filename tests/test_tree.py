@@ -1,8 +1,8 @@
 import struct
 import unittest
 
-from actool_linux.stable.bom import BOMError
-from actool_linux.stable.tree import parse_descriptor, read_leaf_entries
+from actool_linux.bom import BOMError
+from actool_linux.tree import parse_descriptor, read_leaf_entries
 
 
 class FakeStore:

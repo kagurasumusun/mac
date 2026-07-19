@@ -5,9 +5,9 @@ import unittest
 HAS_LZFSE = importlib.util.find_spec("lzfse") is not None
 HAS_CAIROSVG = importlib.util.find_spec("cairosvg") is not None
 
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.car import CARFile
-from actool_linux.stable.carwriter import (
+from actool_linux.bom import BOMStore
+from actool_linux.car import CARFile
+from actool_linux.carwriter import (
     build_app_icon_car, build_assets_car, build_color_car, build_data_car, build_jpeg_car, build_pdf_fallback_car, build_svg_car, build_symbol_car, build_symbol_template_car, build_layered_icon_car, build_watch_complication_car, build_solid_image_stack_aggregate_car,
     color_rendition, data_rendition, heif_rendition, jpeg_rendition, pdf_rendition, png_rendition,
 )
@@ -26,7 +26,7 @@ class CARWriterTests(unittest.TestCase):
 
     def test_builds_true_multi_level_trees(self):
         import struct
-        from actool_linux.stable.carwriter import _identifier
+        from actool_linux.carwriter import _identifier
         names = []; used = set(); candidate = 0
         while len(names) < 140:
             name = f"Large{candidate:04d}"; candidate += 1
@@ -95,7 +95,7 @@ class CARWriterTests(unittest.TestCase):
     def _decode_dmp2_pixels(payload: bytes) -> tuple[int, int, int, int, bytes]:
         """Decode our MLEC/dmp2 payload (v1 raw / v2 LZFSE / v4 palette)."""
         import struct
-        from actool_linux.stable import lzfse_compat
+        from actool_linux import lzfse_compat
         assert payload[:4] == b"MLEC"
         mode, codec, _flen, _f1, bpp, dlen, _z = struct.unpack_from("<7I", payload, 4)
         dmp2 = payload[32:32 + dlen]
@@ -195,7 +195,7 @@ class CARWriterTests(unittest.TestCase):
             png_rendition("Localized", png, "ja.png", localization="ja"),
             png_rendition("Localized", png, "arabic.png", localization="ar"),
         ], platform="iphoneos", target="15.0"))
-        from actool_linux.stable.tree import read_leaf_entries
+        from actool_linux.tree import read_leaf_entries
         registry = {e.key.decode(): int.from_bytes(e.value, "little") for e in read_leaf_entries(store, "LOCALIZATIONKEYS")}
         self.assertEqual(set(registry), {"ar", "ja"})
         car = CARFile(store)
@@ -208,7 +208,7 @@ class CARWriterTests(unittest.TestCase):
             png_rendition("Contrast", png, "base.png"),
             png_rendition("Contrast", png, "high.png", appearance="high-contrast"),
         ], platform="iphoneos", target="15.0"))
-        from actool_linux.stable.tree import read_leaf_entries
+        from actool_linux.tree import read_leaf_entries
         registry = [(e.key, int.from_bytes(e.value, "little")) for e in read_leaf_entries(store, "APPEARANCEKEYS")]
         self.assertEqual(registry, [(b"UIAppearanceAny", 0), (b"UIAppearanceHighContrastAny", 2)])
         car = CARFile(store)
@@ -300,7 +300,7 @@ class CARWriterTests(unittest.TestCase):
     @unittest.skipUnless(HAS_LZFSE, "optional lzfse dependency is unavailable")
     def test_platform_specific_app_icon_idioms(self):
         png = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGPgFtc0MLFiCA30rsqLAQAQXQMfVfFocgAAAABJRU5ErkJggg==")
-        from actool_linux.stable.carwriter import build_app_icon_car
+        from actool_linux.carwriter import build_app_icon_car
         expected={"appletvos":3,"watchos":5,"macosx":7,"xros":8}
         for platform,idiom in expected.items():
             car=CARFile(BOMStore(build_app_icon_car("AppIcon",png,platform=platform)))
@@ -329,7 +329,7 @@ class CARWriterTests(unittest.TestCase):
         self.assertEqual(sum(r.csi.layout==1008 for r in car.renditions),6)
 
     def test_localization_and_long_identifier_formulas(self):
-        from actool_linux.stable.carwriter import _identifier, _localization_identifier
+        from actool_linux.carwriter import _identifier, _localization_identifier
         self.assertEqual(_localization_identifier("de"), 4651)
         self.assertEqual(_localization_identifier("ja"), 29613)
         self.assertEqual(_localization_identifier("en"), 31336)
@@ -339,7 +339,7 @@ class CARWriterTests(unittest.TestCase):
         self.assertLessEqual(val, 65535)
 
     def test_extended_localization_subtags(self):
-        from actool_linux.stable.carwriter import _localization_identifier
+        from actool_linux.carwriter import _localization_identifier
         subtags = ["en-GB", "en-US", "zh-Hans", "zh-Hant", "pt-BR", "es-MX", "fr-CA"]
         ids = [_localization_identifier(tag) for tag in subtags]
         self.assertEqual(len(set(ids)), len(subtags))

@@ -1,8 +1,8 @@
 import os
 import unittest
 
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.car import CARFile
+from actool_linux.bom import BOMStore
+from actool_linux.car import CARFile
 
 
 # The real-app fixture (`fixtures/firefox-Assets.car`) was removed for license

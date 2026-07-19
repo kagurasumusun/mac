@@ -1,6 +1,6 @@
 import unittest
 
-from actool_linux.stable.iconstack import (
+from actool_linux.iconstack import (
     build_iconstack_aux_list,
     build_iconstack_group_style_reference,
     build_iconstack_root_style_list,

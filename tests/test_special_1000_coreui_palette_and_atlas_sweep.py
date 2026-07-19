@@ -4,14 +4,14 @@ import unittest
 from pathlib import Path
 import tempfile
 
-from actool_linux.stable.bom import BOMStore, BOMError
-from actool_linux.stable.car import CARFile
-from actool_linux.stable.carwriter import build_assets_car, png_rendition, _identifier, _localization_identifier, AssetRendition
-from actool_linux.stable.coreui import auto_select_profile, resolve_profile, PROFILES, COREUI_498, COREUI_700, COREUI_800, COREUI_850, COREUI_918_MACOS, COREUI_918_DEVICE, COREUI_975_MACOS, COREUI_975_DEVICE
-from actool_linux.stable.repack import repack
-from actool_linux.stable.carinfo import inspect
-from actool_linux.stable.thinning import ThinningOptions, thin_renditions
-from actool_linux.stable.packed import pack_renditions
+from actool_linux.bom import BOMStore, BOMError
+from actool_linux.car import CARFile
+from actool_linux.carwriter import build_assets_car, png_rendition, _identifier, _localization_identifier, AssetRendition
+from actool_linux.coreui import auto_select_profile, resolve_profile, PROFILES, COREUI_498, COREUI_700, COREUI_800, COREUI_850, COREUI_918_MACOS, COREUI_918_DEVICE, COREUI_975_MACOS, COREUI_975_DEVICE
+from actool_linux.repack import repack
+from actool_linux.carinfo import inspect
+from actool_linux.thinning import ThinningOptions, thin_renditions
+from actool_linux.packed import pack_renditions
 
 PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
 
@@ -55,7 +55,7 @@ class Special1000CoreUIPaletteAndAtlasSweepTests(unittest.TestCase):
 
     def test_1000_darling_and_legacy_xcodecli_compatibility_containers_sweep(self):
         """Sweep 250 Darling/legacy CLI storage containers ensuring robust variable extraction & repack stability."""
-        from actool_linux.stable.bomwriter import BOMWriter
+        from actool_linux.bomwriter import BOMWriter
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp) / "darling_xcodecli.car"
             dst = Path(tmp) / "darling_xcodecli_repacked.car"

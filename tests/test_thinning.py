@@ -1,10 +1,10 @@
 import base64
 import unittest
 
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.car import CARFile
-from actool_linux.stable.carwriter import build_assets_car, png_rendition
-from actool_linux.stable.thinning import ThinningOptions, thin_renditions
+from actool_linux.bom import BOMStore
+from actool_linux.car import CARFile
+from actool_linux.carwriter import build_assets_car, png_rendition
+from actool_linux.thinning import ThinningOptions, thin_renditions
 
 PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
 

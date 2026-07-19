@@ -3,12 +3,12 @@ import unittest
 from pathlib import Path
 import tempfile
 
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.car import CARFile
-from actool_linux.stable.carwriter import build_assets_car, png_rendition, _identifier, _localization_identifier, _csi_jpeg, AssetRendition
-from actool_linux.stable.repack import repack
-from actool_linux.stable.thinning import ThinningOptions, thin_renditions
-from actool_linux.stable.packed import pack_renditions
+from actool_linux.bom import BOMStore
+from actool_linux.car import CARFile
+from actool_linux.carwriter import build_assets_car, png_rendition, _identifier, _localization_identifier, _csi_jpeg, AssetRendition
+from actool_linux.repack import repack
+from actool_linux.thinning import ThinningOptions, thin_renditions
+from actool_linux.packed import pack_renditions
 
 PNG = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=")
 
@@ -32,7 +32,7 @@ class Special50CasesTests(unittest.TestCase):
 
     def test_special_uniform_tiles_and_giant_atlas_pagination(self):
         """Test #21/22: Uniform tile sets and giant single tile packing limits."""
-        from actool_linux.stable.packed import _csi_atlas
+        from actool_linux.packed import _csi_atlas
         items = [png_rendition(f"Item{i}", PNG, f"i{i}.png") for i in range(40)]
         packed = pack_renditions(items)
         self.assertGreater(len(packed), len(items)) # atlases generated
@@ -65,7 +65,7 @@ class Special50CasesTests(unittest.TestCase):
 
     def test_special_multilevel_and_watch_matrix_integration(self):
         """Test #18/37: Watch complication and complex multi-asset catalog compilation."""
-        from actool_linux.stable.carwriter import build_watch_complication_car
+        from actool_linux.carwriter import build_watch_complication_car
         car_bytes = build_watch_complication_car("WatchComp", [PNG, PNG], families=["modularSmall", "graphicCircular"], roles=["foreground", "mask"])
         store = BOMStore(car_bytes)
         self.assertIn("CARHEADER", store.variables)

@@ -16,14 +16,14 @@ def run_local_benchmark():
     
     # 1. Standard
     start = time.time()
-    subprocess.run(["python3", "-m", "actool_linux.stable", "tests/test_data/test.xcassets", "--compile", "out_std", "--platform", "iphoneos", "--minimum-deployment-target", "15.0"], capture_output=True)
+    subprocess.run(["python3", "-m", "actool_linux", "tests/test_data/test.xcassets", "--compile", "out_std", "--platform", "iphoneos", "--minimum-deployment-target", "15.0"], capture_output=True)
     t_std = (time.time() - start) * 1000
     s_std = os.path.getsize("out_std/Assets.car") if os.path.exists("out_std/Assets.car") else 0
     print(f"{'Standard (LZFSE)':<25} | {s_std/1024:<12.1f} | {t_std:<10.1f} | Lossless (PSNR: inf)")
     
     # 2. NextGen Smart
     start = time.time()
-    subprocess.run(["python3", "-m", "actool_linux.nextgen", "tests/test_data/test.xcassets", "--compile", "out_smart", "--platform", "iphoneos", "--minimum-deployment-target", "15.0", "--optimize", "smart"], capture_output=True)
+    subprocess.run(["python3", "-m", "actool_linux", "tests/test_data/test.xcassets", "--compile", "out_smart", "--platform", "iphoneos", "--minimum-deployment-target", "15.0", "--optimize", "smart"], capture_output=True)
     t_smart = (time.time() - start) * 1000
     s_smart = os.path.getsize("out_smart/Assets.car") if os.path.exists("out_smart/Assets.car") else 0
     print(f"{'NextGen (QuadTree)':<25} | {s_smart/1024:<12.1f} | {t_smart:<10.1f} | Lossless (PSNR: inf)")

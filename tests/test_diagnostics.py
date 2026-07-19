@@ -1,7 +1,7 @@
 import plistlib,unittest
 from pathlib import Path
-from actool_linux.stable.diagnostics import result_plist
-from actool_linux.stable.model import Diagnostic
+from actool_linux.diagnostics import result_plist
+from actool_linux.model import Diagnostic
 
 class DiagnosticsTests(unittest.TestCase):
  def test_actool_result_plist_shape(self):
@@ -13,17 +13,17 @@ class DiagnosticsTests(unittest.TestCase):
  def test_deterministic_bytes(self):
   d=[Diagnostic('notice','hello')];self.assertEqual(result_plist(d,[]),result_plist(d,[]))
  def test_xcode_26_5_version_shape(self):
-  from actool_linux.stable.diagnostics import version_plist
+  from actool_linux.diagnostics import version_plist
   self.assertEqual(plistlib.loads(version_plist()),{'com.apple.actool.version':{'bundle-version':'24765','short-bundle-version':'26.5'}})
  def test_missing_input_notice_contract(self):
-  from actool_linux.stable.compiler import CompileOptions,compile_catalogs
+  from actool_linux.compiler import CompileOptions,compile_catalogs
   r=compile_catalogs([Path('/tmp/does-not-exist.xcassets')],CompileOptions(Path('/tmp/o')))
   self.assertEqual([(d.severity,d.message,d.failure_reason) for d in r.diagnostics],[
    ('notice','Failed to read file attributes for "/tmp/does-not-exist.xcassets"','No such file or directory'),
    ('notice','Compiling requires passing "--minimum-deployment-target [value]".',None),
    ('notice','Compiling requires passing "--platform [platform-name]".',None)])
  def test_no_input_contract_text(self):
-  from actool_linux.stable.compiler import CompileOptions,compile_catalogs
+  from actool_linux.compiler import CompileOptions,compile_catalogs
   import tempfile
   with tempfile.TemporaryDirectory() as tmp:
    r=compile_catalogs([],CompileOptions(Path(tmp)/'out'))

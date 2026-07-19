@@ -1,8 +1,8 @@
 import struct
 import unittest
 
-from actool_linux.stable import dmp2mini
-from actool_linux.stable.carwriter import _csi_png_deepmap
+from actool_linux import dmp2mini
+from actool_linux.carwriter import _csi_png_deepmap
 
 BGRA_A = bytes((0x11, 0x08, 0x5A, 0xFF))   # RGBA (0x5a,0x08,0x11,0xff) premultiplied
 GA_OPAQUE = bytes((0x4D, 0xFF))

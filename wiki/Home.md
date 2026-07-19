@@ -1,45 +1,47 @@
-# 🍎 Apple-actool-py Knowledge Base (Wiki)
+# 🍎 Apple-actool-py & actool-rs Technical Knowledge Base (Wiki)
 
-Welcome to the internal knowledge base for the `Apple-actool-py` project.
-This wiki contains all engineering logs, clean-room reverse engineering evidence, architectural notes, and deep research data.
+Welcome to the definitive engineering technical wiki for the `Apple-actool-py` and `actool_rs` high-performance Apple Asset Catalog compilation engine suite.
 
-## 🌟 [NEW] Agent Handoff & Architecture
-- **[🤖 AI Agent Handoff Log](AGENT_HANDOFF_LOG.md)**: AIアシスタント（または後任者）がプロジェクトのコンテキストと人格を100%引き継ぐためのマスターログ。
-- **[🏗 Codebase Architecture](CODEBASE_ARCHITECTURE.md)**: 全モジュールの役割と相互関係の徹底解説。
-
-## 📚 Table of Contents
-
-### 1. Architecture & Engineering
-- [Engineering Log](1_architecture/ENGINEERING_LOG.md): 詳細な日々のエンジニアリングノートとブレイクスルー。
-- [Mini ISA Notes](1_architecture/MINI_ISA_NOTES.md): リバースエンジニアリングされた命令セットとフォーマットのノート。
-
-### 2. Audits & Clean-Room Evidence
-- [Clean Room Audit](2_audits_and_evidence/CLEAN_ROOM_AUDIT.md): クリーンルーム実装プロセスのルールとログ。
-- [Clean Room Evidence](2_audits_and_evidence/CLEAN_ROOM_EVIDENCE.md): 権利非侵害実装の証明。
-- [Verification](2_audits_and_evidence/VERIFICATION.md): 検証手順とハッシュ。
-
-### 3. Progress & Status Reports
-- [Final Status](3_progress_and_status/FINAL_STATUS.md)
-- [Project State](3_progress_and_status/PROJECT_STATE.json)
-- [Session Handoff](3_progress_and_status/SESSION_HANDOFF_COMPLETE.md)
-- [Used Scripts](3_progress_and_status/USED_SCRIPTS.md)
-
-### 4. Guides & Analysis
-- [Usage Guide](4_guides_and_analysis/USAGE_GUIDE.md): CLIとPython APIの使い方。
-- [Atlas Sweep Analysis](4_guides_and_analysis/ATLAS_SWEEP_ANALYSIS.md): AppleのSprite Atlasパッキングアルゴリズムの深掘り。
-
-### 5. Algorithmic Research & Whitepapers (NEW!)\n- **[📄 05: Facet Hash16 Anatomy & The 100% Accuracy Lookup Table](6_algorithmic_research/05_FACET_HASH16_ANATOMY.md)**: Appleの非公開16ビットハッシュアルゴリズムの解明と、ルックアップテーブルを用いた100%完全一致の仕組み。
-私たち（Arena Agent）が隔離環境で研究・実証した、Apple純正の仕様や、それを凌駕する最強の圧縮アルゴリズムの論文群です。
-- **[📄 01: CoreUI CAR File & BOMStore Architecture](6_algorithmic_research/01_CAR_AND_BOM_FORMAT.md)**: 低レイヤのバイナリ構造とRendition Keysの解説。
-- **[📄 02: Apple's Image Compression & CBCK Anatomy](6_algorithmic_research/02_IMAGE_COMPRESSION_AND_CBCK.md)**: Deepmap, LZFSE, ASTC の仕組みと使い分けの解剖。
-- **[📄 03: Beyond God-Mode - The NextGen Algorithms](6_algorithmic_research/03_BEYOND_GODMODE_ALGORITHMS.md)**: LPC-LZFSE, QuadTree, Semantic Fusion Atlas など、サイズと速度を極限まで引き上げる私たちの最強アルゴリズム理論。
-
-### 6. Deep Research Data
-- [📊 Research Data Index](5_research_reports/INDEX.md): 何百ものJSONダンプ、Appleコンパイラの挙動検証（Oracle Matrix）、限界閾値テストなどの生データディレクトリ。
+This knowledge base provides an exhaustive, byte-level specification of Apple CoreUI `.car` archives, BOMStore container binary layouts, CoreStructuredImage (CSI) headers, ASTC GPU-direct hardware blocks, ISO/CIE 11664-6 CIEDE2000 perceptual color mathematics, human ergonomics, multi-threaded Rayon parallelism, and non-image asset optimization algorithms.
 
 ---
-*Maintained by Arena Agent.*
 
-### 7. Developer API Reference
-`actool_linux.stable` の全ソースコードファイルのクラス・関数・内部ロジックをAST（抽象構文木）から自動抽出し、ドキュメント化した完全な開発者用リファレンスです。
-- **[💻 Developer API Index](7_developer_api_reference/INDEX.md)**
+## 🌟 Architecture & Key Specifications
+
+- **[🏗 Codebase Architecture & Module Relations](CODEBASE_ARCHITECTURE.md)**: Exhaustive breakdown of all 57 unified Python modules and Rust binaries, Rayon thread pool mappings, zero-copy slice architecture, and Apple contract compliance.
+- **[🤖 AI Agent & Handoff Specifications](AGENT_HANDOFF_LOG.md)**: Context, state logs, and system operational invariants.
+
+---
+
+## 📚 Deep Technical Specifications & Whitepapers (1:20 Master Series)
+
+### 1. Core Format & Storage
+- **[📦 01: CoreUI CAR File & BOMStore Architecture](6_algorithmic_research/01_CAR_AND_BOM_FORMAT.md)**:
+  Byte-by-byte specification of the 32-byte `BOMStore` header, block indexes, variables tables, 436-byte `CARHEADER` (`CTAR`/`RATC`), 12-byte `b"tree"` B-Tree descriptors, 12-byte leaf headers, `KEYFORMAT` attributes mapping (0–27), and the 184-byte `CoreStructuredImage` (CSI) fixed header with TLVs.
+
+### 2. Compression Codecs & Ultra-HD Spatial Tiling
+- **[🖼 02: Image Compression, Deepmap & CBCK Anatomy](6_algorithmic_research/02_IMAGE_COMPRESSION_AND_CBCK.md)**:
+  Complete grammar analysis of Deepmap (`dmp2` v1/v2/v3/v4), DMP2 Mini ISA opcodes (RLE, literals, row copy, end markers), MLEC Mode 3 Codec 4/11 CBCK (`KCBC` chunks), Ultra-HD 4K/8K/16K spatial 2D grid tiling, and 128-bit ASTC GPU-Direct hardware blocks (`AS44`, `AS88`).
+
+### 3. Perceptual Ergonomics, Auto-Safe Guards & 3D Assets
+- **[🚀 03: Beyond God-Mode: Ergonomics, Auto-Safe Protection & 3D PBR](6_algorithmic_research/03_BEYOND_GODMODE_ALGORITHMS.md)**:
+  ISO/CIE 11664-6 CIEDE2000 ($\Delta E_{00} \le 1.0$) JND color mathematics, 80dB HAS psychoacoustic noise floor thresholds, `AutoDomainDetect` 4-gate safety barriers, **Dirty Alpha Protection** (preserving $A=0$ non-zero RGB for Metal shaders and edge-padding filtering), PBR 3D ORM texture packing (66% VRAM reduction), and 2-channel tangent normal map packing ($N_x, N_y \rightarrow N_z$).
+
+### 4. Developer Tools, CAREditor & Non-Image Optimizers
+- **[🛠 04: CLI Tools, CAREditor API, Virtual Mounting & Non-Image Engine](6_algorithmic_research/04_TOOLS_AND_CLI.md)**:
+  `actool-rs` / `actool-linux` CLI interfaces, `CAREditor` interactive CAR modification API, virtual directory mounting & syncing (`mount.rs`), corrupted CAR auto-repair engine (`repair.rs`), Lottie JSON float truncation, PCM audio tail silence trimming (-90dB) with 1D sample delta prediction, and 3D OBJ mesh vertex float quantization.
+
+### 5. Algorithmic Hash Analysis
+- **[🧩 05: Facet Hash16 Anatomy & The 100% Accuracy Lookup Table](6_algorithmic_research/05_FACET_HASH16_ANATOMY.md)**:
+  Exhaustive analysis of Apple's non-public 16-bit polynomial hash algorithm and the 100% exact lookup table mapping for string facet keys.
+
+---
+
+## 📊 Status & Audits
+
+- **[📝 Final Status Report](3_progress_and_status/FINAL_STATUS.md)**: Removal certification of legacy directories, 100% test pass verification (241 Python + 20 Rust), 0 compiler warnings, and clean git status.
+- **[📜 Engineering Log](1_architecture/ENGINEERING_LOG.md)**: Engineering audit, 53.9x Rust speedup benchmarks, and logic-by-logic bug hunt fixes.
+- **[📊 Deep Research Data Index](5_research_reports/INDEX.md)**: Census data, oracle matrices, and verification outputs.
+
+---
+*Maintained by Arena Agent — July 2026.*

@@ -6,7 +6,7 @@ import numpy as np
 
 sys.path.insert(0, "/home/user/repo-cleanup")
 
-from actool_linux.research.tet_variants import (
+from actool_linux.tet_variants import (
     # ⑩ Appearance Variant
     compute_variant_delta,
     shared_pixels,

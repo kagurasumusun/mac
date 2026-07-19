@@ -2,15 +2,15 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from actool_linux.stable.bom import BOMStore
-from actool_linux.stable.bomwriter import BOMWriter
-from actool_linux.stable.repack import repack
+from actool_linux.bom import BOMStore
+from actool_linux.bomwriter import BOMWriter
+from actool_linux.repack import repack
 
 
 class RepackTests(unittest.TestCase):
     def test_complex_car_repack_roundtrip(self):
         import base64
-        from actool_linux.stable.carwriter import build_assets_car, png_rendition
+        from actool_linux.carwriter import build_assets_car, png_rendition
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "source.car"
             dest = Path(tmp) / "dest.car"

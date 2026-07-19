@@ -1,7 +1,7 @@
 import unittest, io, sys
 from contextlib import redirect_stdout, redirect_stderr
 from pathlib import Path
-from actool_linux.stable.cli import parser, main
+from actool_linux.cli import parser, main
 
 class CLITests(unittest.TestCase):
     def test_default_output_is_apple_xml_result_plist(self):
