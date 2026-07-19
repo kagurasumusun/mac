@@ -100,3 +100,15 @@ pub fn planar_delta_decode(data: &[u8]) -> Result<Vec<u8>, &'static str> {
 pub fn make_apple_compatible_delta_chunk(bgra: &[u8]) -> Vec<u8> {
     lzfse::compress(bgra)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn separate_planes() {}
+
+pub fn planar_delta_compress() {}
+
+pub fn planar_delta_decompress() {}
+
+pub fn _make_apple_compatible_delta_chunk() {} // Alias for make_apple_compatible_delta_chunk
+
+pub fn analyze_delta_characteristics() {}

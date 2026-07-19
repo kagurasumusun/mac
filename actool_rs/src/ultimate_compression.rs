@@ -41,3 +41,19 @@ pub fn ultimate_compress(bgra: &[u8], width: u32, height: u32) -> Vec<u8> {
     let comp = UltimateCompressor::default();
     comp.compress_chunk(bgra, width, height)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _classify_block() {} // Alias for classify_block
+
+pub fn _compress_solid() {}
+
+pub fn _compress_gradient() {}
+
+pub fn _compress_edge() {}
+
+pub fn _compress_texture() {}
+
+pub fn _compress_transparent() {}
+
+pub fn compress_image() {}

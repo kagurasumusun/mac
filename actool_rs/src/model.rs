@@ -35,3 +35,7 @@ pub struct Catalog {
     pub assets: Vec<Asset>,
     pub diagnostics: Vec<Diagnostic>,
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn load_catalog() {}

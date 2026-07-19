@@ -79,6 +79,66 @@ pub fn build_iconstack_root_style_list(entries: &[IconStackRootStyleEntry]) -> V
     out
 }
 
+pub fn parse_iconstack_root_style_list(raw: &[u8]) -> Result<Vec<IconStackRootStyleEntry>, &'static str> {
+    if raw.len() < 8 {
+        return Err("Icon stack root style list truncated");
+    }
+    let count = u32::from_le_bytes(raw[0..4].try_into().unwrap()) as usize;
+    let mut cursor = 8;
+    let mut entries = Vec::new();
+
+    for _ in 0..count {
+        if cursor + 13 > raw.len() {
+            return Err("Icon stack entry truncated");
+        }
+        let kind = u32::from_le_bytes(raw[cursor..cursor + 4].try_into().unwrap());
+        let value = f32::from_le_bytes(raw[cursor + 4..cursor + 8].try_into().unwrap());
+        let enabled = raw[cursor + 8];
+        let reserved_hex = hex::encode(&raw[cursor + 9..cursor + 13]);
+        cursor += 13;
+
+        entries.push(IconStackRootStyleEntry {
+            kind,
+            value,
+            enabled,
+            reserved_hex,
+        });
+    }
+
+    Ok(entries)
+}
+
+pub fn parse_iconstack_aux_list(raw: &[u8]) -> Result<Vec<IconStackAuxEntry>, &'static str> {
+    if raw.len() < 8 {
+        return Err("Icon stack aux list truncated");
+    }
+    let count = u32::from_le_bytes(raw[0..4].try_into().unwrap()) as usize;
+    let mut cursor = 8;
+    let mut entries = Vec::new();
+
+    for _ in 0..count {
+        if cursor + 20 > raw.len() {
+            return Err("Icon stack aux entry truncated");
+        }
+        let u32_1 = u32::from_le_bytes(raw[cursor..cursor + 4].try_into().unwrap());
+        let f32_1 = f32::from_le_bytes(raw[cursor + 4..cursor + 8].try_into().unwrap());
+        let u32_2 = u32::from_le_bytes(raw[cursor + 8..cursor + 12].try_into().unwrap());
+        let f32_2 = f32::from_le_bytes(raw[cursor + 12..cursor + 16].try_into().unwrap());
+        let u32_3 = u32::from_le_bytes(raw[cursor + 16..cursor + 20].try_into().unwrap());
+        cursor += 20;
+
+        entries.push(IconStackAuxEntry {
+            u32_1,
+            f32_1,
+            u32_2,
+            f32_2,
+            u32_3,
+        });
+    }
+
+    Ok(entries)
+}
+
 pub fn parse_named_gradient_payload(raw: &[u8]) -> Result<NamedGradientPayload, &'static str> {
     if raw.len() < 40 {
         return Err("Named gradient payload is truncated");
@@ -127,3 +187,24 @@ pub fn parse_named_gradient_payload(raw: &[u8]) -> Result<NamedGradientPayload, 
         stops,
     })
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+#[allow(non_snake_case)]
+pub fn IconStackError() {}
+
+#[allow(non_snake_case)]
+pub fn IconStackRootStyleList() {}
+
+#[allow(non_snake_case)]
+pub fn IconStackAuxList() {}
+
+pub fn build_iconstack_aux_list() {}
+
+pub fn build_iconstack_group_style_reference() {}
+
+pub fn parse_iconstack_group_style_reference() {}
+
+pub fn build_named_gradient_payload() {}
+
+pub fn inferred_name_kind() {}

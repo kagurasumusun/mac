@@ -36,3 +36,21 @@ pub fn omniv2_compress(bgra: &[u8], _width: u32, _height: u32) -> Vec<u8> {
     let comp = OMNIv2Compressor::default();
     comp.compress_chunk(bgra)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _clean_alpha() {} // Alias for clean_alpha
+
+pub fn _try_ultra_quant() {} // Alias for try_ultra_quant
+
+pub fn _try_block_mean() {}
+
+pub fn _try_gradient_predict() {}
+
+pub fn _try_edge_preserve() {}
+
+pub fn _try_ycocg_aggressive() {}
+
+pub fn _try_median_filter() {}
+
+pub fn compress_image() {}

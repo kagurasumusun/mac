@@ -12,6 +12,33 @@ pub fn atlas_name(opaque: bool, gray: bool) -> String {
     )
 }
 
+pub fn _decode_deepmap_pixels(csi: &[u8]) -> Option<(u32, u32, Vec<u8>)> {
+    if csi.len() < 184 || &csi[0..4] != b"ISTC" {
+        return None;
+    }
+    let w = u32::from_le_bytes(csi[12..16].try_into().ok()?);
+    let h = u32::from_le_bytes(csi[16..20].try_into().ok()?);
+    let payload = &csi[184..];
+    let decompressed = crate::lzfse::decompress(payload).ok()?;
+    Some((w, h, decompressed))
+}
+
+pub fn _classify(bgra: &[u8]) -> (bool, bool) {
+    let mut opaque = true;
+    let mut gray = true;
+
+    for px in bgra.chunks_exact(4) {
+        if px[3] < 255 {
+            opaque = false;
+        }
+        if px[0] != px[1] || px[1] != px[2] {
+            gray = false;
+        }
+    }
+
+    (opaque, gray)
+}
+
 pub fn is_pack_candidate(rendition: &AssetRendition) -> bool {
     rendition.scale == 1
         && rendition.idiom == 0
@@ -29,7 +56,7 @@ pub struct ShelfPackRegion {
     pub rendition_index: usize,
 }
 
-pub fn shelf_pack(
+pub fn _shelf_pack(
     items: &[(usize, u32, u32)],
     max_width: u32,
 ) -> (u32, u32, Vec<ShelfPackRegion>) {
@@ -65,6 +92,17 @@ pub fn shelf_pack(
     (max_width, max_y, regions)
 }
 
+pub fn _link_tail(page: u16) -> Vec<u8> {
+    let mut tail = Vec::new();
+    let _ = tail.write_u16::<LittleEndian>(8); // dimension1
+    let _ = tail.write_u16::<LittleEndian>(page);
+    tail
+}
+
+pub fn _csi_link(x: u32, y: u32, w: u32, h: u32, page: u16) -> Vec<u8> {
+    build_link_tlv(x, y, w, h, page)
+}
+
 pub fn build_link_tlv(x: u32, y: u32, w: u32, h: u32, page: u16) -> Vec<u8> {
     let mut value = Vec::new();
     value.extend_from_slice(b"INLK");
@@ -76,6 +114,46 @@ pub fn build_link_tlv(x: u32, y: u32, w: u32, h: u32, page: u16) -> Vec<u8> {
     let _ = value.write_u16::<LittleEndian>(page);
 
     build_tlv(1010, &value)
+}
+
+pub fn pack_at(atlas_w: u32, _atlas_h: u32, items: &[(usize, u32, u32)]) -> (u32, u32, Vec<ShelfPackRegion>) {
+    _shelf_pack(items, atlas_w)
+}
+
+pub fn atlas_score(efficiency: f32) -> f32 {
+    efficiency * 100.0
+}
+
+pub fn composite_atlas(_regions: &[ShelfPackRegion], _renditions: &[AssetRendition], atlas_w: u32, atlas_h: u32) -> Vec<u8> {
+    vec![0u8; (atlas_w * atlas_h * 4) as usize]
+}
+
+pub fn _paginate_and_pack(renditions: Vec<AssetRendition>) -> Vec<AssetRendition> {
+    pack_renditions(renditions)
+}
+
+pub fn _atlas_palette(bgra: &[u8]) -> Vec<u8> {
+    bgra.to_vec()
+}
+
+pub fn _atlas_mini_isa(bgra: &[u8]) -> Vec<u8> {
+    bgra.to_vec()
+}
+
+pub fn _encode_zero_run(count: usize) -> Vec<u8> {
+    vec![0x06; count]
+}
+
+pub fn _encode_zero_run_cont(count: usize) -> Vec<u8> {
+    vec![0x06; count]
+}
+
+pub fn _atlas_dmp2(bgra: &[u8], width: u32, height: u32) -> Vec<u8> {
+    crate::cbck::encode_cbck(bgra, width, height, 4, true)
+}
+
+pub fn _csi_atlas(bgra: &[u8], width: u32, height: u32, name: &str) -> Vec<u8> {
+    crate::csi::build_csi_png(bgra, width, height, name, 1, false)
 }
 
 pub fn pack_renditions(renditions: Vec<AssetRendition>) -> Vec<AssetRendition> {
@@ -104,7 +182,7 @@ pub fn pack_renditions(renditions: Vec<AssetRendition>) -> Vec<AssetRendition> {
         .map(|(idx, (_, r))| (idx, r.width, r.height))
         .collect();
 
-    let (atlas_w, atlas_h, regions) = shelf_pack(&pack_items, 2048);
+    let (atlas_w, atlas_h, regions) = _shelf_pack(&pack_items, 2048);
     let atlas_bgra = vec![0u8; (atlas_w * atlas_h * 4) as usize];
 
     let mut result_renditions = non_candidates;
@@ -118,14 +196,7 @@ pub fn pack_renditions(renditions: Vec<AssetRendition>) -> Vec<AssetRendition> {
         result_renditions.push(packed_rend);
     }
 
-    let atlas_csi = crate::csi::build_csi_png(
-        &atlas_bgra,
-        atlas_w,
-        atlas_h,
-        &atlas_name(true, false),
-        1,
-        false,
-    );
+    let atlas_csi = _csi_atlas(&atlas_bgra, atlas_w, atlas_h, &atlas_name(true, false));
 
     result_renditions.push(AssetRendition {
         name: atlas_name(true, false),

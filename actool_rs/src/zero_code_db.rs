@@ -74,3 +74,37 @@ impl ZeroCodeBezel {
         out
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+#[allow(non_snake_case)]
+pub fn ZeroCodeGlyph() {}
+
+#[allow(non_snake_case)]
+pub fn ZeroCodeDatabase() {}
+
+pub fn add_layer() {}
+
+pub fn add_effect() {}
+
+pub fn deserialize() {}
+
+pub fn set_property() {}
+
+
+pub fn set_parameter() {}
+
+
+pub fn add_path() {}
+
+pub fn add_bezel() {}
+
+pub fn add_glyph() {}
+
+pub fn get_bezel() {}
+
+pub fn get_glyph() {}
+
+pub fn serialize_bezels() {}
+
+pub fn serialize_glyphs() {}

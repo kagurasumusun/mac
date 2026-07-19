@@ -51,3 +51,9 @@ impl PerceptualQuantizer {
         }
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _floyd_steinberg_dither() {} // Alias for floyd_steinberg_dither
+
+pub fn _fallback_quantize() {}

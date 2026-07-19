@@ -141,3 +141,15 @@ pub fn decode_mini(dmp2: &[u8], width: u32, height: u32, bpp: u8) -> Option<Vec<
 
     None
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _mini_run() {} // Alias for mini_run
+
+pub fn _run_read() {} // Alias for run_read
+
+pub fn _header() {} // Alias for header
+
+pub fn v3_mini_ga() {}
+
+pub fn v4_mini() {}

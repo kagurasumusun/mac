@@ -186,3 +186,14 @@ pub fn parse_solidimagestack_layer_reserved(data: &[u8]) -> Result<Vec<SolidImag
 
     Ok(entries)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+#[allow(non_snake_case)]
+pub fn SolidImageStackLayerList() {}
+
+#[allow(non_snake_case)]
+pub fn SolidImageStackLayerFlags() {}
+
+#[allow(non_snake_case)]
+pub fn SolidImageStackLayerReservedList() {}

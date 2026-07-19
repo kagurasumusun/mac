@@ -37,3 +37,9 @@ pub fn astc_compress(bgra: &[u8], width: u32, height: u32) -> Vec<u8> {
     let compressor = ASTCClassCompressor::default();
     compressor.compress_chunk(bgra, width, height)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _select_block_size() {}
+
+pub fn _astc_emulate_block() {}

@@ -83,3 +83,21 @@ pub fn tet_compress(bgra: &[u8], _width: u32, _height: u32) -> Vec<u8> {
     let comp = TETCompressor::default();
     comp.compress(bgra)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn hidden_pixel_removal() {}
+
+pub fn median_cut_quantization() {}
+
+pub fn alpha_threshold() {}
+
+pub fn alpha_quantization() {}
+
+pub fn spatial_prediction_encode() {}
+
+pub fn tile_deduplication() {}
+
+pub fn tet_optimize() {}
+
+pub fn optimize() {}

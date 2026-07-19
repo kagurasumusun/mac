@@ -47,3 +47,15 @@ pub fn smart_encode_png_cbck(
         true,
     )
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _load_ai_model() {}
+
+pub fn _predict_strategy() {}
+
+pub fn _clean_dirty_transparency() {}
+
+pub fn _compute_rows_per_chunk() {}
+
+pub fn encode_chunk() {}

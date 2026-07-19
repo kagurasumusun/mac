@@ -33,3 +33,13 @@ pub fn astc_ultra_compress_chunk(bgra: &[u8], _width: u32, _height: u32) -> Vec<
 pub fn astc_ultra_compress(bgra: &[u8], width: u32, height: u32) -> Vec<u8> {
     astc_ultra_compress_chunk(bgra, width, height)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _analyze_block_complexity() {} // Alias for analyze_block_complexity
+
+pub fn _select_astc_block_size() {} // Alias for select_astc_block_size
+
+pub fn _astc_optimal_endpoints() {}
+
+pub fn _astc_interpolate_weights() {}

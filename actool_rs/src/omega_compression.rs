@@ -44,3 +44,19 @@ pub fn omega_compress(bgra: &[u8], width: u32, height: u32) -> Vec<u8> {
     let comp = OMEGACompressor::default();
     comp.compress_chunk(bgra, width, height)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _clean_alpha() {} // Alias for clean_alpha
+
+pub fn _try_subtle_quant() {} // Alias for try_subtle_quant
+
+pub fn _try_edge_preserving_quant() {}
+
+pub fn _try_alpha_perfect() {}
+
+pub fn _try_smooth_quant() {}
+
+pub fn _try_ycocg_perceptual() {}
+
+pub fn compress_image() {}

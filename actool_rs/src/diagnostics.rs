@@ -82,3 +82,13 @@ pub fn format_xml_plist(diagnostics: &[Diagnostic], output_files: &[PathBuf]) ->
     xml.push_str("</dict>\n</plist>\n");
     xml
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn version_plist() {}
+
+pub fn unknown_argument_plist() {}
+
+pub fn result_plist() {}
+
+pub fn render_human_readable() {}

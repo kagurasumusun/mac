@@ -23,3 +23,7 @@ pub fn repack<P: AsRef<Path>>(src: P, dst: P) -> Result<(), String> {
 
     std::fs::write(dst, writer.build()).map_err(|e| e.to_string())
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn main() {}

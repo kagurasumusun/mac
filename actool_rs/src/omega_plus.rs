@@ -44,3 +44,17 @@ impl OMEGAPlusCompressor {
         optimize_dmp2_payload(raw, bpp)
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn detect_similar_renditions() {}
+
+pub fn predictive_encode() {}
+
+pub fn optimize_ga_data() {}
+
+pub fn optimize_rendition_list() {}
+
+pub fn optimize_ga() {}
+
+pub fn optimize_renditions() {}

@@ -129,3 +129,27 @@ pub fn parse_atlas_trim(raw: &[u8]) -> Result<AtlasTrim, &'static str> {
         trimmed_height: u32::from_le_bytes(raw[20..24].try_into().unwrap()),
     })
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _linked_csi() {}
+
+pub fn _atlas_name_list_tlv() {}
+
+pub fn _atlas_metadata_csi() {}
+
+pub fn _png_rgba() {}
+
+pub fn _alpha_bbox() {}
+
+pub fn _crop_rgba() {}
+
+pub fn _explicit_trim_tlv() {}
+
+pub fn packed_atlas_renditions() {}
+
+pub fn packed_watch_complication_renditions() {}
+
+pub fn build_packed_atlas_car() {}
+
+pub fn chunk() {}

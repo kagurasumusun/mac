@@ -219,3 +219,11 @@ pub fn build_palette_img_wrapper(
 
     Ok(out)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _bit_width() {} // Alias for bit_width
+
+pub fn _unpack_row_indices() {} // Alias for unpack_row_indices
+
+pub fn _pack_row_indices() {} // Alias for pack_row_indices

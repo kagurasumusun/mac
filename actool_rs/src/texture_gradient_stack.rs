@@ -155,3 +155,35 @@ pub fn create_radial_gradient(name: &str, inner_color: (f32, f32, f32, f32), out
     });
     grad
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+#[allow(non_snake_case)]
+pub fn IconStackLayer() {}
+
+#[allow(non_snake_case)]
+pub fn IconStackRenderingProperties() {}
+
+#[allow(non_snake_case)]
+pub fn IconStack() {}
+
+pub fn create_simple_icon_stack() {}
+
+pub fn deserialize() {}
+
+
+
+pub fn set_bounds() {}
+
+pub fn add_referenced_key() {}
+
+
+pub fn add_entry() {}
+
+
+pub fn add_layer() {}
+
+pub fn set_rendering_properties() {}
+
+pub fn add_auxiliary_data() {}
+

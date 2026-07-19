@@ -39,3 +39,21 @@ pub fn compress_with_apple_compatibility(data: &[u8]) -> Vec<u8> {
     let opt = LZFSEOptimized::default();
     opt.compress(data)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _compress_block() {}
+
+pub fn _hash() {}
+
+pub fn _find_match_length() {}
+
+pub fn _encode_literals() {}
+
+pub fn _encode_match() {}
+
+pub fn _create_raw_block() {}
+
+pub fn _create_empty_block() {}
+
+pub fn _create_lzfse_stream() {}

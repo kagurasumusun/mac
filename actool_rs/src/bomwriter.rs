@@ -1,8 +1,15 @@
 use byteorder::{BigEndian, ByteOrder};
 
+#[derive(Debug, Clone)]
+pub struct PendingBlock {
+    pub id: u32,
+    pub data: Vec<u8>,
+    pub name: Option<String>,
+}
+
 pub struct BOMWriter {
-    blocks: Vec<(u32, Vec<u8>, Option<String>)>,
-    next_id: u32,
+    pub blocks: Vec<PendingBlock>,
+    pub next_id: u32,
 }
 
 impl Default for BOMWriter {
@@ -19,30 +26,41 @@ impl BOMWriter {
         }
     }
 
+    pub fn _align(offset: usize, alignment: usize) -> usize {
+        (offset + alignment - 1) & !(alignment - 1)
+    }
+
     pub fn add_block(&mut self, data: Vec<u8>, name: Option<String>) -> u32 {
         let id = self.next_id;
         self.next_id += 1;
-        self.blocks.push((id, data, name));
+        self.blocks.push(PendingBlock { id, data, name });
         id
+    }
+
+    pub fn replace_block(&mut self, id: u32, new_data: Vec<u8>) -> bool {
+        for blk in &mut self.blocks {
+            if blk.id == id {
+                blk.data = new_data;
+                return true;
+            }
+        }
+        false
     }
 
     pub fn build(&self) -> Vec<u8> {
         let mut out = Vec::new();
 
-        // 1. BOMHeader placeholder (32 bytes)
         out.extend_from_slice(b"BOMStore");
-        out.extend_from_slice(&[0u8; 24]); // Version 1, count, index_off, index_len, vars_off, vars_len
+        out.extend_from_slice(&[0u8; 24]);
 
-        // 2. Block Payloads
-        let mut block_locations: Vec<(u32, u32, u32)> = Vec::new(); // (id, offset, length)
-        for (id, data, _) in &self.blocks {
+        let mut block_locations: Vec<(u32, u32, u32)> = Vec::new();
+        for blk in &self.blocks {
             let offset = out.len() as u32;
-            let length = data.len() as u32;
-            out.extend_from_slice(data);
-            block_locations.push((*id, offset, length));
+            let length = blk.data.len() as u32;
+            out.extend_from_slice(&blk.data);
+            block_locations.push((blk.id, offset, length));
         }
 
-        // 3. Block Index Table
         let index_offset = out.len() as u32;
         let capacity = (self.blocks.len() + 1) as u32;
         let mut index_buf = Vec::new();
@@ -50,10 +68,8 @@ impl BOMWriter {
         BigEndian::write_u32(&mut cap_bytes, capacity);
         index_buf.extend_from_slice(&cap_bytes);
 
-        // Null block 0
         index_buf.extend_from_slice(&[0u8; 8]);
 
-        // Allocated blocks
         for (_, offset, length) in &block_locations {
             let mut buf = [0u8; 8];
             BigEndian::write_u32(&mut buf[0..4], *offset);
@@ -64,12 +80,11 @@ impl BOMWriter {
         let index_length = index_buf.len() as u32;
         out.extend_from_slice(&index_buf);
 
-        // 4. Variables Table
         let variables_offset = out.len() as u32;
         let named_blocks: Vec<(&String, u32)> = self
             .blocks
             .iter()
-            .filter_map(|(id, _, name)| name.as_ref().map(|n| (n, *id)))
+            .filter_map(|b| b.name.as_ref().map(|n| (n, b.id)))
             .collect();
 
         let mut vars_buf = Vec::new();
@@ -90,9 +105,8 @@ impl BOMWriter {
         let variables_length = vars_buf.len() as u32;
         out.extend_from_slice(&vars_buf);
 
-        // 5. Update BOMHeader at offset 8
-        BigEndian::write_u32(&mut out[8..12], 1); // version = 1
-        BigEndian::write_u32(&mut out[12..16], capacity); // block_count_hint
+        BigEndian::write_u32(&mut out[8..12], 1);
+        BigEndian::write_u32(&mut out[12..16], capacity);
         BigEndian::write_u32(&mut out[16..20], index_offset);
         BigEndian::write_u32(&mut out[20..24], index_length);
         BigEndian::write_u32(&mut out[24..28], variables_offset);

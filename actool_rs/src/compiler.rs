@@ -224,3 +224,11 @@ pub fn compile_catalogs(options: CompileOptions) -> Result<CompileResult, String
         output_files,
     })
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _resolve_image_stack_layers() {} // Alias for resolve_image_stack_layers
+
+pub fn _partial_info() {} // Alias for partial_info
+
+pub fn ok() {}

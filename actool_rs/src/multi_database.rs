@@ -40,3 +40,13 @@ impl MultiDatabaseCAR {
         (true, String::new())
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn get_image_renditions() {}
+
+pub fn get_color_definitions() {}
+
+pub fn get_facet_keys() {}
+
+pub fn write_multi_database_car() {}

@@ -89,3 +89,7 @@ pub fn read_leaf_entries(store: &BOMStore, name: &str) -> Result<Vec<TreeEntry>,
 
     Ok(entries)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn visit() {}

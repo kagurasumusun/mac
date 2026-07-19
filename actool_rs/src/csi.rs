@@ -14,12 +14,82 @@ pub struct CSIHeader {
     pub color_space_id: u32,
     pub layout: u32,
     pub name: String,
+    pub tlvs: Vec<TLV>,
+    pub rendition_data: Vec<u8>,
 }
 
 #[derive(Debug, Clone)]
 pub struct TLV {
     pub tag: u32,
     pub value: Vec<u8>,
+}
+
+pub fn parse_csi(data: &[u8]) -> Result<CSIHeader, crate::bom::BOMError> {
+    if data.len() < 184 {
+        return Err(crate::bom::BOMError::TruncatedHeader);
+    }
+
+    let mut magic = [0u8; 4];
+    magic.copy_from_slice(&data[0..4]);
+
+    let version = u32::from_le_bytes(data[4..8].try_into().unwrap());
+    let flags = u32::from_le_bytes(data[8..12].try_into().unwrap());
+    let width = u32::from_le_bytes(data[12..16].try_into().unwrap());
+    let height = u32::from_le_bytes(data[16..20].try_into().unwrap());
+    let scale = u32::from_le_bytes(data[20..24].try_into().unwrap());
+
+    let mut pixel_format = [0u8; 4];
+    pixel_format.copy_from_slice(&data[24..28]);
+
+    let color_space_id = u32::from_le_bytes(data[28..32].try_into().unwrap());
+    let layout = u32::from_le_bytes(data[32..36].try_into().unwrap());
+
+    let name_end = data[40..168].iter().position(|&b| b == 0).unwrap_or(128);
+    let name = String::from_utf8_lossy(&data[40..40 + name_end]).to_string();
+
+    let tlv_len = u32::from_le_bytes(data[168..172].try_into().unwrap()) as usize;
+    let payload_len = u32::from_le_bytes(data[172..176].try_into().unwrap()) as usize;
+
+    let mut tlvs = Vec::new();
+    let mut cursor = 184;
+    let tlv_end = cursor + tlv_len;
+
+    while cursor + 8 <= tlv_end && cursor + 8 <= data.len() {
+        let tag = u32::from_le_bytes(data[cursor..cursor + 4].try_into().unwrap());
+        let len = u32::from_le_bytes(data[cursor + 4..cursor + 8].try_into().unwrap()) as usize;
+        cursor += 8;
+
+        if cursor + len <= data.len() {
+            tlvs.push(TLV {
+                tag,
+                value: data[cursor..cursor + len].to_vec(),
+            });
+            cursor += len;
+        } else {
+            break;
+        }
+    }
+
+    let rendition_data = if 184 + tlv_len + payload_len <= data.len() {
+        data[184 + tlv_len..184 + tlv_len + payload_len].to_vec()
+    } else {
+        Vec::new()
+    };
+
+    Ok(CSIHeader {
+        magic,
+        version,
+        flags,
+        width,
+        height,
+        scale,
+        pixel_format,
+        color_space_id,
+        layout,
+        name,
+        tlvs,
+        rendition_data,
+    })
 }
 
 pub fn build_tlv(tag: u32, value: &[u8]) -> Vec<u8> {
@@ -40,10 +110,8 @@ pub fn build_csi_png(
 ) -> Vec<u8> {
     let row_bytes = width * 4;
 
-    // TLVs
     let mut tlvs = Vec::new();
 
-    // 1001 Metrics
     let mut val1001 = Vec::new();
     let _ = val1001.write_u32::<LittleEndian>(1);
     let _ = val1001.write_u32::<LittleEndian>(0);
@@ -52,7 +120,6 @@ pub fn build_csi_png(
     let _ = val1001.write_u32::<LittleEndian>(height);
     tlvs.extend_from_slice(&build_tlv(1001, &val1001));
 
-    // 1003 Bounds
     let mut val1003 = Vec::new();
     let _ = val1003.write_u32::<LittleEndian>(1);
     let _ = val1003.write_u32::<LittleEndian>(0);
@@ -63,47 +130,40 @@ pub fn build_csi_png(
     let _ = val1003.write_u32::<LittleEndian>(height);
     tlvs.extend_from_slice(&build_tlv(1003, &val1003));
 
-    // 1004 Scale (float 1.0, 2.0, 3.0)
     let scale_f32 = scale as f32;
     let mut val1004 = [0u8; 8];
     val1004[4..8].copy_from_slice(&scale_f32.to_le_bytes());
     tlvs.extend_from_slice(&build_tlv(1004, &val1004));
 
-    // 1006 Layout format
     let mut val1006 = Vec::new();
     let _ = val1006.write_u32::<LittleEndian>(1);
     tlvs.extend_from_slice(&build_tlv(1006, &val1006));
 
-    // 1007 Row bytes
     let mut val1007 = Vec::new();
     let _ = val1007.write_u32::<LittleEndian>(row_bytes);
     tlvs.extend_from_slice(&build_tlv(1007, &val1007));
 
-    // Payload: either CBCK (MLEC) or LZFSE stream
     let payload = if prefer_cbck && (row_bytes * height > 0x155555) && height > 1 {
         encode_cbck(bgra, width, height, 4, true)
     } else {
         lzfse::compress(bgra)
     };
 
-    // CSIR / ISTC Header (184 bytes fixed length header)
     let mut header = vec![0u8; 184];
     header[0..4].copy_from_slice(b"ISTC");
-    let _ = (&mut header[4..8]).write_u32::<LittleEndian>(1); // Version
-    let _ = (&mut header[8..12]).write_u32::<LittleEndian>(0); // Flags
+    let _ = (&mut header[4..8]).write_u32::<LittleEndian>(1);
+    let _ = (&mut header[8..12]).write_u32::<LittleEndian>(0);
     let _ = (&mut header[12..16]).write_u32::<LittleEndian>(width);
     let _ = (&mut header[16..20]).write_u32::<LittleEndian>(height);
     let _ = (&mut header[20..24]).write_u32::<LittleEndian>(scale * 100);
     header[24..28].copy_from_slice(b"BGRA");
-    let _ = (&mut header[28..32]).write_u32::<LittleEndian>(1); // Color space sRGB
-    let _ = (&mut header[32..36]).write_u32::<LittleEndian>(1000); // Layout
+    let _ = (&mut header[28..32]).write_u32::<LittleEndian>(1);
+    let _ = (&mut header[32..36]).write_u32::<LittleEndian>(1000);
 
-    // Set name at offset 40
     let name_bytes = filename.as_bytes();
     let name_len = std::cmp::min(name_bytes.len(), 127);
     header[40..40 + name_len].copy_from_slice(&name_bytes[..name_len]);
 
-    // Metadata & payload length fields
     let _ = (&mut header[168..172]).write_u32::<LittleEndian>(tlvs.len() as u32);
     let _ = (&mut header[172..176]).write_u32::<LittleEndian>(payload.len() as u32);
 

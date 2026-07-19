@@ -1,5 +1,8 @@
 use crate::bom::{BOMError, BOMStore};
+use crate::csi::{parse_csi, CSIHeader};
+use crate::tree::read_leaf_entries;
 use byteorder::{BigEndian, ByteOrder, LittleEndian};
+use std::collections::HashMap;
 
 pub const ATTRIBUTE_NAMES: &[(u16, &str)] = &[
     (0, "kCRThemeLookName"),
@@ -49,9 +52,156 @@ pub struct CARHeader {
 }
 
 #[derive(Debug, Clone)]
+pub struct ExtendedMetadata {
+    pub authoring_tool: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct Facet {
+    pub name: String,
+    pub cursor_hotspot: (u16, u16),
+    pub attributes: Vec<(u16, u16)>,
+}
+
+impl Facet {
+    pub fn named_attributes(&self) -> HashMap<String, u16> {
+        let mut map = HashMap::new();
+        for &(attr, val) in &self.attributes {
+            let attr_name = ATTRIBUTE_NAMES
+                .iter()
+                .find(|&&(a, _)| a == attr)
+                .map(|&(_, n)| n.to_string())
+                .unwrap_or_else(|| format!("UNKNOWN({})", attr));
+            map.insert(attr_name, val);
+        }
+        map
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct NamedValueRegistryEntry {
+    pub name: String,
+    pub value: u16,
+}
+
+#[derive(Debug, Clone)]
 pub struct KeyFormat {
     pub byte_order: String,
     pub attributes: Vec<u32>,
+}
+
+impl KeyFormat {
+    pub fn names(&self) -> Vec<String> {
+        self.attributes
+            .iter()
+            .map(|&attr| {
+                ATTRIBUTE_NAMES
+                    .iter()
+                    .find(|&&(a, _)| (a as u32) == attr)
+                    .map(|&(_, n)| n.to_string())
+                    .unwrap_or_else(|| format!("UNKNOWN({})", attr))
+            })
+            .collect()
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Rendition {
+    pub key_values: Vec<u16>,
+    pub key: HashMap<String, u16>,
+    pub csi: CSIHeader,
+}
+
+pub fn _cstring(raw: &[u8]) -> String {
+    let end = raw.iter().position(|&b| b == 0).unwrap_or(raw.len());
+    String::from_utf8_lossy(&raw[..end]).to_string()
+}
+
+pub fn parse_extended_metadata(raw: &[u8]) -> Result<ExtendedMetadata, BOMError> {
+    if raw.len() < 1028 {
+        return Err(BOMError::TruncatedHeader);
+    }
+    let tool = _cstring(&raw[772..1028]);
+    Ok(ExtendedMetadata {
+        authoring_tool: tool,
+    })
+}
+
+pub fn parse_facet(name_raw: &[u8], value_raw: &[u8]) -> Result<Facet, BOMError> {
+    let name = String::from_utf8_lossy(name_raw).to_string();
+    if value_raw.len() < 6 {
+        return Err(BOMError::TruncatedHeader);
+    }
+    let hx = u16::from_le_bytes(value_raw[0..2].try_into().unwrap());
+    let hy = u16::from_le_bytes(value_raw[2..4].try_into().unwrap());
+    let count = u16::from_le_bytes(value_raw[4..6].try_into().unwrap()) as usize;
+
+    let mut attributes = Vec::new();
+    for i in 0..count {
+        let off = 6 + i * 4;
+        if off + 4 <= value_raw.len() {
+            let attr = u16::from_le_bytes(value_raw[off..off + 2].try_into().unwrap());
+            let val = u16::from_le_bytes(value_raw[off + 2..off + 4].try_into().unwrap());
+            attributes.push((attr, val));
+        }
+    }
+
+    Ok(Facet {
+        name,
+        cursor_hotspot: (hx, hy),
+        attributes,
+    })
+}
+
+pub fn parse_named_value_registry_entry(
+    key_raw: &[u8],
+    value_raw: &[u8],
+) -> Result<NamedValueRegistryEntry, BOMError> {
+    let name = String::from_utf8_lossy(key_raw).to_string();
+    if value_raw.len() < 2 {
+        return Err(BOMError::TruncatedHeader);
+    }
+    let val = u16::from_le_bytes(value_raw[0..2].try_into().unwrap());
+    Ok(NamedValueRegistryEntry { name, value: val })
+}
+
+pub fn parse_rendition(
+    key_raw: &[u8],
+    value_raw: &[u8],
+    key_format: &KeyFormat,
+) -> Result<Rendition, BOMError> {
+    let count = key_format.attributes.len();
+    let is_little = key_format.byte_order == "little";
+
+    let mut key_values = Vec::new();
+    for i in 0..count {
+        let off = i * 2;
+        if off + 2 <= key_raw.len() {
+            let v = if is_little {
+                u16::from_le_bytes(key_raw[off..off + 2].try_into().unwrap())
+            } else {
+                u16::from_be_bytes(key_raw[off..off + 2].try_into().unwrap())
+            };
+            key_values.push(v);
+        }
+    }
+
+    let mut key_map = HashMap::new();
+    for (&attr, &val) in key_format.attributes.iter().zip(key_values.iter()) {
+        let attr_name = ATTRIBUTE_NAMES
+            .iter()
+            .find(|&&(a, _)| (a as u32) == attr)
+            .map(|&(_, n)| n.to_string())
+            .unwrap_or_else(|| format!("UNKNOWN({})", attr));
+        key_map.insert(attr_name, val);
+    }
+
+    let csi = parse_csi(value_raw)?;
+    Ok(Rendition {
+        key_values,
+        key: key_map,
+        csi,
+    })
 }
 
 pub fn parse_car_header(data: &[u8]) -> Result<CARHeader, BOMError> {
@@ -81,13 +231,8 @@ pub fn parse_car_header(data: &[u8]) -> Result<CARHeader, BOMError> {
         )
     };
 
-    let cstring = |raw: &[u8]| -> String {
-        let end = raw.iter().position(|&b| b == 0).unwrap_or(raw.len());
-        String::from_utf8_lossy(&raw[..end]).to_string()
-    };
-
-    let main_version = cstring(&data[20..148]);
-    let version_string = cstring(&data[148..404]);
+    let main_version = _cstring(&data[20..148]);
+    let version_string = _cstring(&data[148..404]);
 
     let uuid_bytes = &data[404..420];
     let identifier = format!(
@@ -171,6 +316,8 @@ pub struct CARFile {
     pub header: CARHeader,
     pub key_format: KeyFormat,
     pub block_count: usize,
+    pub facets: Vec<Facet>,
+    pub renditions: Vec<Rendition>,
 }
 
 impl CARFile {
@@ -181,10 +328,39 @@ impl CARFile {
         let kfmt_bytes = store.named_block_data("KEYFORMAT")?;
         let key_format = parse_key_format(kfmt_bytes)?;
 
+        let mut facets = Vec::new();
+        if store.has_database("FACETKEYS") {
+            if let Ok(entries) = read_leaf_entries(store, "FACETKEYS") {
+                for e in entries {
+                    if let Ok(f) = parse_facet(&e.key, &e.value) {
+                        facets.push(f);
+                    }
+                }
+            }
+        }
+
+        let mut renditions = Vec::new();
+        if store.has_database("CAR KEY") {
+            if let Ok(entries) = read_leaf_entries(store, "CAR KEY") {
+                for e in entries {
+                    if let Ok(r) = parse_rendition(&e.key, &e.value, &key_format) {
+                        renditions.push(r);
+                    }
+                }
+            }
+        }
+
         Ok(Self {
             header,
             key_format,
             block_count: store.blocks.len(),
+            facets,
+            renditions,
         })
+    }
+
+    pub fn from_path<P: AsRef<std::path::Path>>(path: P) -> Result<Self, BOMError> {
+        let store = BOMStore::from_path(path)?;
+        Self::from_bom_store(&store)
     }
 }

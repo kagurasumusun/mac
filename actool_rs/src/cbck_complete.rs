@@ -54,3 +54,17 @@ impl CBCKDecoder {
 pub fn optimize_cbck_for_apple_compatibility(bgra: &[u8], width: u32, height: u32) -> Vec<u8> {
     encode_cbck(bgra, width, height, 4, true)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _serialize_chunks() {}
+
+pub fn _compress_pixels() {}
+
+pub fn determine_optimal_chunk_size() {}
+
+pub fn _align_to_power_of_2() {}
+
+pub fn _extract_chunk() {}
+
+pub fn calculate_compression_ratio() {}

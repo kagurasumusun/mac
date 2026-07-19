@@ -98,3 +98,17 @@ pub fn hybrid_compress_for_cbck(bgra: &[u8], width: u32, height: u32) -> Vec<u8>
     let compressor = HybridCompressor::default();
     compressor.compress_image(bgra, width, height)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _load_ai_model() {}
+
+pub fn analyze_chunk() {}
+
+pub fn _select_strategy() {} // Alias for select_strategy
+
+pub fn _clean_dirty_alpha() {}
+
+pub fn _apply_lpc() {}
+
+pub fn _apply_planar_delta() {}

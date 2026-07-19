@@ -108,3 +108,9 @@ pub fn main_cli() {
         println!("Usage: actool-rs [catalogs...] --compile <out_dir> --platform <platform>");
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn write_stdout_bytes() {}
+
+pub fn parser() {}

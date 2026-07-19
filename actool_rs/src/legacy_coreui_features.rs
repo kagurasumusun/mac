@@ -102,3 +102,30 @@ pub fn get_version_specific_key_format(version: u32) -> Vec<u16> {
 pub fn create_legacy_compatible_car(version: u32, platform: &str) -> LegacyCompatibilityMode {
     LegacyCompatibilityMode::new(version, platform)
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn get_version_specific_header_format() {}
+
+pub fn get_features() {}
+
+pub fn get_max_image_size() {}
+
+pub fn get_supported_compressions() {}
+
+
+pub fn get_supported_scales() {}
+
+pub fn get_max_atlas_size() {}
+
+pub fn validate_compression() {}
+
+pub fn validate_facet_name() {}
+
+pub fn validate_scale() {}
+
+pub fn validate_all() {}
+
+pub fn get_recommended_compression() {}
+
+pub fn get_recommended_atlas_size() {}

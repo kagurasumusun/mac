@@ -49,7 +49,7 @@ pub struct Block {
 }
 
 pub struct BOMStore {
-    data: Vec<u8>,
+    pub data: Vec<u8>,
     pub header: BOMHeader,
     pub blocks: HashMap<u32, Block>,
     pub variables: HashMap<String, u32>,
@@ -102,7 +102,6 @@ impl BOMStore {
             variables_length,
         };
 
-        // Parse block index
         let raw_index = &data[index_offset..index_offset + index_length];
         if raw_index.len() < 4 {
             return Err(BOMError::InvalidCapacity(0));
@@ -132,7 +131,6 @@ impl BOMStore {
             );
         }
 
-        // Parse variables
         let raw_vars = &data[variables_offset..variables_offset + variables_length];
         if raw_vars.len() < 4 {
             return Err(BOMError::InvalidVariables(0));
@@ -174,6 +172,32 @@ impl BOMStore {
     pub fn from_path<P: AsRef<Path>>(path: P) -> Result<Self, BOMError> {
         let bytes = std::fs::read(path)?;
         Self::from_bytes(bytes)
+    }
+
+    pub fn _read_header(&self) -> &BOMHeader {
+        &self.header
+    }
+
+    pub fn _read_block_index(&self) -> &HashMap<u32, Block> {
+        &self.blocks
+    }
+
+    pub fn _read_variables(&self) -> &HashMap<String, u32> {
+        &self.variables
+    }
+
+    pub fn get_databases(&self) -> HashMap<String, u32> {
+        let mut dbs = HashMap::new();
+        for (k, &v) in &self.variables {
+            if k.ends_with("db") {
+                dbs.insert(k.clone(), v);
+            }
+        }
+        dbs
+    }
+
+    pub fn has_database(&self, name: &str) -> bool {
+        self.variables.contains_key(name)
     }
 
     pub fn block_data(&self, identifier: u32) -> Result<&[u8], BOMError> {

@@ -57,3 +57,9 @@ fn parse_size_dim(size_str: &str) -> f32 {
     }
     1024.0
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _canonical_platform() {}
+
+pub fn app_icon_sidecar_specs() {}

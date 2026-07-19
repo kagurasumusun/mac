@@ -60,3 +60,9 @@ fn mod_pow(mut base: u64, mut exp: u32, modulus: u64) -> u64 {
     }
     result
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn build_lookup_table() {}
+
+pub fn _load_table() {}

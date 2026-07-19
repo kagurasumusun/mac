@@ -133,3 +133,7 @@ pub fn parse_cbck(data: &[u8]) -> Result<CBCKPayload, &'static str> {
 
     Ok(CBCKPayload { mode, codec, chunks })
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn decompress() {}

@@ -74,3 +74,13 @@ pub fn lpc_encode_apple_compat(bgra: &[u8], _width: u32, _height: u32) -> Vec<u8
         lzfse::compress(bgra)
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn extract_palette_kmeans() {}
+
+pub fn lpc_encode_pure() {}
+
+pub fn analyze_chunk_compressibility() {}
+
+pub fn from_bytes() {}

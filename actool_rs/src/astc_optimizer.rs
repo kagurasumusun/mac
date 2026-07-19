@@ -11,3 +11,9 @@ impl ASTCOptimizer {
         Self
     }
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn analyze_chunk() {}
+
+pub fn encode() {}

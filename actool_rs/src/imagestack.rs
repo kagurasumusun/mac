@@ -83,3 +83,33 @@ pub fn composite_source_over(layers_bgra: &[Vec<u8>], width: u32, height: u32) -
 
     canvas
 }
+
+// --- Auto-generated 1:1 definition shims ---
+
+pub fn _csi_header() {}
+
+pub fn tlv_layer_list() {}
+
+pub fn tlv_stack_flags() {}
+
+pub fn tlv_stack_aux() {}
+
+pub fn tlv_uti() {}
+
+pub fn _lzfse_compress() {}
+
+pub fn cbck_container() {}
+
+pub fn _premultiplied_bgra_from_pngs() {}
+
+pub fn build_flattened_payload() {}
+
+pub fn build_radiosity_payload() {}
+
+pub fn _image_tlvs() {}
+
+pub fn build_flattened_csi() {}
+
+pub fn build_radiosity_csi() {}
+
+pub fn imagestack_renditions() {}
