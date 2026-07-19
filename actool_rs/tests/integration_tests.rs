@@ -1,5 +1,5 @@
 use actool_rs::appicons::{app_icon_entry_rank, AppIconEntry};
-use actool_rs::autosafe::{auto_safe_compress, SafetyLevel};
+use actool_rs::autosafe::{auto_safe_compress, AlphaCharacteristic, ImageDomain, SafetyLevel};
 use actool_rs::bom::BOMStore;
 use actool_rs::bomwriter::BOMWriter;
 use actool_rs::car::CARFile;
@@ -268,7 +268,7 @@ fn test_ultrahd_tiled_encoding() {
 }
 
 #[test]
-fn test_auto_safe_optimization_and_dirty_alpha_protection() {
+fn test_auto_safe_optimization_precision_domain() {
     let mut dirty_bgra = vec![0u8; 16 * 4];
     for px in dirty_bgra.chunks_exact_mut(4) {
         px[0] = 100;
@@ -279,16 +279,16 @@ fn test_auto_safe_optimization_and_dirty_alpha_protection() {
 
     // CustomShaderSafe -> Must preserve dirty alpha
     let (_comp, report) = auto_safe_compress(&dirty_bgra, 2, 2, "texture", SafetyLevel::CustomShaderSafe);
-    assert!(report.dirty_alpha_detected);
-    assert!(report.preserved_dirty_alpha);
-    assert_eq!(report.applied_strategy, "strict_lossless_lzfse");
+    assert_eq!(report.alpha_type, AlphaCharacteristic::DirtyAlpha);
+    assert!(report.is_lossless);
 
-    // Standard UI Image -> Safety check detects dirty alpha
+    // Standard UI Image -> Safety check detects dirty alpha and applies clean alpha
     let (_comp2, report2) = auto_safe_compress(&dirty_bgra, 2, 2, "image", SafetyLevel::PerceptualSafe);
-    assert!(report2.dirty_alpha_detected);
+    assert_eq!(report2.alpha_type, AlphaCharacteristic::DirtyAlpha);
 
-    // Empty dataset -> Strict Lossless
-    let empty_data = vec![0u8; 0];
-    let (_comp3, report3) = auto_safe_compress(&empty_data, 0, 0, "data", SafetyLevel::StrictLossless);
-    assert!(report3.is_lossless);
+    // Monochrome image -> Lossless GA8 Normalization
+    let mono_bgra = vec![128u8; 16 * 4];
+    let (_comp3, report3) = auto_safe_compress(&mono_bgra, 2, 2, "image", SafetyLevel::AutoDomainDetect);
+    assert_eq!(report3.detected_domain, ImageDomain::GrayscaleUI);
+    assert!(report3.is_monochrome);
 }
