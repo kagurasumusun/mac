@@ -1300,6 +1300,10 @@ def _csi_png_cbck(data: bytes, filename: str, *, scale: int = 1) -> bytes:
         from ..research.omni_compression import omni_compress
         return omni_compress(pixels, width, height, filename, scale=scale)
 
+    if _OPTIMIZE_MODE == "omni2":
+        from ..research.omniv2_compression import omniv2_compress
+        return omniv2_compress(pixels, width, height, filename, scale=scale)
+
     row_bytes = width * 4
     # Xcode's 1024px AppIcon oracle uses 341-row chunks (0x155000 raw
     # bytes), followed by a one-row tail. 0x155555 is the inferred cap.
