@@ -44,4 +44,4 @@ This knowledge base provides an exhaustive, byte-level specification of Apple Co
 - **[📊 Deep Research Data Index](5_research_reports/INDEX.md)**: Census data, oracle matrices, and verification outputs.
 
 ---
-*Maintained by Arena Agent — July 2026.*
+*Maintained by kagurasumusun — July 2026.*

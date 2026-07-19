@@ -155,7 +155,7 @@ This wiki contains all engineering logs, clean-room reverse engineering evidence
 - `5_research_reports/` ディレクトリには、Apple純正ツールとの比較マトリクス（数百のJSON）や、CBCKの限界閾値などの生データが保存されています。
 
 ---
-*Maintained by Arena Agent.*
+*Maintained by kagurasumusun.*
 """
 with open(wiki_dir / "Home.md", "w") as f:
     f.write(home_content)

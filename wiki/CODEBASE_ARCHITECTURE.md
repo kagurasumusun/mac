@@ -4,31 +4,39 @@
 
 ---
 
-## 1. 100% Pure Rust Workspace Architecture
+## 1. Multi-Tool Workspace & Pure Rust Architecture
 
-リポジトリは 100% Pure Rust (`apple-toolsets`) へ完全移行され、トップレベルの `src/` ディレクトリに集約されました。
+リポジトリは 100% Pure Rust の Workspace (`Apple-Toolsets`) へ完全移行され、各ツール（`actool`, 将来追加予定の `ibtool`, `simctl` 等）は独立したツールパッケージディレクトリ（`actool/` 等）として構造化されています。
 
 ```
-Apple-Toolsets/ (1 Branch: main)
-├── Cargo.toml               # パッケージ設定 & 実行バイナリ定義
-├── Cargo.lock               # 依存関係バージョンロック
-├── src/                     # 100% Pure Rust ソースコード構造
-│   ├── lib.rs               # パブリック API Re-export (1:1 API 互換)
-│   ├── main.rs / bin/       # 実行バイナリ (actool-rs, car-info, car-repack, pdf-car)
-│   ├── core/                # [1] Low-Level BOM, CAR, B-Tree & CSI バイナリコア
-│   ├── codecs/              # [2] Rayon 並列 LZFSE, CBCK, DMP2, ASTC コーデック層
-│   ├── safety/              # [3] ISO/CIE 11664-6 & 人間工学安全ガードレール層
-│   ├── assets/              # [4] スプライトアトラス, 多層スタック, PBR 3D, 音声層
-│   └── tools/               # [5] コンパイラ, CAREditor API, マウント, 修復エンジン
+Apple-Toolsets/ (1 Branch: main, 100% Pure Rust Cargo Workspace)
+├── Cargo.toml               # ルート Cargo ワークスペース定義 ([workspace] members = ["actool"])
+├── .gitignore               # target/ ビルドディレクトリ等の完全除外設定
+│
+├── actool/                  # Apple Asset Catalog Compilation Tool パッケージ
+│   ├── Cargo.toml           # actool パッケージマニフェスト
+│   └── src/                 # 100% Pure Rust エンジンソース (5サブモジュール構造)
+│       ├── lib.rs           # パブリック API (1:1 互換 Re-export)
+│       ├── main.rs / bin/   # 実行バイナリ (actool-rs, car-info, car-repack, pdf-car)
+│       ├── core/            # [1] Low-Level BOM, CAR, B-Tree & CSI バイナリコア
+│       ├── codecs/          # [2] Rayon 並列 LZFSE, CBCK, DMP2, ASTC コーデック層
+│       ├── safety/          # [3] ISO/CIE 11664-6 & 人間工学安全ガードレール層
+│       ├── assets/          # [4] スプライトアトラス, 多層スタック, PBR 3D, 音声層
+│       └── tools/           # [5] コンパイラ, CAREditor API, マウント, 修復エンジン
+│
+├── tests/                   # ツール別ネイティブ統合テストスイート
+│   └── actool/              # actool 専用統合テストスイート
+│       └── integration_tests.rs
+│
 ├── wiki/                    # 1:20 情報密度のマスター技術仕様書体系
-└── tests/                   # Native Rust 統合テストスイート (20/20 Passed, 0 Warnings)
+└── scripts/                 # 自動化・評価ツール集約ディレクトリ
 ```
 
 ---
 
 ## 2. 57 Modules Breakdown (機能階層別マッピング)
 
-### 2.1 Core Submodule (`src/core/`) — コンテナ・ストレージ層
+### 2.1 Core Submodule (`actool/src/core/`) — コンテナ・ストレージ層
 - **`bom.rs`**: BOMStore 32 バイトヘッダ・インデックステーブル・変数テーブルのパーサー。
 - **`bomwriter.rs`**: Big-Endian BOMStore アロケータおよびブロックビルダー。
 - **`car.rs`**: `CARHEADER` (436B) および `KEYFORMAT` の解析ラッパー。
@@ -41,7 +49,7 @@ Apple-Toolsets/ (1 Branch: main)
 - **`tree.rs`**: BOM B-Tree デスクリプタ (`b"tree"`) およびノード読み込み器。
 - **`zero_code_db.rs`**: ベゼル（Bezel）・グリフ（Glyph）・エフェクトデータベース。
 
-### 2.2 Codecs Submodule (`src/codecs/`) — 画像コーデック・圧縮・タイリング層
+### 2.2 Codecs Submodule (`actool/src/codecs/`) — 画像コーデック・圧縮・タイリング層
 - **`lzfse.rs`**: 純粋 LZFSE パススルーおよびストリーム圧縮/解凍。
 - **`lzfse_compat.rs` / `lzfse_optimized.rs`**: 高速ハッシュ検索付き LZFSE ブロックコンプレッサ。
 - **`cbck.rs`**: MLEC Mode 3 Codec 4/11 CBCK チャンクエンコーダ（Rayon 並列処理）。
@@ -63,14 +71,14 @@ Apple-Toolsets/ (1 Branch: main)
 - **`ai_quantizer.rs`**: Floyd-Steinberg ディザリング付き知覚減色器。
 - **`semantic_fusion.rs`**: エッジ密度領域別セマンティック異種アトラス結合器。
 
-### 2.3 Safety Submodule (`src/safety/`) — 人間工学・安全ガードレール層
+### 2.3 Safety Submodule (`actool/src/safety/`) — 人間工学・安全ガードレール層
 - **`ciede2000.rs`**: ISO/CIE 11664-6 CIEDE2000 ($\Delta E_{00}$) JND 色差計算関数。
 - **`quality_metrics.rs`**: PSNR, SSIM, Sobel エッジ保存度計算関数。
 - **`ergonomics.rs`**: 人間視覚工学（HVS）弁別限界評価器。
 - **`psychoacoustics.rs`**: 人間聴覚系（HAS）80dB SNR ノイズフロア評価器。
 - **`autosafe.rs`**: **AutoDomainDetect 4 ゲート安全システム & Dirty Alpha 自動保護**。
 
-### 2.4 Assets Submodule (`src/assets/`) — アセット型・アトラス・3D・メディア層
+### 2.4 Assets Submodule (`actool/src/assets/`) — アセット型・アトラス・3D・メディア層
 - **`atlas.rs` / `atlas_geometry.rs` / `packed.rs`**: スプライトアトラスパッキング & LINK レンディション (Layout 1003) 生成。
 - **`appicons.rs`**: プラットフォーム別 AppIcon スケール・解像度評価ランキング。
 - **`imagestack.rs` / `iconstack.rs` / `solidstack.rs`**: tvOS/visionOS 向け多層イメージ・アイコンスタック合成。
@@ -81,7 +89,7 @@ Apple-Toolsets/ (1 Branch: main)
 - **`pdfcar.rs`**: Vector PDF ラスタライズ/コンパイル。
 - **`thinning.rs`**: ターゲット Idiom/Scale フィルタリング (Thinning)。
 
-### 2.5 Tools Submodule (`src/tools/`) — コンパイラ・編集・マウント・工具層
+### 2.5 Tools Submodule (`actool/src/tools/`) — コンパイラ・編集・マウント・工具層
 - **`capabilities.rs` / `diagnostics.rs` / `legacy_coreui_features.rs`**: Apple プラットフォーム診断 & plist フォーマッタ。
 - **`catalog.rs` / `model.rs`**: `Contents.json` 解釈とパス安全解決 (`safe_resolve_file`)。
 - **`compiler.rs`**: アセットカタログ (`.xcassets`) コンパイルパイプライン司令塔。

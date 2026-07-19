@@ -1,0 +1,46 @@
+[package]
+name = "actool"
+version = "0.1.0"
+edition = "2021"
+authors = ["kagurasumusun <kagurasumusun@users.noreply.github.com>"]
+description = "High-performance, clean-room, cross-platform Apple Asset Catalog Compilation Tool"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+byteorder = "1.5"
+thiserror = "2.0"
+anyhow = "1.0"
+image = "0.25"
+flate2 = "1.0"
+uuid = { version = "1.10", features = ["v4"] }
+hex = "0.4"
+rayon = "1.10"
+regex = "1.10"
+
+[dev-dependencies]
+tempfile = "3.10"
+
+[lib]
+name = "actool_rs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "actool-rs"
+path = "src/main.rs"
+
+[[bin]]
+name = "actool-car-info"
+path = "src/bin/car_info.rs"
+
+[[bin]]
+name = "actool-car-repack"
+path = "src/bin/car_repack.rs"
+
+[[bin]]
+name = "actool-pdf-car"
+path = "src/bin/pdf_car.rs"
+
+[[test]]
+name = "integration_tests"
+path = "../tests/actool/integration_tests.rs"
