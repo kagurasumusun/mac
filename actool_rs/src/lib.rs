@@ -65,3 +65,4 @@ pub mod arresource;
 pub mod model3d;
 pub mod media;
 pub mod ultrahd;
+pub mod autosafe;

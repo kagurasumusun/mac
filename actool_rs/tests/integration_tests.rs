@@ -1,4 +1,5 @@
 use actool_rs::appicons::{app_icon_entry_rank, AppIconEntry};
+use actool_rs::autosafe::{auto_safe_compress, SafetyLevel};
 use actool_rs::bom::BOMStore;
 use actool_rs::bomwriter::BOMWriter;
 use actool_rs::car::CARFile;
@@ -9,9 +10,12 @@ use actool_rs::dmp2mini::{decode_mini, v3_mini_color};
 use actool_rs::facet_hash_lookup::FacetHashLookupTable;
 use actool_rs::hybrid_compression::HybridCompressor;
 use actool_rs::lzfse;
+use actool_rs::media::{calculate_shannon_entropy, detect_media_type, select_optimal_compression, MediaType};
+use actool_rs::model3d::{compress_normal_map_2channel, generate_mipmap_chain, PBRMaterialMap};
 use actool_rs::packed::{atlas_name, build_link_tlv};
 use actool_rs::planar_delta_lzfse::{delta_decode_plane, delta_encode_plane, planar_delta_decode, planar_delta_encode};
 use actool_rs::quality_metrics::{compute_delta_e, compute_psnr, compute_ssim};
+use actool_rs::ultrahd::{classify_resolution_tier, encode_ultrahd_tiled_cbck, UltraHDTier};
 use std::fs;
 use tempfile::tempdir;
 
@@ -189,8 +193,6 @@ fn test_hybrid_compressor() {
 
 #[test]
 fn test_3d_pbr_orm_and_normal_map() {
-    use actool_rs::model3d::{generate_mipmap_chain, compress_normal_map_2channel, PBRMaterialMap};
-
     let pbr = PBRMaterialMap::new("MetalGold", 32, 32);
     let orm_payload = pbr.compress_orm_payload();
     assert!(!orm_payload.is_empty());
@@ -201,7 +203,7 @@ fn test_3d_pbr_orm_and_normal_map() {
 
     let bgra = vec![200u8; 32 * 32 * 4];
     let mips = generate_mipmap_chain(&bgra, 32, 32);
-    assert!(mips.len() >= 5); // 32x32 -> 16x16 -> 8x8 -> 4x4 -> 2x2 -> 1x1
+    assert!(mips.len() >= 5);
     assert_eq!(mips[0].0, 32);
     assert_eq!(mips[1].0, 16);
     assert_eq!(mips[2].0, 8);
@@ -225,8 +227,6 @@ fn test_ar_resource_group() {
 
 #[test]
 fn test_media_type_detection_and_compression() {
-    use actool_rs::media::{calculate_shannon_entropy, detect_media_type, select_optimal_compression, MediaType};
-
     let audio_mp3 = vec![0xFFu8; 1000];
     assert_eq!(detect_media_type("song.mp3", &audio_mp3), MediaType::AudioCompressed);
     let (comp_audio, strat_audio) = select_optimal_compression("song.mp3", &audio_mp3, 0, 0);
@@ -254,8 +254,6 @@ fn test_media_type_detection_and_compression() {
 
 #[test]
 fn test_ultrahd_tiled_encoding() {
-    use actool_rs::ultrahd::{classify_resolution_tier, encode_ultrahd_tiled_cbck, UltraHDTier};
-
     assert_eq!(classify_resolution_tier(1024, 768), UltraHDTier::Standard);
     assert_eq!(classify_resolution_tier(3840, 2160), UltraHDTier::Resolution4K);
     assert_eq!(classify_resolution_tier(7680, 4320), UltraHDTier::Resolution8K);
@@ -267,4 +265,30 @@ fn test_ultrahd_tiled_encoding() {
 
     let payload = encode_ultrahd_tiled_cbck(&bgra, w, h, 512, true);
     assert!(payload.starts_with(b"MLEC"));
+}
+
+#[test]
+fn test_auto_safe_optimization_and_dirty_alpha_protection() {
+    let mut dirty_bgra = vec![0u8; 16 * 4];
+    for px in dirty_bgra.chunks_exact_mut(4) {
+        px[0] = 100;
+        px[1] = 200;
+        px[2] = 50;
+        px[3] = 0;
+    }
+
+    // CustomShaderSafe -> Must preserve dirty alpha
+    let (_comp, report) = auto_safe_compress(&dirty_bgra, 2, 2, "texture", SafetyLevel::CustomShaderSafe);
+    assert!(report.dirty_alpha_detected);
+    assert!(report.preserved_dirty_alpha);
+    assert_eq!(report.applied_strategy, "strict_lossless_lzfse");
+
+    // Standard UI Image -> Safety check detects dirty alpha
+    let (_comp2, report2) = auto_safe_compress(&dirty_bgra, 2, 2, "image", SafetyLevel::PerceptualSafe);
+    assert!(report2.dirty_alpha_detected);
+
+    // Empty dataset -> Strict Lossless
+    let empty_data = vec![0u8; 0];
+    let (_comp3, report3) = auto_safe_compress(&empty_data, 0, 0, "data", SafetyLevel::StrictLossless);
+    assert!(report3.is_lossless);
 }
