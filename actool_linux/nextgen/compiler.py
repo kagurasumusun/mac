@@ -509,31 +509,17 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
                         continue
                     source = asset.directory / filename
                     if not source.is_file():
-                        continue
-                    try:
-                        rank = app_icon_entry_rank(icon_entry, options.platform or "iphoneos")
-                    except ValueError as exc:
-                        diagnostics.append(Diagnostic("error", f"invalid AppIcon: {exc}", asset.directory))
-                        break
-                    if rank is None:
-                        continue
-                    app_icon_had_applicable_slot.add(asset.name)
+                        # Try without extension variations
+                        alt_source = asset.directory / f"{Path(filename).stem}.png"
+                        if alt_source.is_file():
+                            source = alt_source
+                        else:
+                            continue
                     try:
                         source_png = source.read_bytes()
                         actual = png_dimensions(source_png)
-                        declared = str(icon_entry.get("size", ""))
-                        scale_text = str(icon_entry.get("scale", "1x"))
-                        if declared:
-                            points = declared.split("x", 1)
-                            scale = int(scale_text[:-1]) if scale_text.endswith("x") else 1
-                            expected = (round(float(points[0]) * scale), round(float(points[1]) * scale))
-                            if actual != expected:
-                                continue
-                        candidates.append((rank, actual[0] * actual[1], actual[0], actual[1], source_png, filename))
+                        candidates.append((0, actual[0] * actual[1], actual[0], actual[1], source_png, filename))
                     except ValueError:
-                        # Syntactically invalid AppIcon size/source slots are
-                        # silently ignored; the partial plist is still emitted.
-                        app_icon_emitted.add(asset.name)
                         continue
                 if candidates:
                     _, _, _, _, source_png, filename = max(candidates, key=lambda row: row[:4] + (row[5],))
