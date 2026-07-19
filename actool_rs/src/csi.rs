@@ -50,7 +50,7 @@ pub fn parse_csi(data: &[u8]) -> Result<CSIHeader, crate::bom::BOMError> {
     let name = String::from_utf8_lossy(&data[40..40 + name_end]).to_string();
 
     let tlv_len = u32::from_le_bytes(data[168..172].try_into().unwrap()) as usize;
-    let payload_len = u32::from_le_bytes(data[172..176].try_into().unwrap()) as usize;
+    let payload_len = u32::from_le_bytes(data[180..184].try_into().unwrap()) as usize;
 
     let mut tlvs = Vec::new();
     let mut cursor = 184;
@@ -206,7 +206,9 @@ pub fn make_adaptive_csi(
     header[40..40 + name_len].copy_from_slice(&name_bytes[..name_len]);
 
     let _ = (&mut header[168..172]).write_u32::<LittleEndian>(tlvs.len() as u32);
-    let _ = (&mut header[172..176]).write_u32::<LittleEndian>(payload.len() as u32);
+    let _ = (&mut header[172..176]).write_u32::<LittleEndian>(1);
+    let _ = (&mut header[176..180]).write_u32::<LittleEndian>(0);
+    let _ = (&mut header[180..184]).write_u32::<LittleEndian>(payload.len() as u32);
 
     let mut out = header;
     out.extend_from_slice(&tlvs);

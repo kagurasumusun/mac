@@ -340,8 +340,16 @@ impl CARFile {
         }
 
         let mut renditions = Vec::new();
-        if store.has_database("CAR KEY") {
-            if let Ok(entries) = read_leaf_entries(store, "CAR KEY") {
+        let rend_tree_name = if store.has_database("RENDITIONS") {
+            "RENDITIONS"
+        } else if store.has_database("CAR KEY") {
+            "CAR KEY"
+        } else {
+            ""
+        };
+
+        if !rend_tree_name.is_empty() {
+            if let Ok(entries) = read_leaf_entries(store, rend_tree_name) {
                 for e in entries {
                     if let Ok(r) = parse_rendition(&e.key, &e.value, &key_format) {
                         renditions.push(r);
