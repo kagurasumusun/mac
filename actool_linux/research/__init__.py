@@ -1,3 +1,2 @@
-"""Clean-room actool compatibility project."""
-
-__version__ = "0.1.0"
+import sys
+from .. import __name__ as _pkg
