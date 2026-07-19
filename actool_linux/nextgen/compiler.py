@@ -499,7 +499,8 @@ def compile_catalogs(inputs: list[Path], options: CompileOptions) -> CompileResu
             # the largest dimension-applicable source (normally the modern
             # 1024x1024 marketing slot) instead of whichever entry appears first.
             if asset.kind == "app-icon":
-                if options.app_icon != asset.name:
+                # Allow AppIcon processing when app_icon option is not specified or matches
+                if options.app_icon is not None and options.app_icon != asset.name:
                     continue
                 candidates: list[tuple[int, int, int, int, bytes, str]] = []
                 for icon_entry in asset.entries:
