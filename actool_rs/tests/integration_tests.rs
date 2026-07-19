@@ -222,3 +222,32 @@ fn test_ar_resource_group() {
     assert!(json_str.contains("Poster.jpg"));
     assert!(json_str.contains("0.5"));
 }
+
+#[test]
+fn test_media_type_detection_and_compression() {
+    use actool_rs::media::{calculate_shannon_entropy, detect_media_type, select_optimal_compression, MediaType};
+
+    let audio_mp3 = vec![0xFFu8; 1000];
+    assert_eq!(detect_media_type("song.mp3", &audio_mp3), MediaType::AudioCompressed);
+    let (comp_audio, strat_audio) = select_optimal_compression("song.mp3", &audio_mp3, 0, 0);
+    assert_eq!(strat_audio, "raw_passthrough");
+    assert_eq!(comp_audio.len(), audio_mp3.len());
+
+    let pdf_bytes = b"%PDF-1.5 test pdf data with vector paths and text objects";
+    assert_eq!(detect_media_type("doc.pdf", pdf_bytes), MediaType::Pdf);
+    let (comp_pdf, strat_pdf) = select_optimal_compression("doc.pdf", pdf_bytes, 0, 0);
+    assert_eq!(strat_pdf, "lzfse_vector_mesh");
+    assert!(!comp_pdf.is_empty());
+
+    let model3d = b"v 0.0 0.0 0.0\nv 1.0 1.0 1.0\nf 1 2 3";
+    assert_eq!(detect_media_type("mesh.obj", model3d), MediaType::Model3D);
+
+    let low_entropy = vec![0u8; 1000];
+    let high_entropy: Vec<u8> = (0..1000).map(|i| (i * 37 % 256) as u8).collect();
+
+    let e_low = calculate_shannon_entropy(&low_entropy);
+    let e_high = calculate_shannon_entropy(&high_entropy);
+
+    assert!(e_low < 1.0);
+    assert!(e_high > 7.0);
+}

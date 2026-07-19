@@ -63,3 +63,4 @@ pub fn version() -> &'static str {
 }
 pub mod arresource;
 pub mod model3d;
+pub mod media;
