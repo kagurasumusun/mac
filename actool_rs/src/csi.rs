@@ -1,6 +1,7 @@
 use crate::cbck::encode_cbck;
 use crate::dmp2mini;
 use crate::lzfse;
+use crate::ultrahd::{classify_resolution_tier, encode_ultrahd_tiled_cbck, UltraHDTier};
 use byteorder::{LittleEndian, WriteBytesExt};
 
 #[derive(Debug, Clone)]
@@ -114,6 +115,8 @@ pub fn make_adaptive_csi(
         return build_csi_png(bgra, width, height, filename, scale, false);
     }
 
+    let tier = classify_resolution_tier(width, height);
+
     // 1. Check if source is a uniform single color
     let first_px = &bgra[0..4];
     let is_uniform = bgra.chunks_exact(4).all(|px| px == first_px);
@@ -122,7 +125,10 @@ pub fn make_adaptive_csi(
     let is_oversized = (row_bytes * height) > 0x155555;
 
     // 2. Select format payload based on Apple's actool adaptive decision rules
-    let payload = if let Some(mode) = optimize_mode {
+    let payload = if tier != UltraHDTier::Standard {
+        // Automatically invoke Ultra-HD 2D Tiled Grid CBCK pipeline for 4K / 8K / 16K images
+        encode_ultrahd_tiled_cbck(bgra, width, height, 512, true)
+    } else if let Some(mode) = optimize_mode {
         match mode {
             "smart" => crate::smart_cbck::SmartCBCKEncoder::new(true).encode(bgra, width, height),
             "hybrid" => crate::hybrid_compression::hybrid_compress_for_cbck(bgra, width, height),

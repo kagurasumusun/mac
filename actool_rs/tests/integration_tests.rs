@@ -251,3 +251,20 @@ fn test_media_type_detection_and_compression() {
     assert!(e_low < 1.0);
     assert!(e_high > 7.0);
 }
+
+#[test]
+fn test_ultrahd_tiled_encoding() {
+    use actool_rs::ultrahd::{classify_resolution_tier, encode_ultrahd_tiled_cbck, UltraHDTier};
+
+    assert_eq!(classify_resolution_tier(1024, 768), UltraHDTier::Standard);
+    assert_eq!(classify_resolution_tier(3840, 2160), UltraHDTier::Resolution4K);
+    assert_eq!(classify_resolution_tier(7680, 4320), UltraHDTier::Resolution8K);
+    assert_eq!(classify_resolution_tier(15360, 8640), UltraHDTier::Resolution16K);
+
+    let w = 4000u32;
+    let h = 2200u32;
+    let bgra = vec![128u8; (w * h * 4) as usize];
+
+    let payload = encode_ultrahd_tiled_cbck(&bgra, w, h, 512, true);
+    assert!(payload.starts_with(b"MLEC"));
+}
