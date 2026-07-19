@@ -1,6 +1,6 @@
-# 🍎 Apple-actool-py & actool-rs Technical Knowledge Base (Wiki)
+# 🍎 Apple Toolsets (`Apple-Toolsets`) Technical Knowledge Base (Wiki)
 
-Welcome to the definitive engineering technical wiki for the `Apple-actool-py` and `actool_rs` high-performance Apple Asset Catalog compilation engine suite.
+Welcome to the definitive engineering technical wiki for the `Apple-Toolsets` high-performance, 100% pure Rust Apple Developer Toolset compilation engine suite.
 
 This knowledge base provides an exhaustive, byte-level specification of Apple CoreUI `.car` archives, BOMStore container binary layouts, CoreStructuredImage (CSI) headers, ASTC GPU-direct hardware blocks, ISO/CIE 11664-6 CIEDE2000 perceptual color mathematics, human ergonomics, multi-threaded Rayon parallelism, and non-image asset optimization algorithms.
 
@@ -8,7 +8,7 @@ This knowledge base provides an exhaustive, byte-level specification of Apple Co
 
 ## 🌟 Architecture & Key Specifications
 
-- **[🏗 Codebase Architecture & Module Relations](CODEBASE_ARCHITECTURE.md)**: Exhaustive breakdown of all 57 unified Python modules and Rust binaries, Rayon thread pool mappings, zero-copy slice architecture, and Apple contract compliance.
+- **[🏗 Codebase Architecture & Module Relations](CODEBASE_ARCHITECTURE.md)**: Exhaustive breakdown of all Rust modules, Rayon thread pool mappings, zero-copy slice architecture, and Apple contract compliance.
 - **[🤖 AI Agent & Handoff Specifications](AGENT_HANDOFF_LOG.md)**: Context, state logs, and system operational invariants.
 
 ---
@@ -29,7 +29,7 @@ This knowledge base provides an exhaustive, byte-level specification of Apple Co
 
 ### 4. Developer Tools, CAREditor & Non-Image Optimizers
 - **[🛠 04: CLI Tools, CAREditor API, Virtual Mounting & Non-Image Engine](6_algorithmic_research/04_TOOLS_AND_CLI.md)**:
-  `actool-rs` / `actool-linux` CLI interfaces, `CAREditor` interactive CAR modification API, virtual directory mounting & syncing (`mount.rs`), corrupted CAR auto-repair engine (`repair.rs`), deterministic heuristic strategy selection (no external AI weight dependencies), Lottie JSON float truncation, PCM audio tail silence trimming (-90dB) with 1D sample delta prediction, and 3D OBJ mesh vertex float quantization.
+  `actool-rs` / `apple-toolsets` CLI interfaces, `CAREditor` interactive CAR modification API, virtual directory mounting & syncing (`mount.rs`), corrupted CAR auto-repair engine (`repair.rs`), deterministic heuristic strategy selection (no external AI weight dependencies), Lottie JSON float truncation, PCM audio tail silence trimming (-90dB) with 1D sample delta prediction, and 3D OBJ mesh vertex float quantization.
 
 ### 5. Algorithmic Hash Analysis
 - **[🧩 05: Facet Hash16 Anatomy & The 100% Accuracy Lookup Table](6_algorithmic_research/05_FACET_HASH16_ANATOMY.md)**:
@@ -39,7 +39,7 @@ This knowledge base provides an exhaustive, byte-level specification of Apple Co
 
 ## 📊 Status & Audits
 
-- **[📝 Final Status Report](3_progress_and_status/FINAL_STATUS.md)**: Removal certification of legacy directories, 100% test pass verification (241 Python + 20 Rust), 0 compiler warnings, and clean git status.
+- **[📝 Final Status Report](3_progress_and_status/FINAL_STATUS.md)**: 100% Pure Rust migration certification, 0 compiler warnings, 20/20 test pass verification, and clean single-branch `main` status.
 - **[📜 Engineering Log](1_architecture/ENGINEERING_LOG.md)**: Engineering audit, 53.9x Rust speedup benchmarks, and logic-by-logic bug hunt fixes.
 - **[📊 Deep Research Data Index](5_research_reports/INDEX.md)**: Census data, oracle matrices, and verification outputs.
 
