@@ -1,4 +1,4 @@
-name: Documentation CI/CD (mdBook & Rustdoc)
+name: Documentation CI/CD (Rustdoc & DeepWiki Sync)
 
 on:
   push:
@@ -25,22 +25,14 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install mdBook
-        run: |
-          mkdir -p $HOME/.bin
-          curl -sL https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdbook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C $HOME/.bin/
-          echo "$HOME/.bin" >> $GITHUB_PATH
-
       - name: Generate Rustdoc API Documentation
         run: cargo doc --workspace --no-deps
 
-      - name: Build mdBook Documentation Site
-        run: mdbook build wiki/
-
-      - name: Merge Rustdoc into mdBook Output
+      - name: Prepare Pages Index Redirect
         run: |
-          mkdir -p wiki/book_html/rustdoc
-          cp -r target/doc/* wiki/book_html/rustdoc/
+          mkdir -p target/doc_site
+          cp -r target/doc/* target/doc_site/
+          echo '<meta http-equiv="refresh" content="0; url=actool_rs/index.html">' > target/doc_site/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -48,7 +40,7 @@ jobs:
       - name: Upload Documentation Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: wiki/book_html
+          path: target/doc_site
 
       - name: Deploy to GitHub Pages
         id: deployment

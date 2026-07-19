@@ -1,7 +1,7 @@
 # Apple Toolsets Suite (`Apple-Toolsets`)
 
 [![DeepWiki Documentation](https://img.shields.io/badge/DeepWiki-AI%20Codebase%20Wiki-blue?style=for-the-badge&logo=openai)](https://deepwiki.com/kagurasumusun/Apple-Toolsets)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-mdBook%20%26%20Rustdoc-green?style=for-the-badge&logo=github)](https://kagurasumusun.github.io/Apple-Toolsets/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Rustdoc%20API-green?style=for-the-badge&logo=github)](https://kagurasumusun.github.io/Apple-Toolsets/)
 [![Rust](https://img.shields.io/badge/Rust-1.80%2B-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org/)
 
 A high-performance, pure Rust, clean-room, cross-platform implementation suite for Apple developer toolsets, including **`actool`** (Asset Catalog Compiler), **`CAREditor`**, **`assetutil`**, and extensible architecture prepared for future tool integrations (**`ibtool`**, **`simctl`**, **`momc`**, **`mapc`**).
@@ -10,10 +10,10 @@ Built 100% in pure Rust (`apple-toolsets`) with zero compiler warnings and maxim
 
 ---
 
-## Official Documentation & DeepWiki Endpoints
+## Official Documentation & AI DeepWiki Endpoints
 
 - **Official DeepWiki Live Site**: [https://deepwiki.com/kagurasumusun/Apple-Toolsets](https://deepwiki.com/kagurasumusun/Apple-Toolsets)
-- **GitHub Pages Book & Rustdoc**: [https://kagurasumusun.github.io/Apple-Toolsets/](https://kagurasumusun.github.io/Apple-Toolsets/)
+- **GitHub Pages Rustdoc API Reference**: [https://kagurasumusun.github.io/Apple-Toolsets/](https://kagurasumusun.github.io/Apple-Toolsets/)
 - **DeepWiki MCP (Model Context Protocol) Server**: `https://mcp.deepwiki.com/mcp`
   
   *Configure in Cursor / Claude / Windsurf (`mcp.json`)*:
@@ -52,12 +52,12 @@ Built 100% in pure Rust (`apple-toolsets`) with zero compiler warnings and maxim
 
 ---
 
-## 🏗 Repository Architecture (100% Pure Rust, Single-Branch `main`)
+## Repository Architecture (100% Pure Rust, Single-Branch `main`)
 
 ```
 Apple-Toolsets/ (1 Branch: main)
 ├── Cargo.toml               # Cargo Workspace Manifest ([workspace] members = ["actool"])
-├── .gitignore               # Excludes /target and /wiki/book_html
+├── .gitignore               # Excludes /target
 │
 ├── actool/                  # Apple Asset Catalog Compilation Tool Package
 │   ├── Cargo.toml
@@ -70,7 +70,6 @@ Apple-Toolsets/ (1 Branch: main)
 │       ├── assets/          # [4] Sprite Atlases, Layer Stacks, PBR 3D, Media, Audio
 │       └── tools/           # [5] Compiler, CAREditor API, Mount, Repair Engine
 │
-├── wiki/                    # Official mdBook Site Source + Technical Blueprints
 ├── scripts/                 # Utility Scripts & Evaluation Tools
 └── tests/                   # Native Rust Integration Test Suite (tests/actool/)
 ```
@@ -88,9 +87,8 @@ cargo build --release
 # Run full test suite (0 warnings, 20/20 passed)
 cargo test --release
 
-# Build official documentation (rustdoc & mdBook)
+# Generate official rustdoc API documentation
 cargo doc --workspace --no-deps
-/tmp/mdbook build wiki/
 
 # Compile asset catalog with actool-rs
 ./target/release/actool-rs --compile output_dir path/to/App.xcassets --platform iphoneos
