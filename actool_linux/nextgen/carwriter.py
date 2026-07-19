@@ -1325,6 +1325,10 @@ def _csi_png_cbck(data: bytes, filename: str, *, scale: int = 1) -> bytes:
         from ..research.nexus_compression import nexus_compress
         return nexus_compress(pixels, width, height, filename, scale=scale)
 
+    if _OPTIMIZE_MODE == "tet":
+        from ..research.tet_compression import tet_compress
+        return tet_compress(pixels, width, height, filename, scale=scale)
+
     if _OPTIMIZE_MODE == "alpha":
         from ..research.alpha_compression import alpha_compress
         return alpha_compress(pixels, width, height, filename, scale=scale)
