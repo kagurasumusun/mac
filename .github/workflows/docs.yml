@@ -1,4 +1,4 @@
-name: Documentation CI/CD & DeepWiki Auto-Sync
+name: Documentation CI/CD (mdBook, Rustdoc & DeepWiki Auto-Sync)
 
 on:
   push:
@@ -25,15 +25,21 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Generate Rustdoc API Documentation
-        run: cargo doc --workspace --no-deps
-
-      - name: Prepare Pages Index Redirect & Touch .nojekyll
+      - name: Install mdBook
         run: |
-          mkdir -p target/doc_site
-          cp -r target/doc/* target/doc_site/
+          mkdir -p $HOME/.bin
+          curl -sL https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdbook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C $HOME/.bin/
+          echo "$HOME/.bin" >> $GITHUB_PATH
+
+      - name: Build mdBook Documentation Portal
+        run: mdbook build docs/
+
+      - name: Generate Rustdoc API Documentation & Merge
+        run: |
+          cargo doc --workspace --no-deps
+          mkdir -p target/doc_site/rustdoc
+          cp -r target/doc/* target/doc_site/rustdoc/
           touch target/doc_site/.nojekyll
-          echo '<meta http-equiv="refresh" content="0; url=actool_rs/index.html">' > target/doc_site/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
